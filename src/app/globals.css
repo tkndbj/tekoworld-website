@@ -498,21 +498,52 @@
      single HTTP request and no JavaScript at all.
      -------------------------------------------------------------------------- */
 
-  .critter-sprite {
+  /* The window onto one frame. */
+  .critter {
+    position: relative;
+    display: block;
+    overflow: hidden;
+  }
+
+  /* The strip: N frames wide, so translateX(-100%) is exactly N frames and
+     steps(N) can only ever land on a frame boundary. */
+  .critter-strip {
+    position: absolute;
+    top: 0;
+    left: 0;
+    height: 100%;
+    width: calc(var(--frames) * 100%);
     background-repeat: no-repeat;
-    background-size: calc(var(--frames) * 100%) 100%;
     background-position: 0 0;
+    background-size: 100% 100%;
     animation: critter-idle calc(var(--frames) * 0.055s) steps(var(--frames))
       infinite;
-    will-change: background-position;
+    /* Transforms composite on the GPU; the old background-position animation
+       repainted the element every frame. */
+    will-change: transform;
+  }
+
+  .critter-still {
+    position: absolute;
+    inset: 0;
+    background-repeat: no-repeat;
+    background-position: center;
+    background-size: 100% 100%;
   }
 
   @keyframes critter-idle {
-    from {
-      background-position: 0 0;
-    }
     to {
-      background-position: calc(var(--frames) * -100%) 0;
+      transform: translateX(-100%);
+    }
+  }
+
+  @media (prefers-reduced-motion: reduce) {
+    /* Stand still on the first frame. Left to the blanket rule above, the
+       animation would run once to its final keyframe and park the strip
+       entirely outside its own window. */
+    .critter-strip {
+      animation: none !important;
+      transform: none !important;
     }
   }
 
@@ -713,16 +744,7 @@
   }
 
   .pz-critter {
-    display: block;
-    height: 62%;
-    background-repeat: no-repeat;
-    background-position: center;
-    background-size: 100% 100%;
     transition: filter 320ms ease;
-  }
-
-  .pz-critter.critter-sprite {
-    background-size: calc(var(--frames) * 100%) 100%;
   }
 
   .pz-cell:not(.is-lit) .pz-critter {

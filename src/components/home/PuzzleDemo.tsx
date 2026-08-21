@@ -14,6 +14,7 @@ import {
   type Cell,
 } from "@/lib/puzzle";
 import { critters } from "@/lib/content";
+import { CritterSprite } from "@/components/ui/Critter";
 
 /*
  * The playable glade.
@@ -251,17 +252,12 @@ export default function PuzzleDemo() {
                       </svg>
                       {cell.kind === "target" && (
                         <span className="pz-sleeper" aria-hidden>
-                          <span
-                            className={
-                              lit ? "pz-critter critter-sprite" : "pz-critter"
-                            }
-                            style={{
-                              backgroundImage: `url(/art/critters/${sleeper.id}${
-                                lit ? "" : "-still"
-                              }.webp)`,
-                              ["--frames" as string]: lit ? sleeper.frames : 1,
-                              aspectRatio: `${sleeper.w} / ${sleeper.h}`,
-                            }}
+                          {/* Woken by the light reaching it, not by scrolling. */}
+                          <CritterSprite
+                            critter={sleeper}
+                            height="62%"
+                            play={lit}
+                            className="pz-critter"
                           />
                           {!lit && <span className="pz-zzz">z</span>}
                         </span>
@@ -331,15 +327,11 @@ export default function PuzzleDemo() {
           {status === "complete" ? (
             <div style={{ animation: "pop 420ms cubic-bezier(.2,.8,.3,1.3) both" }}>
               <div className="mb-4 flex items-center gap-3">
-                <span
-                  className="critter-sprite block h-16 shrink-0"
-                  style={{
-                    backgroundImage: `url(/art/critters/${sleeper.id}.webp)`,
-                    ["--frames" as string]: sleeper.frames,
-                    width: `${(sleeper.w / sleeper.h) * 4}rem`,
-                    backgroundSize: `${sleeper.frames * 100}% 100%`,
-                  }}
-                  aria-hidden
+                <CritterSprite
+                  critter={sleeper}
+                  height="4rem"
+                  play
+                  className="shrink-0"
                 />
                 <div>
                   <p className="font-display text-xl font-extrabold text-leaf">
