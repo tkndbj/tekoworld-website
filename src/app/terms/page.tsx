@@ -28,8 +28,8 @@ export default function Terms() {
 
       <h2 id="agreement">1. The agreement</h2>
       <p>
-        These terms are between you and {site.entity}, {site.address} (&ldquo;we&rdquo;,
-        &ldquo;us&rdquo;). By downloading or playing {site.game} you accept them. If you do
+        These terms are between you and {site.entity}, trading as {site.publisher}, of{" "}
+        {site.address} (&ldquo;we&rdquo;, &ldquo;us&rdquo;). By downloading or playing {site.game} you accept them. If you do
         not accept them, please do not play.
       </p>
       <p>

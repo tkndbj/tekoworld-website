@@ -42,8 +42,9 @@ export default function Privacy() {
 
       <h2 id="who-we-are">Who we are</h2>
       <p>
-        {site.game} is published by {site.entity}, {site.address}. For the purposes of the UK
-        and EU General Data Protection Regulation, we are the data controller for the
+        {site.game} is published by {site.entity}, trading as {site.publisher}, of{" "}
+        {site.address} — the same publisher named on the store listing. For the purposes of
+        the UK and EU General Data Protection Regulation, we are the data controller for the
         information described here. You can reach us at{" "}
         <a href={`mailto:${site.email}`}>{site.email}</a>.
       </p>

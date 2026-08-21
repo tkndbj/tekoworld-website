@@ -1,7 +1,7 @@
-# Glimmer Grove — website
+# Glimmer Groove — website
 
-The public site for the game: the policies both app stores require, a support page, and the
-`app-ads.txt` that programmatic ad buyers fetch.
+The public site for the game: a playable front page, the policies both app stores require, a
+support page, and the `app-ads.txt` that programmatic ad buyers fetch.
 
 Next.js 16 (App Router), React 19, Tailwind v4, TypeScript. Every route is statically
 prerendered — there is no server, no database, no cookies and no analytics, which is what
@@ -9,7 +9,7 @@ lets the privacy policy say the site does not track you and be telling the truth
 
 ```
 npm run dev     # http://localhost:3000
-npm run build   # static export of every route
+npm run build   # production build; every route is prerendered
 npm start       # serve the production build
 ```
 
@@ -20,6 +20,7 @@ Everything below lives in one file: **`src/lib/site.ts`**. Nothing else needs to
 | Field | Why it matters |
 |---|---|
 | `url` | Canonical URLs, `sitemap.xml`, Open Graph. Must be the real domain. |
+| `publisher` | The studio name players see — **Tekoworld**. Shown in the header, the footer and the social card, and named in the policies alongside `entity` so a reviewer can match the store listing to the legal entity. |
 | `entity` | **Must match the Google Play developer account and the App Store Connect seller.** The policies claim to be issued by whoever this names; a mismatch is something a store review checks. |
 | `address` | Appears in the privacy policy and terms as the controller's address. |
 | `jurisdiction` | Governing law in the terms. Should follow the entity, not where you happen to sit. |
@@ -31,6 +32,48 @@ the Firebase project, the AdMob app entry and the domain. Some strings inside th
 say "Grove" — those are the ones that need correcting, so that the store listing, the domain
 and the app's own text all agree. AdMob matches the app name against the store listing during
 review.
+
+## How the front page is built
+
+Everything on it is made from the game's own art, so the site and the game cannot drift
+apart visually.
+
+**The design system** lives at the top of `src/app/globals.css`. Two ideas carry it:
+
+- *Tokens, light-first.* Colours are lifted from the tileset. Only the tokens that change are
+  restated for dark, so a colour can never be defined solely inside a media query and go
+  missing in the other mode. Dark is dusk in the same grove, not a grey inversion.
+- *The slab.* Every raised surface — card, button, chip — is a flat top face over a solid
+  slab of colour, with no blurred shadows anywhere. It is the isometric tile, flattened.
+  It is called `slab` and not `block` because Tailwind owns `block` as a display utility.
+
+Site classes sit in `@layer components` so a utility written at the call site still wins.
+Unlayered CSS outranks every Tailwind layer, which is a very quiet way to break `lg:hidden`.
+
+**The dioramas** (`src/lib/scenes.ts`, `src/components/iso/`) are lists of sprites placed on
+the game's 2:1 isometric lattice. A scene is authored in pixels at a fixed size and rendered
+in percentages, so it scales to any width with no script and no reflow. Keeping scenes as
+data also means one can be composited offline and looked at as an image before it ships,
+which is what `scripts/build-og.py` does to make the social card.
+
+**The playable glade** (`src/lib/puzzle.ts`, `src/components/home/PuzzleDemo.tsx`) runs the
+real rule, not a video of it. Levels are authored in their solved state and scrambled by a
+recorded number of quarter-turns, so every one is solvable by construction. The board is
+fully keyboard operable and announces its state.
+
+## Regenerating the art
+
+`public/art/` and `src/lib/art.ts` are generated. The source packs are not in this repository
+— they are licensed art and they are large.
+
+```
+ART_VILLAGE=/path/to/village-assets ART_2D="/path/to/2D ASSETS" npm run art
+npm run og      # rebuilds public/og.png from the hero scene
+```
+
+Flat tiles are written as lossless WebP; the companion sprite strips are lossy, because
+quantising a smooth gradient bands it visibly. The whole art payload is about 1 MB, and the
+sprite strips inside that are only fetched when a companion scrolls into view.
 
 ## Where each URL is needed
 

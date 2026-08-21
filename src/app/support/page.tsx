@@ -10,14 +10,26 @@ export const metadata: Metadata = {
 
 function Question({ q, children }: { q: string; children: React.ReactNode }) {
   return (
-    <details className="group border-b border-border py-4 not-prose">
-      <summary className="cursor-pointer list-none font-medium marker:content-none">
-        <span className="inline-block w-5 text-accent transition-transform group-open:rotate-90">
-          ›
-        </span>
+    <details className="group slab not-prose mb-3 p-0">
+      <summary className="flex cursor-pointer list-none items-center justify-between gap-4 px-5 py-4 font-display font-extrabold marker:content-none">
         {q}
+        <span
+          aria-hidden
+          className="flex h-7 w-7 shrink-0 items-center justify-center rounded-lg border-2 border-line bg-panel-2 transition-transform group-open:rotate-45"
+        >
+          <svg width="14" height="14" viewBox="0 0 14 14">
+            <path
+              d="M7 2v10M2 7h10"
+              stroke="currentColor"
+              strokeWidth="2.4"
+              strokeLinecap="round"
+            />
+          </svg>
+        </span>
       </summary>
-      <div className="prose-legal mt-3 pl-5 text-[0.95rem]">{children}</div>
+      <div className="prose-legal border-t-2 border-line px-5 py-4 text-[0.95rem]">
+        {children}
+      </div>
     </details>
   );
 }
@@ -29,10 +41,7 @@ export default function Support() {
       intro="Something not working? Write to us — a real person reads it."
     >
       <p className="not-prose mb-10">
-        <a
-          href={mailto("Support")}
-          className="inline-block rounded-xl bg-accent px-5 py-3 font-medium text-white no-underline hover:opacity-90 dark:text-[#12170f]"
-        >
+        <a href={mailto("Support")} className="btn btn-primary no-underline">
           Email {site.email}
         </a>
       </p>

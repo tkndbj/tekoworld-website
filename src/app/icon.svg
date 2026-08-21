@@ -1,0 +1,11 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 48 48">
+  <!-- The mark, with the palette baked in: a favicon is rendered outside the
+       page, where the site's custom properties do not exist. -->
+  <rect width="48" height="48" rx="11" fill="#f6f0dc"/>
+  <circle cx="24" cy="12" r="6.5" fill="#ffc24a" opacity="0.35"/>
+  <circle cx="24" cy="12" r="4.3" fill="#ffc24a"/>
+  <circle cx="22.4" cy="10.4" r="1.4" fill="#fff8e2"/>
+  <path d="M24 19 40 27.9 24 36.8 8 27.9Z" fill="#74b944"/>
+  <path d="M8 27.9 24 36.8v6.2L8 34.1Z" fill="#4f8d2b"/>
+  <path d="M24 36.8 40 27.9v6.2L24 43Z" fill="#2f7d46"/>
+</svg>

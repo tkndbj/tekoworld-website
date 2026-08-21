@@ -6,7 +6,9 @@
     "dev": "next dev",
     "build": "next build",
     "start": "next start",
-    "lint": "eslint"
+    "lint": "eslint",
+    "art": "python scripts/build-art.py",
+    "og": "python scripts/build-og.py"
   },
   "dependencies": {
     "next": "16.3.2",

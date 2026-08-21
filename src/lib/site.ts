@@ -19,8 +19,25 @@ export const site = {
    */
   game: "Glimmer Groove",
 
-  /** TODO: the domain this is published on, no trailing slash. Used for canonical URLs. */
-  url: "https://glimmergroove.app",
+  /**
+   * The studio label the game is published under, and the name players see on
+   * the store listing and in the splash screen.
+   *
+   * Distinct from `entity` below on purpose: `publisher` is the brand, `entity`
+   * is whoever is legally answerable for it. The policies must name the latter.
+   */
+  publisher: "Tekoworld",
+
+  /**
+   * The canonical origin, and it is the **www** host deliberately.
+   *
+   * Vercel serves www and 308-redirects the apex to it. Either could have been made primary;
+   * what must not happen is this disagreeing with the deploy, because then every canonical
+   * URL, the sitemap and the Open Graph tags all point at a URL that redirects. The www host
+   * is also what should go in both store listings' Developer website field, so that ad
+   * crawlers fetch app-ads.txt directly rather than through the redirect.
+   */
+  url: "https://www.glimmergroove.app",
 
   /**
    * TODO: the legal entity that publishes the game.
