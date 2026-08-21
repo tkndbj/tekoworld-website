@@ -2,7 +2,7 @@
  * Motes of glimmer drifting up through a scene.
  *
  * Positions come from a fixed table rather than Math.random, because a server
- * render and the client's first render have to agree — a random layout here
+ * render and the client's first render have to agree - a random layout here
  * would be a hydration mismatch dressed up as atmosphere.
  */
 const MOTES = [

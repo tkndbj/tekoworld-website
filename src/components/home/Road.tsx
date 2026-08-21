@@ -11,7 +11,7 @@ import { pct } from "@/components/iso/Iso";
  *
  * A road is a wide thing, and squeezing ten tiles into a phone's width leaves
  * them the size of a full stop. So below its natural width the road scrolls
- * sideways inside its own frame rather than shrinking — the section keeps its
+ * sideways inside its own frame rather than shrinking - the section keeps its
  * shape, and the page never scrolls sideways with it.
  */
 
@@ -73,7 +73,7 @@ export function Road() {
         <div
           tabIndex={0}
           role="group"
-          aria-label="The road through the glades — scroll sideways to follow it"
+          aria-label="The road through the glades - scroll sideways to follow it"
           className="-mx-4 overflow-x-auto px-4 sm:mx-0 sm:px-0"
         >
           <div className="min-w-[54rem]">

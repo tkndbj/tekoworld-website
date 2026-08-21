@@ -72,7 +72,7 @@ export function Hero() {
 
           <p className="mx-auto mt-6 max-w-xl text-lg leading-relaxed text-ink-2 sm:text-xl lg:mx-0">
             Turn the conduits until the light reaches every sleeping critter.
-            Wake the grove, gather its companions, and build them a home — one
+            Wake the grove, gather its companions, and build them a home - one
             tile at a time.
           </p>
 
@@ -107,8 +107,8 @@ export function Hero() {
           </dl>
         </div>
 
-        {/* The glade itself. Decorative — everything it says is said in words
-            above it — so it is hidden from assistive technology wholesale. */}
+        {/* The glade itself. Decorative - everything it says is said in words
+            above it - so it is hidden from assistive technology wholesale. */}
         <div aria-hidden className="relative -mx-2 lg:mx-0">
           <Scene
             scene={heroScene}

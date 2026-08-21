@@ -10,15 +10,15 @@ import type { Critter } from "@/lib/content";
  * CSS so playback costs no JavaScript once it starts.
  *
  * The strip is moved with `translateX`, not with `background-position`. A
- * percentage background position does not offset by that percentage — it aligns
+ * percentage background position does not offset by that percentage - it aligns
  * the image's N% point with the container's N% point, so on an eighteen-frame
  * strip a step of -100% lands seventeen frames along and the next one is off the
  * end of the image entirely. A transform percentage is plain proportional
  * movement: the strip is N frames wide, `translateX(-100%)` is exactly N frames,
  * and `steps(N)` therefore lands on frame boundaries and nowhere else.
  *
- * The strips are also the heaviest art on the site, so the still frame — a
- * twentieth of the size — is what loads first, and the strip is only fetched
+ * The strips are also the heaviest art on the site, so the still frame - a
+ * twentieth of the size - is what loads first, and the strip is only fetched
  * once the sprite is near the viewport. Below the fold nothing is downloaded and
  * nothing animates.
  */

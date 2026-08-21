@@ -73,7 +73,7 @@ export function GetIt() {
           </ul>
 
           <p className="mt-8 text-center text-ink-2">
-            Anything else at all —{" "}
+            Anything else at all -{" "}
             <Link
               href="/support"
               className="font-bold text-leaf underline decoration-2 underline-offset-4"

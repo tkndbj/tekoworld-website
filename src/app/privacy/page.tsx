@@ -11,7 +11,7 @@ export const metadata: Metadata = {
 /**
  * Written against what the game actually does rather than from a template.
  *
- * Every row in the table below corresponds to something real in the client or the backend —
+ * Every row in the table below corresponds to something real in the client or the backend -
  * an anonymous Firebase account, a Firestore save document, a published grove card, a
  * store receipt, a mediation SDK. A policy that lists data an app does not collect is as
  * wrong as one that omits data it does, and it is the kind of wrong a regulator reads as
@@ -27,7 +27,7 @@ export default function Privacy() {
         <p className="mb-2">
           You can play the whole game without giving us your name, your email address or
           anything else about you. An anonymous account is created so your progress can be
-          saved and restored — it identifies a save file, not a person.
+          saved and restored - it identifies a save file, not a person.
         </p>
         <p className="mb-2">
           We show adverts, and those are provided by third parties who may use an
@@ -35,7 +35,7 @@ export default function Privacy() {
           change your answer at any time from the settings screen.
         </p>
         <p>
-          We do not sell your data. We have no interest in who you are — only in whether the
+          We do not sell your data. We have no interest in who you are - only in whether the
           game works.
         </p>
       </Summary>
@@ -43,7 +43,7 @@ export default function Privacy() {
       <h2 id="who-we-are">Who we are</h2>
       <p>
         {site.game} is published by {site.entity}, trading as {site.publisher}, of{" "}
-        {site.address} — the same publisher named on the store listing. For the purposes of
+        {site.address} - the same publisher named on the store listing. For the purposes of
         the UK and EU General Data Protection Regulation, we are the data controller for the
         information described here. You can reach us at{" "}
         <a href={`mailto:${site.email}`}>{site.email}</a>.
@@ -79,7 +79,7 @@ export default function Privacy() {
             </tr>
             <tr>
               <td>
-                <strong>Your game progress</strong> — which glades you have finished, your
+                <strong>Your game progress</strong> - which glades you have finished, your
                 best moves and times, hearts, streak, in-game currency ledgers, the grove you
                 have built, and your settings
               </td>
@@ -91,7 +91,7 @@ export default function Privacy() {
             </tr>
             <tr>
               <td>
-                <strong>A public grove card</strong> — the keeper name you chose, your grove
+                <strong>A public grove card</strong> - the keeper name you chose, your grove
                 score, and where things stand in your grove
               </td>
               <td>
@@ -114,7 +114,7 @@ export default function Privacy() {
             </tr>
             <tr>
               <td>
-                <strong>A linked sign-in</strong> — an identifier from Apple or Google, and
+                <strong>A linked sign-in</strong> - an identifier from Apple or Google, and
                 whatever that provider passes to us
               </td>
               <td>
@@ -125,12 +125,12 @@ export default function Privacy() {
             </tr>
             <tr>
               <td>
-                <strong>Purchase records</strong> — the store transaction identifier and what
+                <strong>Purchase records</strong> - the store transaction identifier and what
                 was bought
               </td>
               <td>
                 To confirm a purchase with Apple or Google and to give you what you paid for,
-                once. <strong>We never see your card details</strong> — the payment happens
+                once. <strong>We never see your card details</strong> - the payment happens
                 inside the store, not inside the game.
               </td>
               <td>If you buy something</td>
@@ -148,7 +148,7 @@ export default function Privacy() {
             </tr>
             <tr>
               <td>
-                <strong>Basic technical information</strong> — device model, operating system
+                <strong>Basic technical information</strong> - device model, operating system
                 version, language, and error diagnostics
               </td>
               <td>
@@ -172,19 +172,19 @@ export default function Privacy() {
       <h2 id="legal-bases">Our legal bases (UK and EU)</h2>
       <ul>
         <li>
-          <strong>Performance of a contract</strong> — saving and restoring your progress,
+          <strong>Performance of a contract</strong> - saving and restoring your progress,
           and honouring a purchase. Without these the game does not work.
         </li>
         <li>
-          <strong>Consent</strong> — personalised advertising, and appearing on the public
+          <strong>Consent</strong> - personalised advertising, and appearing on the public
           boards. Both are optional and both can be withdrawn.
         </li>
         <li>
-          <strong>Legitimate interests</strong> — keeping the game working, diagnosing
+          <strong>Legitimate interests</strong> - keeping the game working, diagnosing
           crashes, and preventing fraud and abuse of the in-game economy.
         </li>
         <li>
-          <strong>Legal obligation</strong> — keeping records of purchases for tax and
+          <strong>Legal obligation</strong> - keeping records of purchases for tax and
           accounting.
         </li>
       </ul>
@@ -204,12 +204,12 @@ export default function Privacy() {
       <ul>
         <li>
           <a href="https://unity.com/legal/game-player-and-app-user-privacy-policy" rel="noopener noreferrer" target="_blank">
-            Unity — player and app user privacy policy
+            Unity - player and app user privacy policy
           </a>
         </li>
         <li>
           <a href="https://policies.google.com/technologies/partner-sites" rel="noopener noreferrer" target="_blank">
-            Google — how Google uses information from sites or apps that use our services
+            Google - how Google uses information from sites or apps that use our services
           </a>
         </li>
       </ul>
@@ -218,7 +218,7 @@ export default function Privacy() {
       <p>
         If you are in the European Economic Area or the United Kingdom, you are asked before
         any personalised advertising happens, through a Google-certified consent form. If you
-        decline, you will still see adverts and still receive the rewards for watching them —
+        decline, you will still see adverts and still receive the rewards for watching them -
         they will simply not be based on a profile of you.
       </p>
       <p>
@@ -236,15 +236,15 @@ export default function Privacy() {
       <ul>
         <li>
           <strong>Google Firebase</strong> (Authentication, Cloud Firestore, Cloud Functions)
-          — the anonymous account and the saved progress. Data is stored in the European
+          - the anonymous account and the saved progress. Data is stored in the European
           Union.
         </li>
         <li>
-          <strong>Apple and Google</strong> — app distribution, payments and purchase
+          <strong>Apple and Google</strong> - app distribution, payments and purchase
           verification.
         </li>
         <li>
-          <strong>Unity LevelPlay and its advertising networks</strong> — advertising, as
+          <strong>Unity LevelPlay and its advertising networks</strong> - advertising, as
           described above.
         </li>
       </ul>
@@ -264,15 +264,15 @@ export default function Privacy() {
       <h2 id="retention">How long we keep it</h2>
       <ul>
         <li>
-          <strong>Saved progress</strong> — for as long as the account is in use, and for up
+          <strong>Saved progress</strong> - for as long as the account is in use, and for up
           to 24 months after it goes quiet, after which it may be deleted.
         </li>
         <li>
-          <strong>Your public grove card</strong> — until you switch the boards off or delete
+          <strong>Your public grove card</strong> - until you switch the boards off or delete
           your data, whichever comes first.
         </li>
         <li>
-          <strong>Purchase records</strong> — for as long as tax and accounting law requires,
+          <strong>Purchase records</strong> - for as long as tax and accounting law requires,
           which is generally seven years. These survive deletion of your game data, because
           we are not permitted to destroy them.
         </li>
@@ -286,14 +286,14 @@ export default function Privacy() {
         Consumer Privacy Act and other laws.
       </p>
       <p>
-        The quickest routes are in the game itself — the boards opt-out is in Settings, and
+        The quickest routes are in the game itself - the boards opt-out is in Settings, and
         so is the advertising choice. For anything else, or to delete everything, see{" "}
         <Link href="/delete-account">deleting your data</Link> or write to{" "}
         <a href={mailto("Privacy request")}>{site.email}</a>. We answer within 30 days.
       </p>
       <p>
         Because accounts are anonymous by default, we may need you to prove which account is
-        yours before we act on a request — usually by sending the request from a linked
+        yours before we act on a request - usually by sending the request from a linked
         sign-in address, or by giving us the account identifier shown in the game.
       </p>
       <p>

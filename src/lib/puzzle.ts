@@ -7,7 +7,7 @@
  * every sleeping companion on the board is reached, the glade is awake.
  *
  * Levels are authored in their *solved* state and then scrambled by a recorded
- * number of quarter-turns, which is what makes them solvable by construction —
+ * number of quarter-turns, which is what makes them solvable by construction -
  * there is no generator here that can emit a board with no way out.
  */
 
@@ -59,7 +59,7 @@ export type Level = {
    A level is written as a grid of short strings so the shape of the glade is
    legible in the source:
 
-     "."      nothing — open grass
+     "."      nothing - open grass
      "-NE"    a conduit opening north and east
      "S:E"    the lantern, shining east
      "T:W"    a sleeping companion, reached from the west

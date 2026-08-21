@@ -27,7 +27,7 @@ export function MobileNav({
   // Close on a real navigation. Adjusting state during render rather than in an
   // effect: the menu must be gone in the same commit that paints the new page,
   // and an effect would let the old panel show over it for a frame. The links
-  // close it themselves too — this is what catches the back button.
+  // close it themselves too - this is what catches the back button.
   if (lastPath !== pathname) {
     setLastPath(pathname);
     setOpen(false);

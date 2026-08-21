@@ -14,7 +14,7 @@ import { tiles, type TileArt } from "@/lib/art";
  * The tileset is drawn on a 2:1 lattice: a ground tile is 270px wide and its
  * top face is exactly half that tall. Every sprite is trimmed to its own
  * bounding box, so the one landmark they all share is the top vertex of the
- * tile at y = 0 — which puts the centre of a top face at a quarter of the tile
+ * tile at y = 0 - which puts the centre of a top face at a quarter of the tile
  * width below it. All placement is measured from there.
  */
 export const TILE_W = 270;
@@ -41,8 +41,8 @@ export type Stage = { w: number; h: number };
 /*
  * Scenes are composed in pixels and rendered as percentages.
  *
- * The obvious approach — lay a scene out at its natural size and shrink it with
- * `transform: scale()` — cannot be driven by the container's own width in plain
+ * The obvious approach - lay a scene out at its natural size and shrink it with
+ * `transform: scale()` - cannot be driven by the container's own width in plain
  * CSS, because `scale()` takes a number and a container width is a length.
  * Percentages need no such trick: the stage holds its aspect ratio, so a sprite
  * at 42% across and 18% wide lands in the same place at any size, in any
@@ -147,7 +147,7 @@ export function IsoTile({
 }
 
 /**
- * Anything standing on a tile — a tree, a tent, a chest. Anchored by the middle
+ * Anything standing on a tile - a tree, a tent, a chest. Anchored by the middle
  * of its base to the centre of the top face, which is how these sprites are
  * drawn, so a tree planted on (2,3) looks planted rather than pasted.
  */
@@ -195,7 +195,7 @@ export function IsoProp({
 }
 
 /**
- * A sprite that is not on the lattice at all — placed in stage pixels, with its
+ * A sprite that is not on the lattice at all - placed in stage pixels, with its
  * stacking order given outright rather than derived from a grid position.
  */
 export function IsoFloat({

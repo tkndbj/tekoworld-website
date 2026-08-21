@@ -2,7 +2,7 @@
  * The words and the cast.
  *
  * Marketing copy has a way of drifting apart from the game it describes once it
- * is scattered across six components, so all of it lives here — one list per
+ * is scattered across six components, so all of it lives here - one list per
  * section, each entry naming the artwork it is drawn with.
  */
 
@@ -12,7 +12,7 @@ export type Critter = {
   name: string;
   title: string;
   blurb: string;
-  /** Frames in the strip — drives the `steps()` timing function. */
+  /** Frames in the strip - drives the `steps()` timing function. */
   frames: number;
   /** Size of a single frame, which is also the element's intrinsic size. */
   w: number;
@@ -101,7 +101,7 @@ export const features: Feature[] = [
     icon: "gem",
     title: "One verb, a hundred questions",
     body:
-      "Every glade asks the same thing — turn a piece, carry the light — and no two ask it the same way. Brittle stone, bound roots, sleeping duskcaps, and crossings that thread two flows through a single tile.",
+      "Every glade asks the same thing - turn a piece, carry the light - and no two ask it the same way. Brittle stone, bound roots, sleeping duskcaps, and crossings that thread two flows through a single tile.",
     accent: "var(--plum)",
   },
   {
@@ -139,7 +139,7 @@ export const faq: { q: string; a: string }[] = [
   },
   {
     q: "Will it run on my phone?",
-    a: "It is built for phones several years old and does not need a connection to play. If a glade ever runs badly on your device, tell us which one — that is a bug, not a spec.",
+    a: "It is built for phones several years old and does not need a connection to play. If a glade ever runs badly on your device, tell us which one - that is a bug, not a spec.",
   },
   {
     q: "Is it safe for children?",
@@ -148,7 +148,7 @@ export const faq: { q: string; a: string }[] = [
 ];
 
 /**
- * The stats strip under the hero. Deliberately verifiable claims — a number a
+ * The stats strip under the hero. Deliberately verifiable claims - a number a
  * player can check for themselves is worth more than an adjective.
  */
 export const stats: { value: string; label: string }[] = [

@@ -44,7 +44,7 @@ export const site = {
    *
    * This must match the Google Play developer account and the App Store Connect seller,
    * because the policies below claim to be issued by whoever this says. If the game is
-   * published by a company, put the company here — not a person.
+   * published by a company, put the company here - not a person.
    */
   entity: "Tekin Dabaj",
 
@@ -74,5 +74,5 @@ export const site = {
 
 /** The support address as a mailto link with a subject already filled in. */
 export function mailto(subject: string) {
-  return `mailto:${site.email}?subject=${encodeURIComponent(`${site.game} — ${subject}`)}`;
+  return `mailto:${site.email}?subject=${encodeURIComponent(`${site.game} - ${subject}`)}`;
 }

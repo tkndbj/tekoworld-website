@@ -17,12 +17,12 @@ export default function Terms() {
       <Summary>
         <p className="mb-2">
           Play the game, do not cheat it, and do not pretend to be someone else on the
-          boards. Anything you buy is a licence to use it inside the game — coins and gems
+          boards. Anything you buy is a licence to use it inside the game - coins and gems
           are not money and cannot be cashed out.
         </p>
         <p>
           Refunds are handled by Apple and Google, not by us. If something goes wrong, write
-          to us before leaving a one-star review — we would rather fix it.
+          to us before leaving a one-star review - we would rather fix it.
         </p>
       </Summary>
 
@@ -68,7 +68,7 @@ export default function Terms() {
       </p>
       <p>
         You are responsible for keeping any linked sign-in secure. If you lose access to an
-        unlinked anonymous account — by deleting the app without linking, for example — the
+        unlinked anonymous account - by deleting the app without linking, for example - the
         progress may not be recoverable, and we may not be able to identify it as yours.
       </p>
       <p>
@@ -79,8 +79,8 @@ export default function Terms() {
 
       <h2 id="virtual-items">4. Coins, gems, hearts and items</h2>
       <p>
-        Everything you collect or buy inside the game — coins, gems, hearts, boosts,
-        companions, grove pieces and land — is a <strong>limited licence to use it inside{" "}
+        Everything you collect or buy inside the game - coins, gems, hearts, boosts,
+        companions, grove pieces and land - is a <strong>limited licence to use it inside{" "}
         {site.game}</strong>. It is not money, not a security, and not property.
         Specifically:
       </p>
@@ -98,7 +98,7 @@ export default function Terms() {
       </ul>
       <p>
         Rewards from adverts, daily chests and streaks are granted by our servers. Where a
-        reward cannot be verified — for example because a save file was modified — it may be
+        reward cannot be verified - for example because a save file was modified - it may be
         declined or reversed.
       </p>
 
@@ -110,12 +110,12 @@ export default function Terms() {
       <p>
         <strong>Refunds are handled by the store</strong>, under the store&rsquo;s own policy.
         We cannot issue a refund on their behalf. If a purchase was taken and you did not
-        receive what you paid for, write to us first — that is usually something we can fix
+        receive what you paid for, write to us first - that is usually something we can fix
         directly, and faster.
       </p>
       <p>
         If you are a consumer in the EU or the UK, you normally have a 14-day right to
-        withdraw from a digital purchase — but that right is lost once delivery begins with
+        withdraw from a digital purchase - but that right is lost once delivery begins with
         your consent, which is what happens the moment currency lands in your balance. This
         does not affect your statutory rights where a product is faulty.
       </p>
@@ -145,7 +145,7 @@ export default function Terms() {
       <p>
         We add chapters, retune difficulty and rewards, fix defects and occasionally remove
         things that are not working. We may suspend the service for maintenance, and we may
-        eventually discontinue the game — in which case we will give reasonable notice
+        eventually discontinue the game - in which case we will give reasonable notice
         through the game or this site where we can.
       </p>
       <p>
@@ -155,7 +155,7 @@ export default function Terms() {
 
       <h2 id="suspension">8. Suspension</h2>
       <p>
-        We may suspend or close an account that breaks these terms — in particular one used
+        We may suspend or close an account that breaks these terms - in particular one used
         to cheat, to defraud the economy, or to harass other players. Where it is
         proportionate we will warn first. You may stop playing at any time and delete your
         data as described on the{" "}

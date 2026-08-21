@@ -5,7 +5,7 @@ import { mailto, site } from "@/lib/site";
 
 export const metadata: Metadata = {
   title: "Support",
-  description: `Help with ${site.game} — lost progress, purchases, adverts and accounts.`,
+  description: `Help with ${site.game} - lost progress, purchases, adverts and accounts.`,
 };
 
 function Question({ q, children }: { q: string; children: React.ReactNode }) {
@@ -38,7 +38,7 @@ export default function Support() {
   return (
     <LegalPage
       title="Support"
-      intro="Something not working? Write to us — a real person reads it."
+      intro="Something not working? Write to us - a real person reads it."
     >
       <p className="not-prose mb-10">
         <a href={mailto("Support")} className="btn btn-primary no-underline">
@@ -59,7 +59,7 @@ export default function Support() {
           <p>
             If you never linked an Apple or Google account, the grove was tied to an anonymous
             account on that device, and reinstalling can leave it behind. Open the{" "}
-            <strong>Profile</strong> tab and link a sign-in — that is what makes progress
+            <strong>Profile</strong> tab and link a sign-in - that is what makes progress
             survive a lost or wiped device in future.
           </p>
           <p>
@@ -70,7 +70,7 @@ export default function Support() {
 
         <Question q="I paid for something and did not receive it.">
           <p>
-            First, reopen the game while online — unfinished purchases are re-delivered
+            First, reopen the game while online - unfinished purchases are re-delivered
             automatically on launch, and a purchase interrupted by a crash or a dropped
             connection usually resolves itself this way.
           </p>
@@ -82,7 +82,7 @@ export default function Support() {
 
         <Question q="How do I get a refund?">
           <p>
-            Refunds are handled by Apple and Google, not by us — we cannot issue one on their
+            Refunds are handled by Apple and Google, not by us - we cannot issue one on their
             behalf. Use the store&rsquo;s own refund process from your purchase history.
           </p>
           <p>
@@ -98,7 +98,7 @@ export default function Support() {
             background, so it usually starts working again on its own.
           </p>
           <p>
-            You never need to watch an advert to finish the game — every one is optional, and
+            You never need to watch an advert to finish the game - every one is optional, and
             nothing is locked behind them.
           </p>
         </Question>
@@ -132,7 +132,7 @@ export default function Support() {
             board.
           </p>
           <p>
-            A refused name is not taken from you — you keep it inside your own game and appear
+            A refused name is not taken from you - you keep it inside your own game and appear
             on the boards under a generated handle instead.
           </p>
         </Question>

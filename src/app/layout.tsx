@@ -6,7 +6,7 @@ import { site } from "@/lib/site";
 import "./globals.css";
 
 /*
- * Baloo 2 is the chunky rounded face the headings are set in — it matches the
+ * Baloo 2 is the chunky rounded face the headings are set in - it matches the
  * moulded, soft-cornered look of the tileset. Nunito carries the body text,
  * because a whole privacy policy set in a display face is a punishment.
  */
@@ -29,8 +29,8 @@ const description =
 export const metadata: Metadata = {
   metadataBase: new URL(site.url),
   title: {
-    default: `${site.game} — a cosy light-puzzle`,
-    template: `%s — ${site.game}`,
+    default: `${site.game} - a cosy light-puzzle`,
+    template: `%s - ${site.game}`,
   },
   description,
   applicationName: site.game,
@@ -51,7 +51,7 @@ export const metadata: Metadata = {
     siteName: site.game,
     url: site.url,
     locale: "en_GB",
-    title: `${site.game} — a cosy light-puzzle`,
+    title: `${site.game} - a cosy light-puzzle`,
     description,
     images: [
       {
@@ -64,12 +64,12 @@ export const metadata: Metadata = {
   },
   twitter: {
     card: "summary_large_image",
-    title: `${site.game} — a cosy light-puzzle`,
+    title: `${site.game} - a cosy light-puzzle`,
     description,
     images: ["/og.png"],
   },
   // The site is static and sets no cookies, so there is nothing here to keep
-  // out of an index. Everything is meant to be findable — a privacy policy a
+  // out of an index. Everything is meant to be findable - a privacy policy a
   // store reviewer cannot reach is a rejected listing.
   robots: { index: true, follow: true },
 };

@@ -21,7 +21,7 @@ function AppStore() {
 
 /**
  * Nothing is listed yet, so rather than shipping two dead buttons the page says
- * so. A "Download" that goes nowhere is worse than an honest "coming soon" —
+ * so. A "Download" that goes nowhere is worse than an honest "coming soon" -
  * and this disappears by itself the moment the store URLs are filled in.
  */
 export function StoreButtons({ className = "" }: { className?: string }) {

@@ -5,7 +5,7 @@ import type { TileArt } from "@/lib/art";
  *
  * Every scene on the site is a list of sprites placed on the game's own
  * isometric lattice. Keeping them as plain data rather than as JSX means a
- * scene can be composited offline and looked at as an image before it ships —
+ * scene can be composited offline and looked at as an image before it ships -
  * arranging forty overlapping sprites by guesswork and a dev server reload is
  * not a good use of anybody's afternoon.
  *
@@ -15,7 +15,7 @@ import type { TileArt } from "@/lib/art";
 export type Piece = {
   /**
    * A tile is centred on its lattice point, a prop stands on top of one, and a
-   * float ignores the lattice entirely — it is a distant glade drifting past,
+   * float ignores the lattice entirely - it is a distant glade drifting past,
    * positioned by eye in stage pixels because it belongs to no grid.
    */
   kind: "tile" | "prop" | "float";
@@ -78,7 +78,7 @@ const f = (
 });
 
 /* -------------------------------------------------------------------------
-   Hero — a single glade adrift, with somewhere to sleep and something to find.
+   Hero - a single glade adrift, with somewhere to sleep and something to find.
    ------------------------------------------------------------------------- */
 
 export const heroScene: Scene = {
@@ -154,7 +154,7 @@ export const heroAnchors = {
 };
 
 /* -------------------------------------------------------------------------
-   The grove — the village the player lays out for themselves.
+   The grove - the village the player lays out for themselves.
    ------------------------------------------------------------------------- */
 
 export const groveScene: Scene = {

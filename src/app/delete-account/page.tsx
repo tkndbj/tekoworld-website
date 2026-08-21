@@ -31,7 +31,7 @@ export default function DeleteAccount() {
         </p>
         <p>
           Deleting the app on its own does <strong>not</strong> delete the data on our
-          servers — it only removes the copy on that device.
+          servers - it only removes the copy on that device.
         </p>
       </Summary>
 
@@ -85,7 +85,7 @@ export default function DeleteAccount() {
       </p>
       <ul>
         <li>
-          <strong>Purchase records</strong> — the store transaction identifier and the amount,
+          <strong>Purchase records</strong> - the store transaction identifier and the amount,
           kept for as long as tax and accounting law requires (generally seven years). We are
           not permitted to destroy these on request. They are not linked to your gameplay
           after deletion.
@@ -104,15 +104,15 @@ export default function DeleteAccount() {
       <p>You may not need to delete everything. From inside the game you can:</p>
       <ul>
         <li>
-          <strong>Leave the public boards</strong> — Settings, then turn off the boards. Your
+          <strong>Leave the public boards</strong> - Settings, then turn off the boards. Your
           card is withdrawn and your name is no longer visible to anyone.
         </li>
         <li>
-          <strong>Withdraw advertising consent</strong> — Settings, then{" "}
+          <strong>Withdraw advertising consent</strong> - Settings, then{" "}
           <strong>Privacy &amp; ad choices</strong>.
         </li>
         <li>
-          <strong>Change your keeper name</strong> — Profile, then rename.
+          <strong>Change your keeper name</strong> - Profile, then rename.
         </li>
       </ul>
       <p>

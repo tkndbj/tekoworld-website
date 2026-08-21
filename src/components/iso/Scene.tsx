@@ -5,7 +5,7 @@ import { IsoFloat, IsoProp, IsoStage, IsoTile } from "@/components/iso/Iso";
  * Renders a diorama from `scenes.ts`.
  *
  * The scene data and this component are the only two things that have to agree
- * about the lattice — everything else just hands over a list of pieces. Extra
+ * about the lattice - everything else just hands over a list of pieces. Extra
  * children are drawn inside the same scaled coordinate space, which is how the
  * animated companions and light pools get placed among the sprites.
  */

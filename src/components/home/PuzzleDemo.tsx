@@ -49,7 +49,7 @@ function describe(mask: number) {
 
 /**
  * The conduit itself: a dark casing with a bright core threaded through it.
- * Drawn in the orientation the tile *starts* in, then turned by CSS — so the
+ * Drawn in the orientation the tile *starts* in, then turned by CSS - so the
  * quarter-turn is a real animation rather than a redraw.
  */
 function Conduit({ mask, lit }: { mask: number; lit: boolean }) {
@@ -91,7 +91,7 @@ function Conduit({ mask, lit }: { mask: number; lit: boolean }) {
   );
 }
 
-/** The lantern. It is always lit — it is where the light comes from. */
+/** The lantern. It is always lit - it is where the light comes from. */
 function Lantern() {
   return (
     <g>

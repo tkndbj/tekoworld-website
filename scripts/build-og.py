@@ -1,4 +1,4 @@
-"""Compose public/og.png — the image that shows when the site is shared.
+"""Compose public/og.png - the image that shows when the site is shared.
 
 Run with `npm run og`.
 

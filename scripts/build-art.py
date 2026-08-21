@@ -4,7 +4,7 @@ Run with `npm run art`. Reads the CraftPix packs the game itself is built from
 and writes trimmed, resized, WebP versions of only the pieces the site uses,
 then regenerates src/lib/art.ts with their dimensions.
 
-Flat vector art is written losslessly — it is a few kilobytes either way and
+Flat vector art is written losslessly - it is a few kilobytes either way and
 quantising it puts visible steps in the tile shading. The companion sprite
 strips are large smooth gradients, so those are lossy WebP: octree quantisation
 bands them badly and lossless doubles their size for no visible gain.

@@ -8,7 +8,7 @@ import { useEffect } from "react";
  *
  * One observer for the whole document rather than a wrapper component per
  * section, so a section only has to add the `reveal` class to opt in. If this
- * never runs — JavaScript off, or an old browser — the stylesheet leaves
+ * never runs - JavaScript off, or an old browser - the stylesheet leaves
  * everything visible rather than blank.
  *
  * Re-runs on every navigation. This component lives in the root layout, which

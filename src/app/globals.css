@@ -1,7 +1,7 @@
 @import "tailwindcss";
 
 /* ==========================================================================
-   Glimmer Groove — design system
+   Glimmer Groove - design system
    --------------------------------------------------------------------------
    The palette is lifted straight out of the game's own tileset so the page and
    the artwork sitting on it are made of the same colours: cream paper, grass
@@ -10,7 +10,7 @@
 
    Light-first. Only the tokens that actually change are restated for dark, so a
    colour can never be defined solely inside a media query and go missing in the
-   other mode. Dark is not a grey inversion — it is dusk in the same grove.
+   other mode. Dark is not a grey inversion - it is dusk in the same grove.
    ========================================================================== */
 
 :root {
@@ -30,7 +30,7 @@
      large-text exemption. */
   --ink-3: #77694f;
 
-  /* structure — `line` doubles as the hard bottom edge that gives every
+  /* structure - `line` doubles as the hard bottom edge that gives every
      surface the same chunky moulded look as an isometric tile. */
   --line: #e0d3b2;
   --line-2: #cbba93;
@@ -178,7 +178,7 @@
  * Tailwind declares `@layer theme, base, components, utilities`, and unlayered
  * CSS outranks every one of them. A bare `.btn { display: inline-flex }`
  * therefore beats `lg:hidden`, and the mobile menu button stays visible on a
- * desktop — which is exactly the bug this fixes. Site classes belong in
+ * desktop - which is exactly the bug this fixes. Site classes belong in
  * `components` so that a utility written at the call site still wins, the way
  * it reads as though it should.
  */
@@ -231,13 +231,13 @@
   /* --------------------------------------------------------------------------
      The slab
      --------------------------------------------------------------------------
-     Every raised surface on this site — panel, button, chip, card — is the same
+     Every raised surface on this site - panel, button, chip, card - is the same
      object: a flat top face with a solid slab of colour beneath it. No blurred
      drop shadows anywhere. It is the isometric tile from the game, flattened,
      and it is what makes the page read as a game rather than a brochure.
 
      Named `slab` rather than the obvious `block`, because Tailwind already owns
-     `block` as a display utility — a card class of that name silently paints a
+     `block` as a display utility - a card class of that name silently paints a
      panel behind every `display: block` span on the site.
      -------------------------------------------------------------------------- */
 
@@ -327,7 +327,7 @@
      --------------------------------------------------------------------------
      A diorama is authored once at a fixed pixel size and then scaled to whatever
      width it is given, using container query units. No JavaScript, no resize
-     observer, no layout shift — the scene is simply always the right size.
+     observer, no layout shift - the scene is simply always the right size.
      -------------------------------------------------------------------------- */
 
   .iso-stage {
@@ -335,7 +335,7 @@
     width: 100%;
     /* aspect-ratio is set per scene, from the size it was authored at.
        A query container so that the little text inside a scene can be sized
-       against the scene rather than the viewport — `cqw` is a length, which is
+       against the scene rather than the viewport - `cqw` is a length, which is
        exactly what font-size wants, and the one thing `scale()` could not use. */
     container-type: inline-size;
   }
@@ -451,8 +451,8 @@
    *
    * Visible by default and only hidden once the `js` class has been set on <html>
    * by an inline script in the document head. Hiding first and revealing later
-   * would mean a visitor with JavaScript disabled — or one whose bundle simply
-   * failed to arrive — got a blank page, which is a steep price for a fade.
+   * would mean a visitor with JavaScript disabled - or one whose bundle simply
+   * failed to arrive - got a blank page, which is a steep price for a fade.
    */
   .reveal {
     opacity: 1;
@@ -473,7 +473,7 @@
     /*
      * Nothing loops and nothing travels. Applied to everything rather than to a
      * list of class names, because several animations on this site are set from
-     * inline styles — fireflies, the win sparkles — and a list would quietly miss
+     * inline styles - fireflies, the win sparkles - and a list would quietly miss
      * them. Each animation still runs once, to its final frame, so anything that
      * animates *into* place ends up in place.
      */

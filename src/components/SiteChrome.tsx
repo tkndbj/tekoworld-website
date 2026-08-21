@@ -139,7 +139,7 @@ export function SiteFooter() {
 
 /**
  * The shell every policy page uses: a title, the date it was last changed, and
- * a measure that keeps long text readable. The date is not decoration — a
+ * a measure that keeps long text readable. The date is not decoration - a
  * policy without a visible revision date is one a reader cannot tell has
  * changed.
  */
