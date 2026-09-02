@@ -17,6 +17,13 @@ export const metadata: Metadata = {
  * It has to say what is deleted AND what is kept, which is the part most deletion pages
  * skip: purchase records cannot lawfully be destroyed on request, and a page that implies
  * otherwise is a promise that will be broken.
+ *
+ * The in-app route is named FIRST and the email route second, because the in-app control
+ * is the one that actually exists and finishes in seconds. A deletion page whose only
+ * answer is "write to us" reads as a form put up to satisfy a store review, and it also
+ * hides the better route from the people looking for it. The same URL is given to Play as
+ * both the "delete account" and the "delete data" link, which is why the partial-deletion
+ * section at the bottom is not optional.
  */
 export default function DeleteAccount() {
   return (
@@ -26,8 +33,14 @@ export default function DeleteAccount() {
     >
       <Summary>
         <p className="mb-2">
-          Email <a href={mailto("Delete my account")}>{site.email}</a> with your account
-          identifier and we will delete your account and saved progress within 30 days.
+          The fastest way is inside the game: <strong>Profile</strong>, then the{" "}
+          <strong>account</strong> section, then <strong>Delete account</strong>. It takes
+          effect immediately.
+        </p>
+        <p className="mb-2">
+          If you can no longer open the game, email{" "}
+          <a href={mailto("Delete my account")}>{site.email}</a> instead and we will do it
+          for you within 30 days.
         </p>
         <p>
           Deleting the app on its own does <strong>not</strong> delete the data on our
@@ -35,27 +48,45 @@ export default function DeleteAccount() {
         </p>
       </Summary>
 
-      <h2 id="find-id">1. Find your account identifier</h2>
+      <h2 id="in-app">1. Delete it from inside the game</h2>
       <p>
-        Accounts are anonymous, so we cannot look you up by name or email unless you have
-        linked a sign-in. To make sure we delete the right grove, we need the identifier the
-        game holds:
+        This is the real deletion, not a request for one. Nobody reads it, nobody has to
+        approve it, and it does not wait 30 days.
       </p>
       <ol>
         <li>
           Open {site.game} and go to the <strong>Profile</strong> tab.
         </li>
         <li>
-          Open the <strong>account</strong> section. Your account identifier is shown there.
+          Scroll to the <strong>account</strong> section.
         </li>
-        <li>Copy it, or take a screenshot.</li>
+        <li>
+          Tap <strong>Delete account</strong>, the red button at the bottom of that section.
+        </li>
+        <li>
+          Read what it lists, then tap <strong>Delete everything</strong> and confirm once
+          more.
+        </li>
       </ol>
       <p>
-        If you have linked an Apple or Google account, you can skip this and simply send the
-        request from that email address instead.
+        If you have linked an Apple or Google sign-in, you will be asked to sign in once
+        more first, so that we know it is really you. You need an internet connection: the
+        button is hidden while the game cannot reach our servers, because a deletion we
+        cannot carry out is not one we will claim to have done.
       </p>
 
-      <h2 id="request">2. Send the request</h2>
+      <h2 id="request">2. Or write to us</h2>
+      <p>
+        Use this if you have already uninstalled the game, lost the device, or cannot reach
+        the button for any other reason.
+      </p>
+      <p>
+        Accounts are anonymous, so we cannot look you up by name or email unless you have
+        linked a sign-in. If you can still open the game, your account identifier is shown
+        in the <strong>account</strong> section of the <strong>Profile</strong> tab - copy
+        it or take a screenshot. If you have linked an Apple or Google account, you can skip
+        that and simply write from that email address instead.
+      </p>
       <p>
         Write to <a href={mailto("Delete my account")}>{site.email}</a> from any address, with
         the subject <strong>Delete my account</strong>, and include your account identifier
@@ -101,22 +132,30 @@ export default function DeleteAccount() {
       </p>
 
       <h2 id="less">If you want less than full deletion</h2>
-      <p>You may not need to delete everything. From inside the game you can:</p>
+      <p>
+        You may not need to delete everything. Each of these takes effect straight away, and
+        none of them touches the rest of your account:
+      </p>
       <ul>
         <li>
-          <strong>Leave the public boards</strong> - Settings, then turn off the boards. Your
-          card is withdrawn and your name is no longer visible to anyone.
+          <strong>Leave the public boards</strong> - <strong>Profile</strong>, then{" "}
+          <strong>Hide my groove</strong> in the boards section. Your published card is taken
+          down and your keeper name is no longer visible to anyone. Your progress, purchases
+          and grove are untouched.
         </li>
         <li>
-          <strong>Withdraw advertising consent</strong> - Settings, then{" "}
+          <strong>Withdraw advertising consent</strong> - <strong>Settings</strong>, then{" "}
           <strong>Privacy &amp; ad choices</strong>.
         </li>
         <li>
-          <strong>Change your keeper name</strong> - Profile, then rename.
+          <strong>Change your keeper name</strong> - <strong>Profile</strong>, then tap your
+          name. The old name is released and the boards show the new one.
         </li>
       </ul>
       <p>
-        See the <Link href="/privacy">privacy policy</Link> for what each of those covers.
+        If you would rather we did one of these for you, write to{" "}
+        <a href={mailto("Delete some of my data")}>{site.email}</a> and say which. See the{" "}
+        <Link href="/privacy">privacy policy</Link> for what each of those covers.
       </p>
     </LegalPage>
   );
