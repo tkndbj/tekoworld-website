@@ -1,38 +1,32 @@
 import { Hero } from "@/components/home/Hero";
-import { Features } from "@/components/home/Features";
-import { Companions } from "@/components/home/Companions";
-import { Grove } from "@/components/home/Grove";
-import { Road } from "@/components/home/Road";
-import { GetIt } from "@/components/home/GetIt";
-import PuzzleDemo from "@/components/home/PuzzleDemo";
-import { site } from "@/lib/site";
-import { faq } from "@/lib/content";
+import { Ticker } from "@/components/home/Ticker";
+import { Games } from "@/components/home/Games";
+import { Studio } from "@/components/home/Studio";
+import { Contact } from "@/components/home/Contact";
+import { gemfire, site } from "@/lib/site";
 
 /**
- * Structured data for the listing, not for the reader.
- *
- * Search results for a game show a rating and a price when the page says what
- * they are, and a store reviewer looking for the publisher behind an app finds
- * it here rather than guessing from the footer.
+ * Structured data for the company. A store reviewer or a journalist looking
+ * for the organisation behind the app finds it named here, with its product.
  */
 function StructuredData() {
   const data = {
     "@context": "https://schema.org",
-    "@type": "VideoGame",
-    name: site.game,
+    "@type": "Organization",
+    name: site.company,
     url: site.url,
-    applicationCategory: "GameApplication",
-    genre: ["Puzzle", "Casual"],
-    operatingSystem: "Android, iOS",
-    publisher: { "@type": "Organization", name: site.publisher },
-    offers: { "@type": "Offer", price: "0", priceCurrency: "USD" },
-    mainEntity: {
-      "@type": "FAQPage",
-      mainEntity: faq.map((item) => ({
-        "@type": "Question",
-        name: item.q,
-        acceptedAnswer: { "@type": "Answer", text: item.a },
-      })),
+    logo: `${site.url}/apple-icon.png`,
+    email: site.email,
+    address: { "@type": "PostalAddress", addressLocality: site.address },
+    makesOffer: {
+      "@type": "Offer",
+      itemOffered: {
+        "@type": "VideoGame",
+        name: gemfire.name,
+        url: `${site.url}${gemfire.path}`,
+        applicationCategory: "GameApplication",
+        operatingSystem: "Android, iOS",
+      },
     },
   };
   return (
@@ -48,12 +42,10 @@ export default function Home() {
     <main>
       <StructuredData />
       <Hero />
-      <PuzzleDemo />
-      <Features />
-      <Companions />
-      <Grove />
-      <Road />
-      <GetIt />
+      <Ticker />
+      <Games />
+      <Studio />
+      <Contact />
     </main>
   );
 }

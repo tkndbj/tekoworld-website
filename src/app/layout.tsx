@@ -1,72 +1,72 @@
 import type { Metadata, Viewport } from "next";
-import { Baloo_2, Nunito } from "next/font/google";
+import { Chakra_Petch, Space_Grotesk } from "next/font/google";
 import { SiteFooter, SiteHeader } from "@/components/SiteChrome";
 import { Reveal } from "@/components/ui/Reveal";
 import { site } from "@/lib/site";
 import "./globals.css";
 
 /*
- * Baloo 2 is the chunky rounded face the headings are set in - it matches the
- * moulded, soft-cornered look of the tileset. Nunito carries the body text,
- * because a whole privacy policy set in a display face is a punishment.
+ * Chakra Petch is the squared-off, slightly technical display face the headings
+ * and buttons are set in - it carries the futuristic register without tipping
+ * into sci-fi costume. Space Grotesk carries body text, because a whole privacy
+ * policy set in a display face is a punishment.
  */
-const baloo = Baloo_2({
-  variable: "--font-baloo",
+const chakra = Chakra_Petch({
+  variable: "--font-chakra",
   subsets: ["latin"],
-  weight: ["600", "700", "800"],
+  weight: ["500", "600", "700"],
   display: "swap",
 });
 
-const nunito = Nunito({
-  variable: "--font-nunito",
+const grotesk = Space_Grotesk({
+  variable: "--font-grotesk",
   subsets: ["latin"],
+  weight: ["400", "500", "600", "700"],
   display: "swap",
 });
 
-const description =
-  "A cosy light-puzzle. Turn the conduits, wake the sleeping critters, and build a grove of your own. Free, offline, and free of forced adverts.";
+const description = `${site.company} is an independent mobile game studio. Home of Gemfire, the match-3 tower-defence game where every match fires a turret.`;
 
 export const metadata: Metadata = {
   metadataBase: new URL(site.url),
   title: {
-    default: `${site.game} - a cosy light-puzzle`,
-    template: `%s - ${site.game}`,
+    default: `${site.company} - ${site.tagline}`,
+    template: `%s - ${site.company}`,
   },
   description,
-  applicationName: site.game,
+  applicationName: site.company,
   keywords: [
-    site.game,
-    site.publisher,
-    "puzzle game",
-    "cosy game",
-    "mobile game",
-    "offline game",
-    "village builder",
+    site.company,
+    "Gemfire",
+    "mobile game studio",
+    "match-3 tower defence",
+    "mobile games",
+    "indie game studio",
   ],
-  authors: [{ name: site.publisher }],
-  creator: site.publisher,
-  publisher: site.publisher,
+  authors: [{ name: site.company }],
+  creator: site.company,
+  publisher: site.company,
   openGraph: {
     type: "website",
-    siteName: site.game,
+    siteName: site.company,
     url: site.url,
     locale: "en_GB",
-    title: `${site.game} - a cosy light-puzzle`,
+    title: `${site.company} - ${site.tagline}`,
     description,
     images: [
       {
-        url: "/og.png",
+        url: "/og.jpg",
         width: 1200,
         height: 630,
-        alt: `${site.game}: a floating glade with a companion waking beside a pond.`,
+        alt: `${site.company}: turrets on a castle wall firing at a skeleton horde over a gem board.`,
       },
     ],
   },
   twitter: {
     card: "summary_large_image",
-    title: `${site.game} - a cosy light-puzzle`,
+    title: `${site.company} - ${site.tagline}`,
     description,
-    images: ["/og.png"],
+    images: ["/og.jpg"],
   },
   // The site is static and sets no cookies, so there is nothing here to keep
   // out of an index. Everything is meant to be findable - a privacy policy a
@@ -75,17 +75,15 @@ export const metadata: Metadata = {
 };
 
 export const viewport: Viewport = {
-  themeColor: [
-    { media: "(prefers-color-scheme: light)", color: "#f6f0dc" },
-    { media: "(prefers-color-scheme: dark)", color: "#16211b" },
-  ],
+  themeColor: "#06070d",
+  colorScheme: "dark",
 };
 
 export default function RootLayout({ children }: LayoutProps<"/">) {
   return (
     <html
       lang="en-GB"
-      className={`${baloo.variable} ${nunito.variable} h-full antialiased`}
+      className={`${chakra.variable} ${grotesk.variable} h-full antialiased`}
       suppressHydrationWarning
     >
       <head>
@@ -101,10 +99,10 @@ export default function RootLayout({ children }: LayoutProps<"/">) {
           }}
         />
       </head>
-      <body className="flex min-h-full flex-col font-sans">
+      <body className="grain flex min-h-full flex-col font-sans">
         <a
           href="#content"
-          className="sr-only focus:not-sr-only focus:absolute focus:left-4 focus:top-4 focus:z-[70] focus:rounded-2xl focus:border-2 focus:border-line focus:bg-panel focus:px-4 focus:py-2 focus:font-bold"
+          className="sr-only focus:not-sr-only focus:absolute focus:left-4 focus:top-4 focus:z-[70] focus:border focus:border-line-2 focus:bg-panel-solid focus:px-4 focus:py-2 focus:font-bold"
         >
           Skip to content
         </a>

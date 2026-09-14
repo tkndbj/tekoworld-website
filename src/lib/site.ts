@@ -11,22 +11,13 @@
 
 export const site = {
   /**
-   * The product name as players see it, which is what store listings must match.
-   *
-   * Double "o", deliberately: the game ships as Glimmer Groove, matching the Firebase project
-   * and the AdMob app entry. The in-game strings still say "Grove" in places and are the ones
-   * that need correcting, not this.
+   * The studio. This is the company site: Tekoworld is the publisher, and the games are
+   * its products. The name is set in capitals in the logo but written as a word in prose.
    */
-  game: "Glimmer Groove",
+  company: "Tekoworld",
 
-  /**
-   * The studio label the game is published under, and the name players see on
-   * the store listing and in the splash screen.
-   *
-   * Distinct from `entity` below on purpose: `publisher` is the brand, `entity`
-   * is whoever is legally answerable for it. The policies must name the latter.
-   */
-  publisher: "Tekoworld",
+  /** The one-line description of what the studio is. */
+  tagline: "Mobile games with fire in them.",
 
   /**
    * The canonical origin, and it is the **www** host deliberately.
@@ -36,14 +27,16 @@ export const site = {
    * URL, the sitemap and the Open Graph tags all point at a URL that redirects. The www host
    * is also what should go in both store listings' Developer website field, so that ad
    * crawlers fetch app-ads.txt directly rather than through the redirect.
+   *
+   * TODO: replace with the real domain once it is registered.
    */
-  url: "https://www.glimmergroove.app",
+  url: "https://www.tekoworld.com",
 
   /**
-   * TODO: the legal entity that publishes the game.
+   * TODO: the legal entity that publishes the games.
    *
    * This must match the Google Play developer account and the App Store Connect seller,
-   * because the policies below claim to be issued by whoever this says. If the game is
+   * because the policies below claim to be issued by whoever this says. If the games are
    * published by a company, put the company here - not a person.
    */
   entity: "Tekin Dabaj",
@@ -63,16 +56,39 @@ export const site = {
   jurisdiction: "the Republic of Cyprus",
 
   /** Shown on every policy. Bump when the text changes in a way that affects a reader. */
-  updated: "21 August 2026",
+  updated: "14 September 2026",
+} as const;
+
+/**
+ * The flagship. There is one game today; when there is a second, this becomes a list and
+ * the /gemfire route becomes /games/[slug].
+ */
+export const gemfire = {
+  name: "Gemfire",
+  slug: "gemfire",
+  path: "/gemfire",
+  genre: "Match-3 tower defence",
+  pitch: "Match gems. Fire turrets. Hold the wall.",
+  description:
+    "Gemfire is a match-3 tower-defence game. Every match on the board fires the turret of the same colour at the horde marching on your castle. Clear waves, upgrade your turrets, and build your kingdom.",
 
   /** TODO: fill in once the listings exist; the buttons hide themselves until then. */
   stores: {
     android: "",
     ios: "",
   },
+
+  /**
+   * Store identifiers, used only for structured data and for the reader to match a listing
+   * to this page. TODO: confirm once both listings exist.
+   */
+  ids: {
+    android: "com.tekoworld.gemfire",
+    ios: "",
+  },
 } as const;
 
 /** The support address as a mailto link with a subject already filled in. */
 export function mailto(subject: string) {
-  return `mailto:${site.email}?subject=${encodeURIComponent(`${site.game} - ${subject}`)}`;
+  return `mailto:${site.email}?subject=${encodeURIComponent(`${gemfire.name} - ${subject}`)}`;
 }

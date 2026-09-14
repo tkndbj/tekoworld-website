@@ -1,12 +1,12 @@
 import Link from "next/link";
-import { site } from "@/lib/site";
-import { Wordmark } from "@/components/ui/Wordmark";
+import { gemfire, site } from "@/lib/site";
+import { Mark, Wordmark } from "@/components/ui/Wordmark";
 import { MobileNav } from "@/components/ui/MobileNav";
 
 const NAV = [
-  { href: "/#play", label: "Play a glade" },
-  { href: "/#companions", label: "Companions" },
-  { href: "/#grove", label: "Your grove" },
+  { href: "/#games", label: "Games" },
+  { href: gemfire.path, label: gemfire.name },
+  { href: "/#studio", label: "Studio" },
   { href: "/support", label: "Support" },
 ] as const;
 
@@ -18,25 +18,22 @@ const LEGAL = [
 
 export function SiteHeader() {
   return (
-    <header className="sticky top-0 z-50 border-b-2 border-line bg-paper/85 backdrop-blur-md">
+    <header className="sticky top-0 z-50 border-b border-line bg-bg/70 backdrop-blur-xl">
+      <div
+        aria-hidden
+        className="pointer-events-none absolute inset-x-0 top-0 h-px"
+        style={{ background: "var(--grad-edge)" }}
+      />
       <nav
         aria-label="Main"
-        className="mx-auto flex max-w-6xl items-center gap-4 px-4 py-3 sm:px-6"
+        className="mx-auto flex max-w-7xl items-center gap-4 px-4 py-3 sm:px-6"
       >
         <Link
           href="/"
-          className="flex shrink-0 items-center gap-2.5"
-          aria-label={`${site.game} home`}
+          className="shrink-0"
+          aria-label={`${site.company} home`}
         >
-          <Wordmark className="h-9 w-9" />
-          <span className="flex flex-col leading-none">
-            <span className="font-display text-lg font-extrabold tracking-tight">
-              {site.game}
-            </span>
-            <span className="text-[0.6875rem] font-bold uppercase tracking-[0.14em] text-ink-3">
-              by {site.publisher}
-            </span>
-          </span>
+          <Wordmark id="hdr" />
         </Link>
 
         <ul className="ml-auto hidden items-center gap-1 lg:flex">
@@ -44,7 +41,7 @@ export function SiteHeader() {
             <li key={item.href}>
               <Link
                 href={item.href}
-                className="rounded-xl px-3 py-2 text-sm font-bold text-ink-2 transition-colors hover:bg-panel hover:text-ink"
+                className="font-display px-3.5 py-2 text-[0.8rem] font-semibold uppercase tracking-[0.16em] text-ink-2 transition-colors hover:text-cyan"
               >
                 {item.label}
               </Link>
@@ -52,8 +49,11 @@ export function SiteHeader() {
           ))}
         </ul>
 
-        <Link href="/#get" className="btn btn-primary btn-sm ml-auto lg:ml-2">
-          Get the game
+        <Link
+          href={`${gemfire.path}#get`}
+          className="btn btn-fire btn-sm ml-auto hidden xs:inline-flex lg:ml-3"
+        >
+          Play {gemfire.name}
         </Link>
 
         <MobileNav items={[...NAV, ...LEGAL]} />
@@ -64,32 +64,34 @@ export function SiteHeader() {
 
 export function SiteFooter() {
   return (
-    <footer className="mt-auto border-t-2 border-line bg-panel-2">
-      <div className="mx-auto max-w-6xl px-5 py-14 sm:px-6">
-        <div className="grid gap-10 sm:grid-cols-2 lg:grid-cols-4">
+    <footer className="relative mt-auto overflow-hidden border-t border-line">
+      <div className="orb" style={{ "--x": "10%", "--y": "120%", "--c": "var(--violet)", "--s": "50rem" } as React.CSSProperties} />
+      <div className="orb" style={{ "--x": "90%", "--y": "110%", "--c": "var(--ember)", "--s": "44rem" } as React.CSSProperties} />
+
+      <div className="relative mx-auto max-w-7xl px-5 py-16 sm:px-6">
+        <div className="grid gap-12 sm:grid-cols-2 lg:grid-cols-4">
           <div className="lg:col-span-2">
-            <div className="flex items-center gap-2.5">
-              <Wordmark className="h-9 w-9" />
-              <span className="font-display text-lg font-extrabold">
-                {site.game}
-              </span>
-            </div>
-            <p className="mt-4 max-w-sm text-sm leading-relaxed text-ink-2">
-              A cosy light-puzzle about waking a forest one glade at a time,
-              made and published by {site.publisher}.
+            <Wordmark id="ftr" />
+            <p className="mt-5 max-w-sm text-sm leading-relaxed text-ink-2">
+              An independent mobile game studio. We make small, loud games with
+              real mechanics under the sparkle, and we publish them ourselves.
             </p>
+            <a
+              href={`mailto:${site.email}`}
+              className="mt-5 inline-flex items-center gap-2 text-sm font-semibold text-cyan hover:underline"
+            >
+              {site.email}
+            </a>
           </div>
 
           <div>
-            <h2 className="mb-3 font-display text-sm font-extrabold uppercase tracking-wide text-ink-3">
-              The game
-            </h2>
-            <ul className="space-y-2 text-sm">
+            <h2 className="kicker mb-4 text-ink-3">Studio</h2>
+            <ul className="space-y-2.5 text-sm">
               {NAV.map((item) => (
                 <li key={item.href}>
                   <Link
                     href={item.href}
-                    className="font-semibold text-ink-2 hover:text-ink"
+                    className="font-medium text-ink-2 transition-colors hover:text-ink"
                   >
                     {item.label}
                   </Link>
@@ -99,15 +101,13 @@ export function SiteFooter() {
           </div>
 
           <div>
-            <h2 className="mb-3 font-display text-sm font-extrabold uppercase tracking-wide text-ink-3">
-              The small print
-            </h2>
-            <ul className="space-y-2 text-sm">
+            <h2 className="kicker mb-4 text-ink-3">The small print</h2>
+            <ul className="space-y-2.5 text-sm">
               {LEGAL.map((item) => (
                 <li key={item.href}>
                   <Link
                     href={item.href}
-                    className="font-semibold text-ink-2 hover:text-ink"
+                    className="font-medium text-ink-2 transition-colors hover:text-ink"
                   >
                     {item.label}
                   </Link>
@@ -115,21 +115,25 @@ export function SiteFooter() {
               ))}
               <li>
                 <a
-                  href={`mailto:${site.email}`}
-                  className="font-semibold text-ink-2 hover:text-ink"
+                  href="/app-ads.txt"
+                  className="font-medium text-ink-2 transition-colors hover:text-ink"
                 >
-                  {site.email}
+                  app-ads.txt
                 </a>
               </li>
             </ul>
           </div>
         </div>
 
-        <div className="mt-12 flex flex-col gap-2 border-t-2 border-line pt-6 text-sm text-ink-3">
+        <div className="rule mt-14" />
+        <div className="mt-6 flex flex-col gap-3 text-xs text-ink-3 sm:flex-row sm:items-center sm:justify-between">
           <p>
-            © {new Date().getFullYear()} {site.entity}, trading as{" "}
-            {site.publisher}. {site.game} and its artwork are the property of
-            their respective owners.
+            © {new Date().getFullYear()} {site.entity}, trading as {site.company}.{" "}
+            {gemfire.name} and its artwork are the property of {site.company}.
+          </p>
+          <p className="inline-flex items-center gap-2">
+            <Mark className="h-4 w-4" id="ftr-mini" />
+            {site.address}
           </p>
         </div>
       </div>
@@ -153,18 +157,29 @@ export function LegalPage({
   children: React.ReactNode;
 }) {
   return (
-    <main className="mx-auto w-full max-w-3xl px-5 py-14 sm:px-6">
-      <header className="border-b-2 border-line pb-8">
-        <h1 className="text-3xl sm:text-4xl">{title}</h1>
-        <p className="mt-3 inline-flex items-center gap-2 rounded-full border-2 border-line bg-panel px-3 py-1 text-sm font-bold text-ink-3">
-          <span className="h-2 w-2 rotate-45 rounded-[2px] bg-grass" />
-          Last updated {site.updated}
-        </p>
-        {intro ? (
-          <p className="mt-6 text-lg leading-relaxed text-ink-2">{intro}</p>
-        ) : null}
-      </header>
-      <div className="prose-legal mt-10">{children}</div>
+    <main className="relative">
+      <div
+        aria-hidden
+        className="pointer-events-none absolute inset-x-0 top-0 h-[32rem] overflow-hidden"
+      >
+        <div className="orb" style={{ "--x": "20%", "--y": "0%", "--c": "var(--cyan)", "--s": "50rem" } as React.CSSProperties} />
+        <div className="orb" style={{ "--x": "85%", "--y": "10%", "--c": "var(--violet)", "--s": "40rem" } as React.CSSProperties} />
+      </div>
+
+      <div className="relative mx-auto w-full max-w-3xl px-5 py-16 sm:px-6 sm:py-20">
+        <header className="border-b border-line pb-10">
+          <p className="kicker mb-5">{site.company}</p>
+          <h1 className="text-4xl sm:text-5xl">{title}</h1>
+          <p className="chip mt-5">
+            <span className="chip-dot" />
+            Last updated {site.updated}
+          </p>
+          {intro ? (
+            <p className="mt-6 text-lg leading-relaxed text-ink-2">{intro}</p>
+          ) : null}
+        </header>
+        <div className="prose-legal mt-10">{children}</div>
+      </div>
     </main>
   );
 }
@@ -172,10 +187,8 @@ export function LegalPage({
 /** A short, plain-words box at the top of a long document. */
 export function Summary({ children }: { children: React.ReactNode }) {
   return (
-    <aside className="slab not-prose bg-panel-2 p-5">
-      <p className="mb-2 font-display text-sm font-extrabold uppercase tracking-wide text-leaf">
-        In short
-      </p>
+    <aside className="panel panel-sm panel-glow not-prose p-6">
+      <p className="kicker mb-3">In short</p>
       <div className="text-[0.95rem] leading-relaxed text-ink-2">{children}</div>
     </aside>
   );

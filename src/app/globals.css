@@ -1,655 +1,772 @@
 @import "tailwindcss";
 
 /* ==========================================================================
-   Glimmer Groove - design system
+   Tekoworld - design system
    --------------------------------------------------------------------------
-   The palette is lifted straight out of the game's own tileset so the page and
-   the artwork sitting on it are made of the same colours: cream paper, grass
-   green, pond blue, warm wood and the amber "glimmer" that the whole game is
-   named after.
+   One committed look: a near-black void with the game's own colours burning
+   through it. The palette is lifted from the Gemfire key art - the four turret
+   colours (ruby, emerald, cyan, gold), the ember of the FIRE half of the logo
+   and the violet of the enemy side - so the page and the art on it agree.
 
-   Light-first. Only the tokens that actually change are restated for dark, so a
-   colour can never be defined solely inside a media query and go missing in the
-   other mode. Dark is not a grey inversion - it is dusk in the same grove.
+   Everything glows a little and nothing is grey. Depth comes from light, not
+   from drop shadows: a surface is a thin bright edge over a slightly lighter
+   glass, and importance is a colour, not a shadow size.
    ========================================================================== */
 
 :root {
-  color-scheme: light;
-
-  /* surfaces */
-  --paper: #f6f0dc;
-  --paper-2: #fbf6e8;
-  --panel: #fffdf5;
-  --panel-2: #f4ecd6;
-
-  /* ink */
-  --ink: #33291d;
-  --ink-2: #6d5d47;
-  /* The quietest ink still has to clear 4.5:1 against the busiest surface it
-     lands on, which is panel-2. It is used for small bold labels, so it gets no
-     large-text exemption. */
-  --ink-3: #77694f;
-
-  /* structure - `line` doubles as the hard bottom edge that gives every
-     surface the same chunky moulded look as an isometric tile. */
-  --line: #e0d3b2;
-  --line-2: #cbba93;
-
-  /* the grove */
-  --grass: #74b944;
-  --grass-d: #4f8d2b;
-  --leaf: #2c7541;
-  --water: #3bb8e8;
-  --water-d: #2593c1;
-  --wood: #9d7551;
-  --wood-d: #77563b;
-  --glimmer: #ffc24a;
-  --glimmer-d: #e59218;
-  --berry: #f2568d;
-  --berry-d: #c93a6d;
-  --plum: #7b5aa6;
-  --plum-d: #5d4183;
-
-  /* roles */
-  --accent: var(--leaf);
-  --accent-ink: #ffffff;
-  --ring: #f0a92a;
-
-  /* the sky behind the hero diorama */
-  --sky-1: #cfe9f7;
-  --sky-2: #f6f0dc;
-  --glow: rgba(255, 194, 74, 0.55);
-  --shadow: rgba(63, 48, 28, 0.16);
-}
-
-@media (prefers-color-scheme: dark) {
-  :root:not([data-theme="light"]) {
-    color-scheme: dark;
-
-    --paper: #16211b;
-    --paper-2: #1b2a22;
-    --panel: #223229;
-    --panel-2: #1a271f;
-
-    --ink: #edf4e6;
-    --ink-2: #a8c0a4;
-    --ink-3: #8aa888;
-
-    --line: #33473a;
-    --line-2: #24352b;
-
-    --grass: #74b944;
-    --grass-d: #3f7523;
-    --leaf: #5fbd7f;
-    --water: #3bb8e8;
-    --water-d: #1d7ba4;
-    --wood: #9d7551;
-    --wood-d: #5f4530;
-    --glimmer: #ffcb5e;
-    --glimmer-d: #c9791a;
-    --berry: #f2568d;
-    --berry-d: #a82f5b;
-    --plum: #9b7ac6;
-    --plum-d: #4e3670;
-
-    --accent: #7fd39a;
-    --accent-ink: #10231a;
-    --ring: #ffcb5e;
-
-    --sky-1: #1d3a4a;
-    --sky-2: #16211b;
-    --glow: rgba(255, 203, 94, 0.4);
-    --shadow: rgba(0, 0, 0, 0.45);
-  }
-}
-
-/* An explicit choice always wins over the system preference, in both directions. */
-:root[data-theme="dark"] {
   color-scheme: dark;
 
-  --paper: #16211b;
-  --paper-2: #1b2a22;
-  --panel: #223229;
-  --panel-2: #1a271f;
+  /* the void */
+  --bg: #06070d;
+  --bg-2: #0b0d18;
+  --panel: rgba(255, 255, 255, 0.035);
+  --panel-2: rgba(255, 255, 255, 0.06);
+  --panel-solid: #11142a;
+  --line: rgba(255, 255, 255, 0.1);
+  --line-2: rgba(255, 255, 255, 0.18);
 
-  --ink: #edf4e6;
-  --ink-2: #a8c0a4;
-  --ink-3: #8aa888;
+  /* ink */
+  --ink: #f2f4ff;
+  --ink-2: #b4bbd6;
+  --ink-3: #8b93b3;
 
-  --line: #33473a;
-  --line-2: #24352b;
+  /* the four turrets and the two armies */
+  --ruby: #ff4d5e;
+  --emerald: #3ef28a;
+  --cyan: #2ee6ff;
+  --gold: #ffc634;
+  --ember: #ff8b1f;
+  --violet: #a862ff;
+  --magenta: #ff3fa4;
+  --sky: #4f8dff;
 
-  --grass: #74b944;
-  --grass-d: #3f7523;
-  --leaf: #5fbd7f;
-  --water: #3bb8e8;
-  --water-d: #1d7ba4;
-  --wood: #9d7551;
-  --wood-d: #5f4530;
-  --glimmer: #ffcb5e;
-  --glimmer-d: #c9791a;
-  --berry: #f2568d;
-  --berry-d: #a82f5b;
-  --plum: #9b7ac6;
-  --plum-d: #4e3670;
+  /* roles */
+  --accent: var(--ember);
+  --accent-ink: #1a0b00;
+  --ring: var(--cyan);
 
-  --accent: #7fd39a;
-  --accent-ink: #10231a;
-  --ring: #ffcb5e;
+  --grad-fire: linear-gradient(120deg, #ffd45c 0%, #ff8b1f 45%, #ff3d5a 100%);
+  --grad-gem: linear-gradient(120deg, #2ee6ff 0%, #4f8dff 50%, #a862ff 100%);
+  --grad-edge: linear-gradient(
+    135deg,
+    rgba(46, 230, 255, 0.55),
+    rgba(168, 98, 255, 0.35) 40%,
+    rgba(255, 139, 31, 0.55)
+  );
 
-  --sky-1: #1d3a4a;
-  --sky-2: #16211b;
-  --glow: rgba(255, 203, 94, 0.4);
-  --shadow: rgba(0, 0, 0, 0.45);
+  --font-display: var(--font-chakra), "Chakra Petch", system-ui, sans-serif;
+  --font-body: var(--font-grotesk), "Space Grotesk", system-ui, sans-serif;
 }
 
 @theme inline {
-  --color-paper: var(--paper);
-  --color-paper-2: var(--paper-2);
+  --color-bg: var(--bg);
+  --color-bg-2: var(--bg-2);
   --color-panel: var(--panel);
   --color-panel-2: var(--panel-2);
+  --color-panel-solid: var(--panel-solid);
+  --color-line: var(--line);
+  --color-line-2: var(--line-2);
   --color-ink: var(--ink);
   --color-ink-2: var(--ink-2);
   --color-ink-3: var(--ink-3);
-  --color-line: var(--line);
-  --color-line-2: var(--line-2);
-  --color-grass: var(--grass);
-  --color-grass-d: var(--grass-d);
-  --color-leaf: var(--leaf);
-  --color-water: var(--water);
-  --color-water-d: var(--water-d);
-  --color-wood: var(--wood);
-  --color-wood-d: var(--wood-d);
-  --color-glimmer: var(--glimmer);
-  --color-glimmer-d: var(--glimmer-d);
-  --color-berry: var(--berry);
-  --color-berry-d: var(--berry-d);
-  --color-plum: var(--plum);
-  --color-plum-d: var(--plum-d);
+  --color-ruby: var(--ruby);
+  --color-emerald: var(--emerald);
+  --color-cyan: var(--cyan);
+  --color-gold: var(--gold);
+  --color-ember: var(--ember);
+  --color-violet: var(--violet);
+  --color-magenta: var(--magenta);
+  --color-sky: var(--sky);
   --color-accent: var(--accent);
+  --color-accent-ink: var(--accent-ink);
 
-  --font-display: var(--font-baloo);
-  --font-sans: var(--font-nunito);
+  --font-sans: var(--font-body);
+  --font-display: var(--font-display);
+
+  --breakpoint-xs: 30rem;
 }
 
-/*
- * Everything below is layered.
- *
- * Tailwind declares `@layer theme, base, components, utilities`, and unlayered
- * CSS outranks every one of them. A bare `.btn { display: inline-flex }`
- * therefore beats `lg:hidden`, and the mobile menu button stays visible on a
- * desktop - which is exactly the bug this fixes. Site classes belong in
- * `components` so that a utility written at the call site still wins, the way
- * it reads as though it should.
- */
-
+/* Tailwind declares `@layer theme, base, components, utilities`. Site rules sit
+   in `components` so a utility written at the call site still wins. */
 @layer base {
-  * {
-    min-width: 0;
-  }
-
   html {
     scroll-behavior: smooth;
-  }
-
-  body {
-    background: var(--paper);
-    color: var(--ink);
-    /* A whisper of paper grain so a page of flat cream is not literally flat. */
-    background-image: radial-gradient(
-      circle at 1px 1px,
-      color-mix(in srgb, var(--ink) 4%, transparent) 1px,
-      transparent 0
-    );
-    background-size: 22px 22px;
-    overflow-x: hidden;
-  }
-
-  ::selection {
-    background: var(--glimmer);
-    color: #33291d;
-  }
-
-  /* One focus ring for the whole site, thick enough to read against artwork. */
-  :where(a, button, [tabindex]):focus-visible {
-    outline: 3px solid var(--ring);
-    outline-offset: 3px;
-    border-radius: 8px;
-  }
-
-  h1,
-  h2,
-  h3,
-  .font-display {
-    font-family: var(--font-baloo), ui-rounded, system-ui, sans-serif;
-    font-weight: 800;
-    letter-spacing: -0.01em;
-  }
-}
-
-@layer components {
-  /* --------------------------------------------------------------------------
-     The slab
-     --------------------------------------------------------------------------
-     Every raised surface on this site - panel, button, chip, card - is the same
-     object: a flat top face with a solid slab of colour beneath it. No blurred
-     drop shadows anywhere. It is the isometric tile from the game, flattened,
-     and it is what makes the page read as a game rather than a brochure.
-
-     Named `slab` rather than the obvious `block`, because Tailwind already owns
-     `block` as a display utility - a card class of that name silently paints a
-     panel behind every `display: block` span on the site.
-     -------------------------------------------------------------------------- */
-
-  .slab {
-    background: var(--panel);
-    border: 2px solid var(--line);
-    border-radius: 20px;
-    box-shadow: 0 5px 0 var(--line);
-  }
-
-  .slab-lift {
-    transition: transform 160ms cubic-bezier(0.2, 0.9, 0.3, 1.4), box-shadow 160ms
-        cubic-bezier(0.2, 0.9, 0.3, 1.4), border-color 160ms ease;
-  }
-
-  @media (hover: hover) {
-    .slab-lift:hover {
-      transform: translateY(-4px);
-      box-shadow: 0 9px 0 var(--line);
-      border-color: var(--line-2);
-    }
-  }
-
-  /* Buttons press. The slab under them shrinks by exactly the distance the
-     button travels, so the top face lands where the slab was. */
-  .btn {
-    --btn-face: var(--panel);
-    --btn-edge: var(--line);
-    --btn-ink: var(--ink);
-    display: inline-flex;
-    align-items: center;
-    justify-content: center;
-    gap: 0.5rem;
-    padding: 0.875rem 1.5rem;
-    border-radius: 16px;
-    border: 2px solid var(--btn-edge);
-    background: var(--btn-face);
-    color: var(--btn-ink);
-    font-family: var(--font-baloo), ui-rounded, system-ui, sans-serif;
-    font-weight: 800;
-    font-size: 1rem;
-    line-height: 1.1;
-    text-align: center;
-    box-shadow: 0 5px 0 var(--btn-edge);
-    transition: transform 90ms ease, box-shadow 90ms ease, filter 160ms ease;
-    cursor: pointer;
-    -webkit-tap-highlight-color: transparent;
-  }
-
-  @media (hover: hover) {
-    .btn:hover {
-      filter: brightness(1.05);
-    }
-  }
-
-  .btn:active {
-    transform: translateY(5px);
-    box-shadow: 0 0 0 var(--btn-edge);
-  }
-
-  .btn-primary {
-    --btn-face: var(--grass);
-    --btn-edge: var(--grass-d);
-    --btn-ink: #17300b;
-  }
-
-  .btn-glimmer {
-    --btn-face: var(--glimmer);
-    --btn-edge: var(--glimmer-d);
-    --btn-ink: #4a2d00;
-  }
-
-  .btn-wood {
-    --btn-face: var(--wood);
-    --btn-edge: var(--wood-d);
-    --btn-ink: #fff6e8;
-  }
-
-  .btn-sm {
-    padding: 0.55rem 1rem;
-    font-size: 0.875rem;
-    border-radius: 13px;
-  }
-
-  /* --------------------------------------------------------------------------
-     Isometric stage
-     --------------------------------------------------------------------------
-     A diorama is authored once at a fixed pixel size and then scaled to whatever
-     width it is given, using container query units. No JavaScript, no resize
-     observer, no layout shift - the scene is simply always the right size.
-     -------------------------------------------------------------------------- */
-
-  .iso-stage {
-    position: relative;
-    width: 100%;
-    /* aspect-ratio is set per scene, from the size it was authored at.
-       A query container so that the little text inside a scene can be sized
-       against the scene rather than the viewport - `cqw` is a length, which is
-       exactly what font-size wants, and the one thing `scale()` could not use. */
-    container-type: inline-size;
-  }
-
-  /* Type that belongs to a diorama and has to shrink with it. */
-  .iso-label {
-    font-size: clamp(0.5rem, 1.15cqw, 0.85rem);
-    line-height: 1.25;
-  }
-
-  .iso-inner {
-    position: absolute;
-    inset: 0;
-  }
-
-  .iso-piece {
-    position: absolute;
-    image-rendering: auto;
-    user-select: none;
-    -webkit-user-drag: none;
-  }
-
-  /* --------------------------------------------------------------------------
-     Motion
-     -------------------------------------------------------------------------- */
-
-  @keyframes bob {
-    0%,
-    100% {
-      transform: translateY(0);
-    }
-    50% {
-      transform: translateY(-10px);
-    }
-  }
-
-  @keyframes drift {
-    0% {
-      transform: translate(0, 0) scale(1);
-      opacity: 0;
-    }
-    10%,
-    70% {
-      opacity: 1;
-    }
-    100% {
-      transform: translate(var(--dx, 30px), -110px) scale(0.4);
-      opacity: 0;
-    }
-  }
-
-  @keyframes pulse-glow {
-    0%,
-    100% {
-      opacity: 0.55;
-      transform: scale(1);
-    }
-    50% {
-      opacity: 1;
-      transform: scale(1.12);
-    }
-  }
-
-  @keyframes sway {
-    0%,
-    100% {
-      transform: rotate(-1.6deg);
-    }
-    50% {
-      transform: rotate(1.6deg);
-    }
-  }
-
-  @keyframes rise-in {
-    from {
-      opacity: 0;
-      transform: translateY(26px) scale(0.94);
-    }
-    to {
-      opacity: 1;
-      transform: none;
-    }
-  }
-
-  @keyframes pop {
-    0% {
-      transform: scale(0.4);
-      opacity: 0;
-    }
-    60% {
-      transform: scale(1.12);
-      opacity: 1;
-    }
-    100% {
-      transform: scale(1);
-      opacity: 1;
-    }
-  }
-
-  .anim-bob {
-    animation: bob 4.5s ease-in-out infinite;
-  }
-  .anim-sway {
-    animation: sway 5s ease-in-out infinite;
-    transform-origin: bottom center;
-  }
-  .anim-glow {
-    animation: pulse-glow 3.4s ease-in-out infinite;
-  }
-
-  /*
-   * Sections fade up as they arrive.
-   *
-   * Visible by default and only hidden once the `js` class has been set on <html>
-   * by an inline script in the document head. Hiding first and revealing later
-   * would mean a visitor with JavaScript disabled - or one whose bundle simply
-   * failed to arrive - got a blank page, which is a steep price for a fade.
-   */
-  .reveal {
-    opacity: 1;
-  }
-
-  .js .reveal {
-    opacity: 0;
-  }
-
-  .js .reveal.is-in {
-    animation: rise-in 620ms cubic-bezier(0.2, 0.7, 0.3, 1) both;
+    -webkit-text-size-adjust: 100%;
   }
 
   @media (prefers-reduced-motion: reduce) {
     html {
       scroll-behavior: auto;
     }
-    /*
-     * Nothing loops and nothing travels. Applied to everything rather than to a
-     * list of class names, because several animations on this site are set from
-     * inline styles - fireflies, the win sparkles - and a list would quietly miss
-     * them. Each animation still runs once, to its final frame, so anything that
-     * animates *into* place ends up in place.
-     */
-    *,
-    *::before,
-    *::after {
-      animation-duration: 1ms !important;
-      animation-iteration-count: 1 !important;
-      animation-delay: 0ms !important;
-      transition-duration: 1ms !important;
-    }
-    .js .reveal {
-      opacity: 1;
-    }
   }
 
-  /* --------------------------------------------------------------------------
-     Critters
-     --------------------------------------------------------------------------
-     Each companion ships as one horizontal strip of idle frames. Stepping the
-     background position with `steps()` plays it back as an animation with a
-     single HTTP request and no JavaScript at all.
-     -------------------------------------------------------------------------- */
+  body {
+    background: var(--bg);
+    color: var(--ink);
+    font-family: var(--font-body);
+    overflow-x: clip;
+  }
 
-  /* The window onto one frame. */
-  .critter {
+  ::selection {
+    background: var(--ember);
+    color: var(--accent-ink);
+  }
+
+  h1,
+  h2,
+  h3,
+  h4 {
+    font-family: var(--font-display);
+    font-weight: 700;
+    letter-spacing: -0.01em;
+    line-height: 1.05;
+    text-wrap: balance;
+  }
+
+  :focus-visible {
+    outline: 2px solid var(--ring);
+    outline-offset: 3px;
+    border-radius: 4px;
+  }
+
+  img,
+  video {
+    max-width: 100%;
+    height: auto;
+  }
+
+  button {
+    font: inherit;
+  }
+}
+
+@layer components {
+  .font-display {
+    font-family: var(--font-display);
+  }
+
+  /* ------------------------------------------------------------ typography */
+
+  .kicker {
+    display: inline-flex;
+    align-items: center;
+    gap: 0.6rem;
+    font-family: var(--font-display);
+    font-size: 0.75rem;
+    font-weight: 600;
+    letter-spacing: 0.22em;
+    text-transform: uppercase;
+    color: var(--cyan);
+  }
+
+  .kicker::before {
+    content: "";
+    width: 1.5rem;
+    height: 2px;
+    background: currentColor;
+    box-shadow: 0 0 12px currentColor;
+  }
+
+  .text-fire {
+    background: var(--grad-fire);
+    -webkit-background-clip: text;
+    background-clip: text;
+    color: transparent;
+  }
+
+  .text-gem {
+    background: var(--grad-gem);
+    -webkit-background-clip: text;
+    background-clip: text;
+    color: transparent;
+  }
+
+  .glow-cyan {
+    text-shadow: 0 0 24px rgba(46, 230, 255, 0.45);
+  }
+
+  .glow-fire {
+    text-shadow: 0 0 28px rgba(255, 139, 31, 0.45);
+  }
+
+  /* --------------------------------------------------------------- buttons */
+
+  .btn {
     position: relative;
-    display: block;
-    overflow: hidden;
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    gap: 0.6rem;
+    padding: 0.85rem 1.5rem;
+    font-family: var(--font-display);
+    font-size: 0.95rem;
+    font-weight: 700;
+    letter-spacing: 0.06em;
+    text-transform: uppercase;
+    color: var(--ink);
+    border: 1px solid var(--line-2);
+    background: var(--panel-2);
+    clip-path: polygon(
+      0 0,
+      calc(100% - 14px) 0,
+      100% 14px,
+      100% 100%,
+      14px 100%,
+      0 calc(100% - 14px)
+    );
+    transition:
+      transform 0.18s ease,
+      background-color 0.18s ease,
+      box-shadow 0.18s ease,
+      color 0.18s ease;
+    text-decoration: none;
+    white-space: nowrap;
   }
 
-  /* The strip: N frames wide, so translateX(-100%) is exactly N frames and
-     steps(N) can only ever land on a frame boundary. */
-  .critter-strip {
+  .btn:hover {
+    background: rgba(255, 255, 255, 0.1);
+    transform: translateY(-2px);
+  }
+
+  .btn:active {
+    transform: translateY(0);
+  }
+
+  .btn-fire {
+    color: var(--accent-ink);
+    border-color: transparent;
+    background: var(--grad-fire);
+    box-shadow:
+      0 0 0 1px rgba(255, 200, 80, 0.25) inset,
+      0 8px 30px -8px rgba(255, 139, 31, 0.7);
+  }
+
+  .btn-fire:hover {
+    background: var(--grad-fire);
+    box-shadow:
+      0 0 0 1px rgba(255, 220, 120, 0.4) inset,
+      0 12px 40px -6px rgba(255, 139, 31, 0.85);
+  }
+
+  .btn-gem {
+    color: #04101a;
+    border-color: transparent;
+    background: var(--grad-gem);
+    box-shadow: 0 8px 30px -8px rgba(46, 230, 255, 0.6);
+  }
+
+  .btn-gem:hover {
+    background: var(--grad-gem);
+    box-shadow: 0 12px 40px -6px rgba(46, 230, 255, 0.8);
+  }
+
+  .btn-sm {
+    padding: 0.6rem 1.05rem;
+    font-size: 0.8rem;
+    clip-path: polygon(
+      0 0,
+      calc(100% - 10px) 0,
+      100% 10px,
+      100% 100%,
+      10px 100%,
+      0 calc(100% - 10px)
+    );
+  }
+
+  .btn-lg {
+    padding: 1.05rem 2rem;
+    font-size: 1.05rem;
+  }
+
+  /* -------------------------------------------------------------- surfaces */
+
+  /* A glass panel with a chamfered corner and a gradient hairline edge. The
+     edge is a second element (::before) so it can be a gradient without a
+     border-image, which would not respect the clip. */
+  .panel {
+    position: relative;
+    isolation: isolate;
+    background: var(--panel);
+    backdrop-filter: blur(14px);
+    -webkit-backdrop-filter: blur(14px);
+    clip-path: polygon(
+      0 0,
+      calc(100% - 22px) 0,
+      100% 22px,
+      100% 100%,
+      22px 100%,
+      0 calc(100% - 22px)
+    );
+  }
+
+  .panel::before {
+    content: "";
     position: absolute;
-    top: 0;
-    left: 0;
+    inset: 0;
+    padding: 1px;
+    background: linear-gradient(
+      160deg,
+      rgba(255, 255, 255, 0.28),
+      rgba(255, 255, 255, 0.06) 40%,
+      rgba(255, 255, 255, 0.14)
+    );
+    -webkit-mask:
+      linear-gradient(#000 0 0) content-box,
+      linear-gradient(#000 0 0);
+    mask:
+      linear-gradient(#000 0 0) content-box,
+      linear-gradient(#000 0 0);
+    -webkit-mask-composite: xor;
+    mask-composite: exclude;
+    pointer-events: none;
+    z-index: 1;
+    clip-path: inherit;
+  }
+
+  .panel-sm {
+    clip-path: polygon(
+      0 0,
+      calc(100% - 14px) 0,
+      100% 14px,
+      100% 100%,
+      14px 100%,
+      0 calc(100% - 14px)
+    );
+  }
+
+  .panel-glow::before {
+    background: var(--grad-edge);
+  }
+
+  /* Cards lift and light up on hover; the colour comes from --glow, set inline. */
+  .card {
+    --glow: var(--cyan);
+    transition:
+      transform 0.28s cubic-bezier(0.2, 0.8, 0.2, 1),
+      box-shadow 0.28s ease;
+  }
+
+  .card:hover {
+    transform: translateY(-6px);
+    box-shadow: 0 30px 60px -30px color-mix(in srgb, var(--glow) 55%, transparent);
+  }
+
+  .card::after {
+    content: "";
+    position: absolute;
+    inset: 0;
+    background: radial-gradient(
+      60% 50% at 50% 0%,
+      color-mix(in srgb, var(--glow) 22%, transparent),
+      transparent 70%
+    );
+    opacity: 0;
+    transition: opacity 0.28s ease;
+    pointer-events: none;
+  }
+
+  .card:hover::after {
+    opacity: 1;
+  }
+
+  /* An icon tile: a glowing gem-coloured square. */
+  .tile {
+    --glow: var(--cyan);
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    width: 3rem;
+    height: 3rem;
+    color: var(--glow);
+    background: color-mix(in srgb, var(--glow) 12%, transparent);
+    border: 1px solid color-mix(in srgb, var(--glow) 45%, transparent);
+    box-shadow:
+      0 0 24px -6px color-mix(in srgb, var(--glow) 70%, transparent),
+      inset 0 0 18px -8px color-mix(in srgb, var(--glow) 60%, transparent);
+    clip-path: polygon(
+      0 0,
+      calc(100% - 10px) 0,
+      100% 10px,
+      100% 100%,
+      10px 100%,
+      0 calc(100% - 10px)
+    );
+  }
+
+  /* The chip: a small uppercase label in a glass pill. */
+  .chip {
+    display: inline-flex;
+    align-items: center;
+    gap: 0.5rem;
+    padding: 0.4rem 0.85rem;
+    font-family: var(--font-display);
+    font-size: 0.72rem;
+    font-weight: 600;
+    letter-spacing: 0.16em;
+    text-transform: uppercase;
+    color: var(--ink-2);
+    border: 1px solid var(--line-2);
+    background: var(--panel);
+    backdrop-filter: blur(10px);
+    border-radius: 999px;
+  }
+
+  .chip-dot {
+    width: 0.5rem;
+    height: 0.5rem;
+    border-radius: 50%;
+    background: var(--emerald);
+    box-shadow: 0 0 12px var(--emerald);
+    animation: pulse 2.2s ease-in-out infinite;
+  }
+
+  /* A phone frame around a portrait screenshot. */
+  .phone {
+    position: relative;
+    aspect-ratio: 9 / 16;
+    border-radius: 2.2rem;
+    padding: 0.5rem;
+    background: linear-gradient(160deg, #2a2f4a, #0c0e1c);
+    box-shadow:
+      0 0 0 1px rgba(255, 255, 255, 0.14),
+      0 40px 80px -30px rgba(0, 0, 0, 0.9),
+      0 0 60px -20px var(--glow, var(--cyan));
+  }
+
+  .phone > img {
+    display: block;
+    width: 100%;
     height: 100%;
-    width: calc(var(--frames) * 100%);
-    background-repeat: no-repeat;
-    background-position: 0 0;
-    background-size: 100% 100%;
-    animation: critter-idle calc(var(--frames) * 0.055s) steps(var(--frames))
-      infinite;
-    /* Transforms composite on the GPU; the old background-position animation
-       repainted the element every frame. */
+    object-fit: cover;
+    border-radius: 1.75rem;
+  }
+
+  .phone::after {
+    content: "";
+    position: absolute;
+    top: 0.9rem;
+    left: 50%;
+    width: 30%;
+    height: 0.9rem;
+    transform: translateX(-50%);
+    background: #0c0e1c;
+    border-radius: 999px;
+  }
+
+  /* A card that leans toward the pointer; the angles come from Tilt.tsx. */
+  .tilt {
+    --rx: 0deg;
+    --ry: 0deg;
+    --mx: 50%;
+    --my: 50%;
+    transform: perspective(1200px) rotateX(var(--rx)) rotateY(var(--ry));
+    transform-style: preserve-3d;
+    transition: transform 0.25s cubic-bezier(0.2, 0.8, 0.2, 1);
     will-change: transform;
   }
 
-  .critter-still {
+  .tilt-light {
     position: absolute;
     inset: 0;
-    background-repeat: no-repeat;
-    background-position: center;
-    background-size: 100% 100%;
+    background: radial-gradient(
+      40rem circle at var(--mx) var(--my),
+      rgba(255, 255, 255, 0.14),
+      transparent 40%
+    );
+    opacity: 0;
+    transition: opacity 0.3s ease;
+    pointer-events: none;
+    z-index: 3;
   }
 
-  @keyframes critter-idle {
-    to {
-      transform: translateX(-100%);
-    }
+  .tilt:hover .tilt-light {
+    opacity: 1;
   }
 
   @media (prefers-reduced-motion: reduce) {
-    /* Stand still on the first frame. Left to the blanket rule above, the
-       animation would run once to its final keyframe and park the strip
-       entirely outside its own window. */
-    .critter-strip {
-      animation: none !important;
-      transform: none !important;
+    .tilt {
+      transform: none;
     }
   }
 
-  /* --------------------------------------------------------------------------
-     Long-form documents (the policies)
-     -------------------------------------------------------------------------- */
+  /* ------------------------------------------------------------- backdrops */
+
+  /* A perspective floor grid that fades upwards into the void. */
+  .grid-floor {
+    position: absolute;
+    inset: auto 0 0 0;
+    height: 55%;
+    pointer-events: none;
+    background-image:
+      linear-gradient(rgba(46, 230, 255, 0.16) 1px, transparent 1px),
+      linear-gradient(90deg, rgba(46, 230, 255, 0.16) 1px, transparent 1px);
+    background-size: 64px 64px;
+    transform: perspective(600px) rotateX(62deg);
+    transform-origin: 50% 100%;
+    -webkit-mask-image: linear-gradient(to top, #000 0%, transparent 100%);
+    mask-image: linear-gradient(to top, #000 0%, transparent 100%);
+    opacity: 0.7;
+  }
+
+  /* Soft coloured light, placed with inline `--x/--y/--c`. */
+  .orb {
+    position: absolute;
+    left: var(--x, 50%);
+    top: var(--y, 50%);
+    width: var(--s, 40rem);
+    height: var(--s, 40rem);
+    transform: translate(-50%, -50%);
+    border-radius: 50%;
+    background: radial-gradient(
+      circle,
+      color-mix(in srgb, var(--c, var(--cyan)) 38%, transparent) 0%,
+      transparent 62%
+    );
+    filter: blur(20px);
+    pointer-events: none;
+  }
+
+  /* Film grain on top of everything, very faint. */
+  .grain::after {
+    content: "";
+    position: fixed;
+    inset: 0;
+    z-index: 100;
+    pointer-events: none;
+    opacity: 0.045;
+    background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='160' height='160'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='2' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)'/%3E%3C/svg%3E");
+  }
+
+  /* A thin horizontal gradient rule. */
+  .rule {
+    height: 1px;
+    background: linear-gradient(90deg, transparent, var(--line-2) 20%, var(--line-2) 80%, transparent);
+  }
+
+  /* --------------------------------------------------------------- marquee */
+
+  .marquee {
+    display: flex;
+    overflow: hidden;
+    -webkit-mask-image: linear-gradient(90deg, transparent, #000 10%, #000 90%, transparent);
+    mask-image: linear-gradient(90deg, transparent, #000 10%, #000 90%, transparent);
+  }
+
+  .marquee-track {
+    display: flex;
+    flex-shrink: 0;
+    gap: 3rem;
+    padding-right: 3rem;
+    animation: marquee 32s linear infinite;
+  }
+
+  .marquee:hover .marquee-track {
+    animation-play-state: paused;
+  }
+
+  /* ------------------------------------------------------------- animation */
+
+  .anim-float {
+    animation: float 6s ease-in-out infinite;
+  }
+
+  .anim-float-slow {
+    animation: float 9s ease-in-out infinite;
+  }
+
+  .anim-pulse {
+    animation: pulse 2.4s ease-in-out infinite;
+  }
+
+  .anim-spin-slow {
+    animation: spin 40s linear infinite;
+  }
+
+  /* Sweep of light across a surface on hover. */
+  .shine {
+    position: relative;
+    overflow: hidden;
+  }
+
+  .shine::before {
+    content: "";
+    position: absolute;
+    inset: 0;
+    background: linear-gradient(
+      105deg,
+      transparent 40%,
+      rgba(255, 255, 255, 0.22) 50%,
+      transparent 60%
+    );
+    transform: translateX(-120%);
+    transition: transform 0.7s ease;
+    pointer-events: none;
+    z-index: 2;
+  }
+
+  .shine:hover::before {
+    transform: translateX(120%);
+  }
+
+  /* Scroll reveal: opt in with `reveal`, stagger with an inline `--delay`.
+     Only hidden when the document is scripted, so a browser with JavaScript
+     off or an old engine still sees everything. */
+  .reveal {
+    --delay: 0ms;
+  }
+
+  .js .reveal {
+    opacity: 0;
+    transform: translateY(22px);
+    transition:
+      opacity 0.7s cubic-bezier(0.2, 0.7, 0.2, 1) var(--delay),
+      transform 0.7s cubic-bezier(0.2, 0.7, 0.2, 1) var(--delay);
+  }
+
+  .js .reveal.is-in {
+    opacity: 1;
+    transform: none;
+  }
+
+  @media (prefers-reduced-motion: reduce) {
+    .js .reveal {
+      opacity: 1;
+      transform: none;
+      transition: none;
+    }
+
+    .anim-float,
+    .anim-float-slow,
+    .anim-pulse,
+    .anim-spin-slow,
+    .marquee-track,
+    .chip-dot {
+      animation: none;
+    }
+  }
+
+  /* ---------------------------------------------------------- long-form text */
 
   .prose-legal {
-    line-height: 1.8;
+    font-size: 1.02rem;
+    line-height: 1.75;
     color: var(--ink-2);
   }
 
   .prose-legal h2 {
+    margin-top: 3rem;
+    margin-bottom: 1rem;
     font-size: 1.5rem;
     color: var(--ink);
-    margin-top: 2.75rem;
-    margin-bottom: 0.875rem;
     scroll-margin-top: 6rem;
   }
 
+  .prose-legal h2::before {
+    content: "";
+    display: block;
+    width: 2.5rem;
+    height: 3px;
+    margin-bottom: 0.9rem;
+    background: var(--grad-fire);
+    box-shadow: 0 0 14px rgba(255, 139, 31, 0.6);
+  }
+
   .prose-legal h3 {
-    font-size: 1.125rem;
+    margin-top: 2rem;
+    margin-bottom: 0.6rem;
+    font-size: 1.15rem;
     color: var(--ink);
-    margin-top: 1.75rem;
-    margin-bottom: 0.5rem;
   }
 
   .prose-legal p,
   .prose-legal ul,
   .prose-legal ol,
   .prose-legal table {
-    margin-bottom: 1.125rem;
+    margin-bottom: 1.1rem;
+  }
+
+  .prose-legal ul,
+  .prose-legal ol {
+    padding-left: 1.5rem;
   }
 
   .prose-legal ul {
     list-style: none;
+    padding-left: 0;
+  }
+
+  .prose-legal ul li {
+    position: relative;
     padding-left: 1.5rem;
+    margin-bottom: 0.5rem;
   }
 
   .prose-legal ul li::before {
     content: "";
     position: absolute;
-    left: -1.25rem;
-    top: 0.62em;
+    left: 0.15rem;
+    top: 0.72em;
     width: 0.5rem;
     height: 0.5rem;
-    border-radius: 3px;
-    background: var(--grass);
     transform: rotate(45deg);
-  }
-
-  .prose-legal ul li {
-    position: relative;
+    background: var(--cyan);
+    box-shadow: 0 0 10px var(--cyan);
   }
 
   .prose-legal ol {
     list-style: decimal;
-    padding-left: 1.5rem;
   }
 
-  .prose-legal li {
+  .prose-legal ol li {
     margin-bottom: 0.5rem;
+    padding-left: 0.25rem;
   }
 
   .prose-legal a {
-    color: var(--accent);
-    font-weight: 700;
+    color: var(--cyan);
     text-decoration: underline;
+    text-decoration-color: color-mix(in srgb, var(--cyan) 45%, transparent);
     text-underline-offset: 3px;
-    text-decoration-thickness: 2px;
   }
 
-  /* A button that happens to sit inside a policy is still a button. Without
-     this the rule above repaints its label in the link colour, which on the
-     green face of a primary button is very nearly invisible. */
+  .prose-legal a:hover {
+    text-decoration-color: var(--cyan);
+  }
+
   .prose-legal a.btn {
-    color: var(--btn-ink);
-    font-weight: 800;
     text-decoration: none;
+    color: var(--ink);
+  }
+
+  .prose-legal a.btn-fire {
+    color: var(--accent-ink);
   }
 
   .prose-legal strong {
-    font-weight: 700;
     color: var(--ink);
+    font-weight: 600;
   }
 
   .prose-legal .table-wrap {
     overflow-x: auto;
-    margin-bottom: 1.125rem;
-    border: 2px solid var(--line);
-    border-radius: 16px;
+    border: 1px solid var(--line);
+    background: var(--panel);
   }
 
   .prose-legal table {
     width: 100%;
+    min-width: 40rem;
     border-collapse: collapse;
-    font-size: 0.9375rem;
-    min-width: 34rem;
+    font-size: 0.93rem;
+    margin-bottom: 0;
   }
 
   .prose-legal th,
   .prose-legal td {
-    border-bottom: 1px solid var(--line);
-    padding: 0.75rem 0.875rem;
-    text-align: left;
+    padding: 0.85rem 1rem;
     vertical-align: top;
+    text-align: left;
+    border-bottom: 1px solid var(--line);
   }
 
   .prose-legal tr:last-child td {
@@ -657,128 +774,48 @@
   }
 
   .prose-legal th {
+    font-family: var(--font-display);
+    font-size: 0.72rem;
+    font-weight: 600;
+    letter-spacing: 0.16em;
+    text-transform: uppercase;
+    color: var(--cyan);
     background: var(--panel-2);
-    font-weight: 800;
+  }
+
+  .not-prose {
     color: var(--ink);
-    font-family: var(--font-baloo), ui-rounded, system-ui, sans-serif;
   }
+}
 
-  /* --------------------------------------------------------------------------
-     The playable glade
-     --------------------------------------------------------------------------
-     Top-down rather than isometric, on purpose: the board has to be read at a
-     glance and tapped accurately on a phone, and a rhombus is a poor target for
-     a thumb. It keeps the moulded-block language of everything else so it still
-     belongs to the same game.
-     -------------------------------------------------------------------------- */
-
-  .pz-cell {
-    position: relative;
-    aspect-ratio: 1;
-    display: grid;
-    place-items: center;
-    border-radius: 24%;
-    padding: 0;
-    --pz-casing: var(--wood-d);
-    --pz-core: color-mix(in srgb, var(--wood-d) 40%, var(--panel));
-    --pz-core-lit: var(--glimmer);
+@keyframes float {
+  0%,
+  100% {
+    transform: translateY(0);
   }
-
-  /* Open ground. Present enough to show the glade's shape, quiet enough that the
-     conduits are the only thing the eye lands on. */
-  .pz-empty {
-    background: color-mix(in srgb, var(--ink) 4%, transparent);
-    border-radius: 26%;
+  50% {
+    transform: translateY(-14px);
   }
+}
 
-  .pz-fixed,
-  .pz-turn {
-    background: var(--panel-2);
-    border: 2px solid var(--line);
-    box-shadow: 0 4px 0 var(--line);
-    transition: background-color 220ms ease, border-color 220ms ease,
-      box-shadow 220ms ease, transform 90ms ease;
+@keyframes pulse {
+  0%,
+  100% {
+    opacity: 1;
   }
-
-  .pz-turn {
-    cursor: pointer;
-    -webkit-tap-highlight-color: transparent;
+  50% {
+    opacity: 0.45;
   }
+}
 
-  @media (hover: hover) {
-    .pz-turn:hover {
-      border-color: var(--glimmer-d);
-    }
+@keyframes spin {
+  to {
+    transform: rotate(360deg);
   }
+}
 
-  .pz-turn:active {
-    transform: translateY(3px);
-    box-shadow: 0 1px 0 var(--line);
-  }
-
-  .pz-cell.is-lit {
-    background: color-mix(in srgb, var(--glimmer) 20%, var(--panel));
-    border-color: var(--glimmer-d);
-    box-shadow: 0 4px 0 var(--glimmer-d);
-    --pz-core: var(--glimmer);
-  }
-
-  .pz-art {
-    width: 100%;
-    height: 100%;
-    transform-origin: 50% 50%;
-    transition: transform 280ms cubic-bezier(0.2, 0.85, 0.3, 1.35);
-  }
-
-  .pz-cell.is-lit .pz-art {
-    filter: drop-shadow(0 0 5px color-mix(in srgb, var(--glimmer) 70%, transparent));
-  }
-
-  /* The sleeper sits on top of its conduit stub and wakes when the light lands. */
-  .pz-sleeper {
-    position: absolute;
-    inset: 0;
-    display: grid;
-    place-items: center;
-    pointer-events: none;
-  }
-
-  .pz-critter {
-    transition: filter 320ms ease;
-  }
-
-  .pz-cell:not(.is-lit) .pz-critter {
-    filter: grayscale(0.7) brightness(0.85);
-    opacity: 0.85;
-  }
-
-  .pz-zzz {
-    position: absolute;
-    top: 4%;
-    right: 8%;
-    font-family: var(--font-baloo), ui-rounded, system-ui, sans-serif;
-    font-size: clamp(0.7rem, 2.4cqw, 0.95rem);
-    font-weight: 800;
-    color: var(--ink-3);
-    animation: zzz 2.6s ease-in-out infinite;
-  }
-
-  @keyframes zzz {
-    0%,
-    100% {
-      transform: translateY(0) rotate(-8deg);
-      opacity: 0.35;
-    }
-    50% {
-      transform: translateY(-5px) rotate(8deg);
-      opacity: 0.9;
-    }
-  }
-
-  @media (prefers-reduced-motion: reduce) {
-    .pz-zzz {
-      animation: none;
-      opacity: 0.6;
-    }
+@keyframes marquee {
+  to {
+    transform: translateX(-100%);
   }
 }

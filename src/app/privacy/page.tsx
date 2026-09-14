@@ -1,52 +1,57 @@
 import type { Metadata } from "next";
 import Link from "next/link";
 import { LegalPage, Summary } from "@/components/SiteChrome";
-import { mailto, site } from "@/lib/site";
+import { gemfire, mailto, site } from "@/lib/site";
 
 export const metadata: Metadata = {
   title: "Privacy Policy",
-  description: `How ${site.game} handles your data, in plain words.`,
+  description: `How ${site.company} and ${gemfire.name} handle your data, in plain words.`,
 };
 
 /**
  * Written against what the game actually does rather than from a template.
  *
  * Every row in the table below corresponds to something real in the client or the backend -
- * an anonymous Firebase account, a Firestore save document, a published grove card, a
- * store receipt, a mediation SDK. A policy that lists data an app does not collect is as
- * wrong as one that omits data it does, and it is the kind of wrong a regulator reads as
- * carelessness rather than caution.
+ * an anonymous Firebase account, a Firestore save document, a published kingdom card, a
+ * store receipt, the ad mediation SDK, the analytics and attribution SDKs. A policy that
+ * lists data an app does not collect is as wrong as one that omits data it does, and it is
+ * the kind of wrong a regulator reads as carelessness rather than caution.
  */
 export default function Privacy() {
+  const game = gemfire.name;
   return (
     <LegalPage
       title="Privacy Policy"
-      intro={`This explains what ${site.game} collects, why, and what you can do about it.`}
+      intro={`This explains what ${game}, and this website, collect about you, why, and what you can do about it.`}
     >
       <Summary>
         <p className="mb-2">
-          You can play the whole game without giving us your name, your email address or
-          anything else about you. An anonymous account is created so your progress can be
-          saved and restored - it identifies a save file, not a person.
+          You can play the whole of {game} without giving us your name, your email
+          address or anything else about you. An anonymous account is created so your
+          progress can be saved and restored. It identifies a save file, not a person.
         </p>
         <p className="mb-2">
-          We show adverts, and those are provided by third parties who may use an
-          advertising identifier. In the EU and the UK you are asked first, and you can
-          change your answer at any time from the settings screen.
+          We show adverts only when you choose to watch one, and those are provided by third
+          parties who may use an advertising identifier. In the EU and the UK you are asked
+          first, and you can change your answer at any time from the settings screen.
         </p>
         <p>
-          We do not sell your data. We have no interest in who you are - only in whether the
+          We do not sell your data. We have no interest in who you are, only in whether the
           game works.
         </p>
       </Summary>
 
       <h2 id="who-we-are">Who we are</h2>
       <p>
-        {site.game} is published by {site.entity}, trading as {site.publisher}, of{" "}
-        {site.address} - the same publisher named on the store listing. For the purposes of
-        the UK and EU General Data Protection Regulation, we are the data controller for the
-        information described here. You can reach us at{" "}
+        {game} is published by {site.entity}, trading as {site.company}, of {site.address},
+        the same publisher named on the store listing. For the purposes of the UK and EU
+        General Data Protection Regulation, we are the data controller for the information
+        described here. You can reach us at{" "}
         <a href={`mailto:${site.email}`}>{site.email}</a>.
+      </p>
+      <p>
+        This policy covers {game} on Android and iOS and this website. If we publish another
+        game, it will have its own listing here.
       </p>
 
       <h2 id="what-we-collect">What we collect, and why</h2>
@@ -79,9 +84,10 @@ export default function Privacy() {
             </tr>
             <tr>
               <td>
-                <strong>Your game progress</strong> - which glades you have finished, your
-                best moves and times, hearts, streak, in-game currency ledgers, the grove you
-                have built, and your settings
+                <strong>Your game progress</strong>: which sieges you have finished and with
+                how many stars, your best wave in the Endless Watch, your coins, gems, hearts
+                and whispers, the turrets, kit and companions you own, the layout of your
+                kingdom and the land it stands on, your daily streak, and your settings
               </td>
               <td>
                 So the game can continue where you left off, and so the same progress appears
@@ -91,15 +97,16 @@ export default function Privacy() {
             </tr>
             <tr>
               <td>
-                <strong>A public grove card</strong> - the keeper name you chose, your grove
-                score, and where things stand in your grove
+                <strong>A public kingdom card</strong>: the keeper name you chose, the
+                companion you wear as your avatar, your keeper level, your kingdom&rsquo;s
+                score and star count, and your league
               </td>
               <td>
-                So other players can see your grove on the boards. This is the only
-                information other players can see, and you can switch it off in the settings
-                screen at any time, which removes your card.
+                So other players can see you on the boards and visit your kingdom. This is
+                the only information other players can see. You can switch it off from the
+                Profile tab at any time, which takes your card down.
               </td>
-              <td>Only if the boards are enabled</td>
+              <td>While the boards are enabled</td>
             </tr>
             <tr>
               <td>
@@ -114,8 +121,8 @@ export default function Privacy() {
             </tr>
             <tr>
               <td>
-                <strong>A linked sign-in</strong> - an identifier from Apple or Google, and
-                whatever that provider passes to us
+                <strong>A linked sign-in</strong>: an identifier from Apple or Google, and
+                whatever that provider passes to us, which may include your email address
               </td>
               <td>
                 Only if you choose to link an account so your progress survives losing your
@@ -125,12 +132,12 @@ export default function Privacy() {
             </tr>
             <tr>
               <td>
-                <strong>Purchase records</strong> - the store transaction identifier and what
+                <strong>Purchase records</strong>: the store transaction identifier and what
                 was bought
               </td>
               <td>
                 To confirm a purchase with Apple or Google and to give you what you paid for,
-                once. <strong>We never see your card details</strong> - the payment happens
+                once. <strong>We never see your card details</strong>. The payment happens
                 inside the store, not inside the game.
               </td>
               <td>If you buy something</td>
@@ -141,14 +148,47 @@ export default function Privacy() {
                 advertising partners
               </td>
               <td>
-                To show adverts and to pay for the game being free. See{" "}
-                <a href="#advertising">Advertising</a> below.
+                To show the adverts you choose to watch, and to pay for the game being free.
+                See <a href="#advertising">Advertising</a> below.
               </td>
-              <td>When adverts are shown</td>
+              <td>When you watch an advert</td>
             </tr>
             <tr>
               <td>
-                <strong>Basic technical information</strong> - device model, operating system
+                <strong>Gameplay analytics</strong>: events such as a siege being started,
+                won or lost, a turret bought, a chest opened or a purchase completed, with a
+                device-level identifier
+              </td>
+              <td>
+                To see where players get stuck and which parts of the game are not working.
+                Handled by Google Analytics for Firebase. See{" "}
+                <a href="#analytics">Analytics and attribution</a> below.
+              </td>
+              <td>As you play, subject to your consent where required</td>
+            </tr>
+            <tr>
+              <td>
+                <strong>Install attribution</strong>: which advert or link, if any, led you
+                to install the game, and confirmation of purchases you make
+              </td>
+              <td>
+                To know which of our advertising is worth paying for. Handled by AppsFlyer.
+              </td>
+              <td>Once, after consent is resolved</td>
+            </tr>
+            <tr>
+              <td>
+                <strong>A report you file</strong> about another player&rsquo;s keeper name
+              </td>
+              <td>
+                So we can review the name and, where needed, replace it. The report records
+                which account filed it, so that reports cannot be forged.
+              </td>
+              <td>Only if you report a name</td>
+            </tr>
+            <tr>
+              <td>
+                <strong>Basic technical information</strong>: device model, operating system
                 version, language, and error diagnostics
               </td>
               <td>
@@ -167,24 +207,27 @@ export default function Privacy() {
         <li>Your email address, unless you email us or link a sign-in account.</li>
         <li>Your contacts, photos, microphone, camera or precise location.</li>
         <li>Your payment card details. Those never reach us.</li>
+        <li>Messages. There is no chat, and no way for players to contact each other.</li>
       </ul>
 
       <h2 id="legal-bases">Our legal bases (UK and EU)</h2>
       <ul>
         <li>
-          <strong>Performance of a contract</strong> - saving and restoring your progress,
+          <strong>Performance of a contract</strong>: saving and restoring your progress,
           and honouring a purchase. Without these the game does not work.
         </li>
         <li>
-          <strong>Consent</strong> - personalised advertising, and appearing on the public
-          boards. Both are optional and both can be withdrawn.
+          <strong>Consent</strong>: personalised advertising, gameplay analytics and
+          install attribution where the law requires consent, and appearing on the public
+          boards. All of these are optional and all can be withdrawn.
         </li>
         <li>
-          <strong>Legitimate interests</strong> - keeping the game working, diagnosing
-          crashes, and preventing fraud and abuse of the in-game economy.
+          <strong>Legitimate interests</strong>: keeping the game working, diagnosing
+          crashes, reviewing reported names, and preventing fraud and abuse of the in-game
+          economy.
         </li>
         <li>
-          <strong>Legal obligation</strong> - keeping records of purchases for tax and
+          <strong>Legal obligation</strong>: keeping records of purchases for tax and
           accounting.
         </li>
       </ul>
@@ -192,8 +235,9 @@ export default function Privacy() {
       <h2 id="advertising">Advertising</h2>
       <p>
         The game is free, and adverts are how it is paid for. Adverts are optional in the
-        sense that matters: there are no forced adverts between levels. Every advert in{" "}
-        {site.game} is one you choose to watch in exchange for something.
+        sense that matters: there are no adverts between levels and no banners. Every advert
+        in {game} is one you choose to watch in exchange for hearts, coins or a whisper, and
+        each kind has a daily limit.
       </p>
       <p>
         Adverts are delivered by <strong>Unity LevelPlay</strong> (ironSource) as the
@@ -204,12 +248,12 @@ export default function Privacy() {
       <ul>
         <li>
           <a href="https://unity.com/legal/game-player-and-app-user-privacy-policy" rel="noopener noreferrer" target="_blank">
-            Unity - player and app user privacy policy
+            Unity: player and app user privacy policy
           </a>
         </li>
         <li>
           <a href="https://policies.google.com/technologies/partner-sites" rel="noopener noreferrer" target="_blank">
-            Google - how Google uses information from sites or apps that use our services
+            Google: how Google uses information from sites or apps that use our services
           </a>
         </li>
       </ul>
@@ -218,12 +262,13 @@ export default function Privacy() {
       <p>
         If you are in the European Economic Area or the United Kingdom, you are asked before
         any personalised advertising happens, through a Google-certified consent form. If you
-        decline, you will still see adverts and still receive the rewards for watching them -
-        they will simply not be based on a profile of you.
+        decline, you will still see adverts and still receive the rewards for watching them.
+        They will simply not be based on a profile of you.
       </p>
       <p>
-        You can change your answer at any time: open <strong>Settings</strong> in the game and
-        choose <strong>Privacy &amp; ad choices</strong>.
+        You can change your answer at any time: open <strong>Settings</strong> (the gear
+        icon on the Home or Profile screen) and choose{" "}
+        <strong>Privacy &amp; ad choices</strong>.
       </p>
       <p>
         On iOS, you are separately asked whether the app may use the device advertising
@@ -231,21 +276,42 @@ export default function Privacy() {
         <strong>iOS Settings › Privacy &amp; Security › Tracking</strong>.
       </p>
 
+      <h2 id="analytics">Analytics and attribution</h2>
+      <p>
+        We use <strong>Google Analytics for Firebase</strong> to record gameplay events, such
+        as a siege being started or a chest being opened, so that we can see where players
+        struggle and what is not working. Where consent is required, these events are only
+        recorded after you have given it.
+      </p>
+      <p>
+        We use <strong>AppsFlyer</strong> to learn which advert or link, if any, led to an
+        install, and to confirm purchases. AppsFlyer is started only after your consent choice
+        is known, and where you have not agreed to personalisation it runs in an anonymised
+        mode. Its policy is at{" "}
+        <a href="https://www.appsflyer.com/legal/services-privacy-policy/" rel="noopener noreferrer" target="_blank">
+          appsflyer.com
+        </a>
+        .
+      </p>
+
       <h2 id="sharing">Who your data is shared with</h2>
       <p>We use a small number of providers, each for one job:</p>
       <ul>
         <li>
-          <strong>Google Firebase</strong> (Authentication, Cloud Firestore, Cloud Functions)
-          - the anonymous account and the saved progress. Data is stored in the European
-          Union.
+          <strong>Google Firebase</strong> (Authentication, Cloud Firestore, Cloud Functions,
+          Analytics): the anonymous account, the saved progress and the boards. Data is
+          stored in the European Union.
         </li>
         <li>
-          <strong>Apple and Google</strong> - app distribution, payments and purchase
-          verification.
+          <strong>Apple and Google</strong>: app distribution, sign-in if you choose it,
+          payments and purchase verification.
         </li>
         <li>
-          <strong>Unity LevelPlay and its advertising networks</strong> - advertising, as
+          <strong>Unity LevelPlay and its advertising networks</strong>: advertising, as
           described above.
+        </li>
+        <li>
+          <strong>AppsFlyer</strong>: install attribution, as described above.
         </li>
       </ul>
       <p>
@@ -258,23 +324,30 @@ export default function Privacy() {
       <p>
         Our save data is held in the European Union. Some of our providers are based in the
         United States and may process data there, relying on the European Commission&rsquo;s
-        standard contractual clauses or an equivalent safeguard.
+        standard contractual clauses, the EU-US Data Privacy Framework, or an equivalent
+        safeguard.
       </p>
 
       <h2 id="retention">How long we keep it</h2>
       <ul>
         <li>
-          <strong>Saved progress</strong> - for as long as the account is in use, and for up
+          <strong>Saved progress</strong>: for as long as the account is in use, and for up
           to 24 months after it goes quiet, after which it may be deleted.
         </li>
         <li>
-          <strong>Your public grove card</strong> - until you switch the boards off or delete
-          your data, whichever comes first.
+          <strong>Your public kingdom card</strong>: until you hide it or delete your data,
+          whichever comes first. Leaderboards are rebuilt nightly, so a hidden card leaves
+          the boards within a day.
         </li>
         <li>
-          <strong>Purchase records</strong> - for as long as tax and accounting law requires,
-          which is generally seven years. These survive deletion of your game data, because
-          we are not permitted to destroy them.
+          <strong>Purchase records</strong>: for as long as tax and accounting law requires,
+          which is generally seven years, and for as long as needed to stop a receipt being
+          redeemed twice. These survive deletion of your game data, because we are not
+          permitted to destroy them.
+        </li>
+        <li>
+          <strong>Reports you file</strong> about other players&rsquo; names: for as long
+          as the reported account exists, so that the review can be shown to have happened.
         </li>
       </ul>
 
@@ -286,14 +359,15 @@ export default function Privacy() {
         Consumer Privacy Act and other laws.
       </p>
       <p>
-        The quickest routes are in the game itself - the boards opt-out is in Settings, and
-        so is the advertising choice. For anything else, or to delete everything, see{" "}
+        The quickest routes are in the game itself: the boards opt-out is on the Profile
+        tab, the advertising choice is in Settings, and account deletion is on the Profile
+        tab. For anything else, or to delete everything, see{" "}
         <Link href="/delete-account">deleting your data</Link> or write to{" "}
         <a href={mailto("Privacy request")}>{site.email}</a>. We answer within 30 days.
       </p>
       <p>
         Because accounts are anonymous by default, we may need you to prove which account is
-        yours before we act on a request - usually by sending the request from a linked
+        yours before we act on a request, usually by sending the request from a linked
         sign-in address, or by giving us the account identifier shown in the game.
       </p>
       <p>
@@ -303,8 +377,8 @@ export default function Privacy() {
 
       <h2 id="children">Children</h2>
       <p>
-        {site.game} is a general-audience game. It is not directed at children under 13, and
-        it is not registered as a child-directed app with our advertising partners. We do not
+        {game} is a general-audience game. It is not directed at children under 13, and it
+        is not registered as a child-directed app with our advertising partners. We do not
         knowingly collect personal information from children under 13. If you believe a child
         has given us information, write to{" "}
         <a href={mailto("Child privacy")}>{site.email}</a> and we will delete it.
@@ -325,7 +399,7 @@ export default function Privacy() {
 
       <h2 id="contact">Contact</h2>
       <p>
-        {site.entity}
+        {site.entity}, trading as {site.company}
         <br />
         {site.address}
         <br />

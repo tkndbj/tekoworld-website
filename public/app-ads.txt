@@ -1,4 +1,4 @@
-# app-ads.txt - Glimmer Groove
+# app-ads.txt - Gemfire (Tekoworld)
 #
 # WHAT THIS IS. An IAB Tech Lab authorised-sellers file. Programmatic buyers fetch it from
 # the developer website named in the app's store listing and refuse inventory sold by anyone

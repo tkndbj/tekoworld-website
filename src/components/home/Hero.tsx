@@ -1,165 +1,137 @@
-import { site } from "@/lib/site";
-import { stats, critters } from "@/lib/content";
-import { heroAnchors, heroScene } from "@/lib/scenes";
-import { Scene } from "@/components/iso/Scene";
-import { isoCenter, isoDepth, pct } from "@/components/iso/Iso";
-import { Fireflies } from "@/components/ui/Fireflies";
-import { CritterSprite } from "@/components/ui/Critter";
-import { StoreButtons } from "@/components/ui/StoreButtons";
+import Image from "next/image";
+import Link from "next/link";
+import cover from "../../../public/gemfire/cover.webp";
+import { gemfire, site } from "@/lib/site";
 
-const moss = critters.find((c) => c.id === "moss")!;
-
+/**
+ * The studio hero. The Gemfire key art is the whole backdrop, pushed back into
+ * the void by two gradient masks so the headline reads over it, and a
+ * perspective grid rises out of the floor to say "this is a games company"
+ * without a single word of copy having to.
+ */
 export function Hero() {
-  const { origin, w: SW, h: SH } = heroScene;
-  const critterAt = isoCenter(heroAnchors.critter.r, heroAnchors.critter.c);
-  const glowAt = isoCenter(heroAnchors.glow.r, heroAnchors.glow.c);
-
-  // The companion is drawn at this many stage pixels tall; its width follows
-  // from the frame's aspect ratio, so the sprite is never squashed.
-  const critterH = 150;
-  const critterW = critterH * (moss.w / moss.h);
-  const glowSize = 380;
-
   return (
-    <section className="relative overflow-hidden">
-      {/* Sky. Sits behind everything and fades into the paper the rest of the
-          page is printed on, so the hero ends without a seam. */}
+    <section className="relative isolate overflow-hidden">
+      {/* backdrop */}
+      <div aria-hidden className="absolute inset-0 -z-20">
+        <Image
+          src={cover}
+          alt=""
+          fill
+          preload
+          sizes="100vw"
+          className="object-cover object-[50%_35%] opacity-60 saturate-[1.15]"
+        />
+        <div
+          className="absolute inset-0"
+          style={{
+            background:
+              "linear-gradient(180deg, rgba(6,7,13,0.55) 0%, rgba(6,7,13,0.35) 35%, rgba(6,7,13,0.92) 72%, var(--bg) 100%)",
+          }}
+        />
+        <div
+          className="absolute inset-0"
+          style={{
+            background:
+              "linear-gradient(90deg, rgba(6,7,13,0.85) 0%, rgba(6,7,13,0.45) 45%, rgba(6,7,13,0.15) 100%)",
+          }}
+        />
+      </div>
+      <div aria-hidden className="grid-floor -z-10" />
       <div
         aria-hidden
-        className="absolute inset-0 -z-10"
-        style={{
-          background:
-            "linear-gradient(180deg, var(--sky-1) 0%, var(--sky-2) 72%)",
-        }}
+        className="orb -z-10"
+        style={{ "--x": "15%", "--y": "70%", "--c": "var(--ember)", "--s": "50rem" } as React.CSSProperties}
       />
       <div
         aria-hidden
-        className="absolute inset-x-0 top-0 -z-10 h-[70%]"
-        style={{
-          background:
-            "radial-gradient(60% 55% at 72% 18%, var(--glow) 0%, transparent 70%)",
-        }}
+        className="orb -z-10"
+        style={{ "--x": "85%", "--y": "20%", "--c": "var(--violet)", "--s": "46rem" } as React.CSSProperties}
       />
-      <Fireflies className="-z-10" />
 
-      <div className="mx-auto grid max-w-6xl items-center gap-4 px-5 pb-8 pt-12 sm:px-6 lg:grid-cols-[minmax(0,0.92fr)_minmax(0,1.22fr)] lg:gap-10 lg:pb-20 lg:pt-20">
-        <div className="relative z-10 text-center lg:text-left">
-          <p className="inline-flex items-center gap-2 rounded-full border-2 border-line bg-panel px-3.5 py-1.5 text-xs font-extrabold uppercase tracking-[0.14em] text-ink-2">
-            <span className="h-2 w-2 rotate-45 rounded-[2px] bg-glimmer" />
-            {site.publisher} presents
-          </p>
+      <div className="mx-auto flex min-h-[min(calc(100svh-4rem),52rem)] max-w-7xl flex-col justify-center px-5 pb-20 pt-24 sm:px-6 lg:pt-28">
+        <p className="chip reveal w-fit">
+          <span className="chip-dot" />
+          Independent mobile game studio
+        </p>
 
-          <h1 className="mt-5 text-[clamp(2.75rem,9vw,4.75rem)] leading-[0.95]">
-            <span className="block">Glimmer</span>
-            <span className="relative inline-block text-leaf">
-              Groove
-              <svg
-                aria-hidden
-                viewBox="0 0 240 16"
-                preserveAspectRatio="none"
-                className="absolute -bottom-1 left-0 h-3 w-full text-glimmer"
-              >
-                <path
-                  d="M3 11C58 4 140 3 237 8"
-                  stroke="currentColor"
-                  strokeWidth="6"
-                  strokeLinecap="round"
-                  fill="none"
-                />
-              </svg>
-            </span>
-          </h1>
+        <h1
+          className="reveal mt-7 max-w-4xl text-[2.9rem] leading-[0.98] sm:text-6xl lg:text-[5.25rem]"
+          style={{ "--delay": "80ms" } as React.CSSProperties}
+        >
+          We make games
+          <br />
+          with <span className="text-fire glow-fire">fire</span> in them.
+        </h1>
 
-          <p className="mx-auto mt-6 max-w-xl text-lg leading-relaxed text-ink-2 sm:text-xl lg:mx-0">
-            Turn the conduits until the light reaches every sleeping critter.
-            Wake the grove, gather its companions, and build them a home - one
-            tile at a time.
-          </p>
+        <p
+          className="reveal mt-7 max-w-xl text-lg leading-relaxed text-ink-2 sm:text-xl"
+          style={{ "--delay": "160ms" } as React.CSSProperties}
+        >
+          {site.company} builds small, loud, mechanically honest games for the
+          phone in your pocket. Our first is {gemfire.name}: a match-3 board
+          bolted to a castle wall, where every match you make fires a turret.
+        </p>
 
-          <div className="mt-8 flex flex-wrap justify-center gap-3 lg:justify-start">
-            <a href="#play" className="btn btn-glimmer">
-              Play a glade now
-            </a>
-            <a href="#get" className="btn">
-              Where to get it
-            </a>
-          </div>
-
-          <StoreButtons className="mt-5 flex justify-center lg:justify-start" />
-
-          <dl className="mt-10 grid grid-cols-2 gap-3 sm:grid-cols-4">
-            {stats.map((s) => (
-              <div
-                key={s.label}
-                className="rounded-2xl border-2 border-line bg-panel/80 px-3 py-3 text-center shadow-[0_4px_0_var(--line)] backdrop-blur-sm"
-              >
-                <dt className="sr-only">{s.label}</dt>
-                <dd>
-                  <span className="block font-display text-2xl font-extrabold text-leaf">
-                    {s.value}
-                  </span>
-                  <span className="mt-0.5 block text-xs font-bold leading-tight text-ink-3">
-                    {s.label}
-                  </span>
-                </dd>
-              </div>
-            ))}
-          </dl>
+        <div
+          className="reveal mt-10 flex flex-wrap items-center gap-3"
+          style={{ "--delay": "240ms" } as React.CSSProperties}
+        >
+          <Link href={gemfire.path} className="btn btn-fire btn-lg shine">
+            Explore {gemfire.name}
+            <Arrow />
+          </Link>
+          <Link href="/#studio" className="btn btn-lg">
+            About the studio
+          </Link>
         </div>
 
-        {/* The glade itself. Decorative - everything it says is said in words
-            above it - so it is hidden from assistive technology wholesale. */}
-        <div aria-hidden className="relative -mx-2 lg:mx-0">
-          <Scene
-            scene={heroScene}
-            className="mx-auto max-w-[34rem] lg:max-w-none"
-            eager
-          >
-            <div
-              className="iso-piece anim-glow"
-              style={{
-                left: pct(
-                  origin.x + glowAt.x - glowSize / 2 + heroAnchors.glow.dx,
-                  SW
-                ),
-                top: pct(
-                  origin.y + glowAt.y - glowSize / 2 + heroAnchors.glow.dy,
-                  SH
-                ),
-                width: pct(glowSize, SW),
-                height: pct(glowSize, SH),
-                borderRadius: "50%",
-                background:
-                  "radial-gradient(circle, var(--glow) 0%, transparent 68%)",
-                zIndex: isoDepth(heroAnchors.glow.r, heroAnchors.glow.c, 1),
-              }}
-            />
-            {/* Two elements, not one: the outer span centres the sprite over
-                its tile with a transform, and the bob animation needs a
-                transform of its own to play with. */}
-            <span
-              className="iso-piece"
-              style={{
-                left: pct(
-                  origin.x + critterAt.x - critterW / 2 + heroAnchors.critter.dx,
-                  SW
-                ),
-                top: pct(
-                  origin.y + critterAt.y - critterH + heroAnchors.critter.dy,
-                  SH
-                ),
-                width: pct(critterW, SW),
-                height: pct(critterH, SH),
-                zIndex: isoDepth(heroAnchors.critter.r, heroAnchors.critter.c, 5),
-              }}
-            >
-              <span className="anim-bob block h-full w-full">
-                <CritterSprite critter={moss} height="100%" />
-              </span>
-            </span>
-          </Scene>
-        </div>
+        <dl
+          className="reveal mt-16 grid max-w-2xl grid-cols-2 gap-x-6 gap-y-6 sm:grid-cols-4"
+          style={{ "--delay": "320ms" } as React.CSSProperties}
+        >
+          <Stat value="01" label="game in the forge" color="var(--ember)" />
+          <Stat value="2" label="platforms at launch" color="var(--cyan)" />
+          <Stat value="0" label="forced adverts" color="var(--emerald)" />
+          <Stat value="∞" label="skeletons to stop" color="var(--violet)" />
+        </dl>
       </div>
     </section>
+  );
+}
+
+function Stat({
+  value,
+  label,
+  color,
+}: {
+  value: string;
+  label: string;
+  color: string;
+}) {
+  return (
+    <div className="border-l-2 pl-4" style={{ borderColor: color }}>
+      <dt className="text-xs font-semibold uppercase tracking-[0.16em] text-ink-3">
+        {label}
+      </dt>
+      <dd className="font-display mt-1 text-3xl font-bold" style={{ color }}>
+        {value}
+      </dd>
+    </div>
+  );
+}
+
+export function Arrow() {
+  return (
+    <svg width="18" height="18" viewBox="0 0 18 18" aria-hidden>
+      <path
+        d="M3 9h11M10 4l5 5-5 5"
+        fill="none"
+        stroke="currentColor"
+        strokeWidth="2"
+        strokeLinecap="round"
+        strokeLinejoin="round"
+      />
+    </svg>
   );
 }

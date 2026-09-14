@@ -1,4 +1,4 @@
-import { site } from "@/lib/site";
+import { gemfire } from "@/lib/site";
 
 function GooglePlay() {
   return (
@@ -24,15 +24,21 @@ function AppStore() {
  * so. A "Download" that goes nowhere is worse than an honest "coming soon" -
  * and this disappears by itself the moment the store URLs are filled in.
  */
-export function StoreButtons({ className = "" }: { className?: string }) {
-  const { android, ios } = site.stores;
+export function StoreButtons({
+  className = "",
+  size = "",
+}: {
+  className?: string;
+  size?: "" | "btn-lg";
+}) {
+  const { android, ios } = gemfire.stores;
 
   if (!android && !ios) {
     return (
       <div className={className}>
-        <p className="inline-flex items-center gap-2.5 rounded-2xl border-2 border-line bg-panel px-4 py-3 text-sm font-bold text-ink-2 shadow-[0_4px_0_var(--line)]">
-          <span className="anim-glow h-2.5 w-2.5 rounded-full bg-glimmer shadow-[0_0_10px_var(--glimmer)]" />
-          Coming soon to Android and iOS
+        <p className="chip py-3 pl-4 pr-5 text-[0.78rem] text-ink">
+          <span className="chip-dot" />
+          Coming soon to Google Play and the App Store
         </p>
       </div>
     );
@@ -41,13 +47,13 @@ export function StoreButtons({ className = "" }: { className?: string }) {
   return (
     <div className={`flex flex-wrap gap-3 ${className}`}>
       {android ? (
-        <a href={android} className="btn btn-primary">
+        <a href={android} className={`btn btn-fire ${size}`}>
           <GooglePlay />
           Get it on Google Play
         </a>
       ) : null}
       {ios ? (
-        <a href={ios} className="btn btn-wood">
+        <a href={ios} className={`btn ${size}`}>
           <AppStore />
           Download on the App Store
         </a>

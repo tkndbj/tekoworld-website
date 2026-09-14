@@ -82,9 +82,9 @@ export function MobileNav({
         <span className="sr-only">Open menu</span>
         <svg width="20" height="20" viewBox="0 0 20 20" aria-hidden>
           <g fill="currentColor">
-            <rect x="2" y="4" width="16" height="2.6" rx="1.3" />
-            <rect x="2" y="8.7" width="16" height="2.6" rx="1.3" />
-            <rect x="2" y="13.4" width="16" height="2.6" rx="1.3" />
+            <rect x="2" y="4" width="16" height="2" />
+            <rect x="2" y="9" width="16" height="2" />
+            <rect x="2" y="14" width="16" height="2" />
           </g>
         </svg>
       </button>
@@ -96,19 +96,17 @@ export function MobileNav({
             aria-label="Close menu"
             tabIndex={-1}
             onClick={() => setOpen(false)}
-            className="absolute inset-0 h-full w-full cursor-default bg-[color-mix(in_srgb,var(--ink)_55%,transparent)]"
+            className="absolute inset-0 h-full w-full cursor-default bg-bg/80 backdrop-blur-sm"
           />
           <div
             ref={panelRef}
             role="dialog"
             aria-modal="true"
             aria-label="Menu"
-            className="absolute inset-x-3 top-3 rounded-3xl border-2 border-line bg-panel p-3 shadow-[0_6px_0_var(--line)]"
+            className="panel panel-glow absolute inset-x-3 top-3 bg-panel-solid p-3"
           >
             <div className="flex items-center justify-between px-2 pb-2">
-              <span className="font-display text-sm font-extrabold uppercase tracking-wide text-ink-3">
-                Menu
-              </span>
+              <span className="kicker">Menu</span>
               <button
                 type="button"
                 onClick={() => {
@@ -122,7 +120,7 @@ export function MobileNav({
                   <path
                     d="M3 3l10 10M13 3L3 13"
                     stroke="currentColor"
-                    strokeWidth="2.6"
+                    strokeWidth="2"
                     strokeLinecap="round"
                   />
                 </svg>
@@ -134,7 +132,7 @@ export function MobileNav({
                   <Link
                     href={item.href}
                     onClick={() => setOpen(false)}
-                    className="block rounded-2xl px-4 py-3 font-display text-lg font-extrabold text-ink hover:bg-panel-2"
+                    className="font-display block px-4 py-3 text-lg font-semibold uppercase tracking-[0.12em] text-ink transition-colors hover:bg-panel-2 hover:text-cyan"
                   >
                     {item.label}
                   </Link>
