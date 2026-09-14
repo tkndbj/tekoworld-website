@@ -20,17 +20,16 @@ export const site = {
   tagline: "Mobile games with fire in them.",
 
   /**
-   * The canonical origin, and it is the **www** host deliberately.
+   * The canonical origin: the bare domain, deliberately.
    *
-   * Vercel serves www and 308-redirects the apex to it. Either could have been made primary;
+   * Vercel serves the apex and 308-redirects www to it. Either could have been made primary;
    * what must not happen is this disagreeing with the deploy, because then every canonical
-   * URL, the sitemap and the Open Graph tags all point at a URL that redirects. The www host
-   * is also what should go in both store listings' Developer website field, so that ad
-   * crawlers fetch app-ads.txt directly rather than through the redirect.
-   *
-   * TODO: replace with the real domain once it is registered.
+   * URL, the sitemap and the Open Graph tags all point at a URL that redirects. The same
+   * host is what goes in both store listings' Developer website field, so that ad crawlers
+   * fetch app-ads.txt directly rather than through the redirect, and it is the host the
+   * game's own Privacy / Terms / Support links are built from (LegalLinks.cs).
    */
-  url: "https://www.tekoworld.com",
+  url: "https://tekoworld.com",
 
   /**
    * TODO: the legal entity that publishes the games.

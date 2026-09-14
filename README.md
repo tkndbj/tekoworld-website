@@ -28,15 +28,19 @@ Everything below lives in one file: **`src/lib/site.ts`**. Nothing else needs to
 | `site.updated` | The revision date on every policy. Bump it when the text changes. |
 | `gemfire.stores` | The two listing URLs. Every store button hides itself and says "coming soon" until these are filled in, so the site never shows a dead download link. |
 
-### The domain note
+### The domain
 
-The game's settings screen links to **`https://www.glimmergroove.app/privacy`**, `/terms`
-and `/support`, hard-coded in `Assets/Game/Scripts/Domain/Privacy/LegalLinks.cs` in the
-game repository. `site.url` here is set to `https://www.tekoworld.com` as a placeholder.
-Whichever domain this site is deployed to, **the two must agree**: either change
-`LegalLinks.cs` to the new domain in the next game build, or deploy this site to
-`www.glimmergroove.app` and set `site.url` back to it. Both stores' "Developer website"
-field must name the same domain, because that is where ad crawlers look for `app-ads.txt`.
+The site lives at **`https://tekoworld.com`**, the bare domain, with `www` redirecting to it.
+Three places have to agree on that spelling, and all three do today:
+
+- `site.url` in `src/lib/site.ts` - canonical URLs, `sitemap.xml`, Open Graph.
+- `LegalLinks.Site` in the game repository (`Assets/Game/Scripts/Domain/Privacy/LegalLinks.cs`) -
+  the Privacy / Terms / Support links on the game's settings screen.
+- The **Developer website** field of both store listings - where ad crawlers look for
+  `app-ads.txt`.
+
+If Vercel is ever switched to make `www` the primary host, change all three in the same
+change; a canonical URL that redirects is the one failure here that is silent.
 
 ### Vocabulary
 
@@ -102,7 +106,8 @@ error.
 
 Any static host works. The simplest that also gives you a domain:
 
-- **Vercel** - import the repository, no configuration needed.
+- **Vercel** - import the repository, no configuration needed. Add `tekoworld.com` as the
+  primary domain and let Vercel add `www.tekoworld.com` as a redirect to it.
 - **GitHub Pages / Cloudflare Pages** - add `output: "export"` to `next.config.ts`, set
   `images.unoptimized: true`, and publish the `out/` directory.
 
