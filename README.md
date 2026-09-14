@@ -88,6 +88,7 @@ change there in the same commit.
 | `/terms` | App Store Connect (or Apple's standard EULA), Play listing |
 | `/support` | Both stores require a support URL; Apple Guideline 1.2 requires published contact information for an app with user-generated content, which the public keeper names are |
 | `/app-ads.txt` | Ad exchanges. Must be on the exact domain in the **Developer website** field of *both* store listings |
+| `/credits` | Nobody - and that is the point. None of the game's art or sound licences requires attribution (CraftPix says so in as many words; Envato, the Unity Asset Store and CC0 say nothing about credit at all), so this is a courtesy list. It is `noindex`, absent from the sitemap and linked only from the footer's small print, because a credits page that outranks the games would be a strange thing to have published. **It lives here rather than in the game because a list frozen into a binary goes stale**: the line it replaced named Freepik for five days after the last Freepik sprite was cut out of the build, and named none of the four suppliers whose work had replaced it. One caveat to keep: if a pack whose licence *does* require attribution is ever used, Freepik's rule is the shape to expect - the credit must be in the app or the store description, and this page would not discharge it. |
 
 ## app-ads.txt
 

@@ -113,6 +113,21 @@ export function SiteFooter() {
                   </Link>
                 </li>
               ))}
+              {/*
+                Credits and app-ads.txt sit here rather than in LEGAL, which is spread into
+                the mobile menu as well as the footer. Neither is something a player is
+                looking for: the credits list is a courtesy no licence obliges us to publish,
+                and putting it two taps from the front page would give it more prominence
+                than the games have.
+              */}
+              <li>
+                <Link
+                  href="/credits"
+                  className="font-medium text-ink-2 transition-colors hover:text-ink"
+                >
+                  Credits
+                </Link>
+              </li>
               <li>
                 <a
                   href="/app-ads.txt"
