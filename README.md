@@ -30,7 +30,7 @@ Everything below lives in one file: **`src/lib/site.ts`**. Nothing else needs to
 
 ### The domain
 
-The site lives at **`https://tekoworld.com`**, the bare domain, with `www` redirecting to it.
+The site lives at **`https://www.tekoworld.com`**, the www host, with the bare domain 308-redirecting to it.
 Three places have to agree on that spelling, and all three do today:
 
 - `site.url` in `src/lib/site.ts` - canonical URLs, `sitemap.xml`, Open Graph.
@@ -39,7 +39,7 @@ Three places have to agree on that spelling, and all three do today:
 - The **Developer website** field of both store listings - where ad crawlers look for
   `app-ads.txt`.
 
-If Vercel is ever switched to make `www` the primary host, change all three in the same
+If Vercel is ever switched to make the bare domain primary, change all three in the same
 change; a canonical URL that redirects is the one failure here that is silent.
 
 ### Vocabulary
@@ -106,8 +106,8 @@ error.
 
 Any static host works. The simplest that also gives you a domain:
 
-- **Vercel** - import the repository, no configuration needed. Add `tekoworld.com` as the
-  primary domain and let Vercel add `www.tekoworld.com` as a redirect to it.
+- **Vercel** - import the repository, no configuration needed. `www.tekoworld.com` is the
+  primary domain and `tekoworld.com` redirects to it.
 - **GitHub Pages / Cloudflare Pages** - add `output: "export"` to `next.config.ts`, set
   `images.unoptimized: true`, and publish the `out/` directory.
 
