@@ -71,19 +71,19 @@ export const gemfire = {
   description:
     "Gemfire is a match-3 tower-defence game. Every match on the board fires the turret of the same colour at the horde marching on your castle. Clear waves, upgrade your turrets, and build your kingdom.",
 
-  /** TODO: fill in once the listings exist; the buttons hide themselves until then. */
+  /** A store left empty hides its button. Android waits for the Play listing to go public. */
   stores: {
     android: "",
-    ios: "",
+    ios: "https://apps.apple.com/app/id6804516450",
   },
 
   /**
    * Store identifiers, used only for structured data and for the reader to match a listing
-   * to this page. TODO: confirm once both listings exist.
+   * to this page. The package name is the bundle id, which can never move.
    */
   ids: {
-    android: "com.tekoworld.gemfire",
-    ios: "",
+    android: "com.tekoworld.glimmergroove",
+    ios: "6804516450",
   },
 } as const;
 
