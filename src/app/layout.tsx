@@ -35,6 +35,10 @@ export const metadata: Metadata = {
   },
   description,
   applicationName: site.company,
+  // Meta Business domain verification. Removing it un-verifies the domain.
+  other: {
+    "facebook-domain-verification": "bvtibmwkcp8wiubgnkhil0mi14ol3y",
+  },
   keywords: [
     site.company,
     "Gemfire",
