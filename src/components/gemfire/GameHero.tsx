@@ -3,15 +3,18 @@ import splash from "../../../public/gemfire/splash.webp";
 import cover from "../../../public/gemfire/cover.webp";
 import { StoreButtons } from "@/components/ui/StoreButtons";
 import { Tilt } from "@/components/ui/Tilt";
+import { getText } from "@/i18n/server";
 import { stats } from "@/lib/content";
-import { gemfire } from "@/lib/site";
 
 /**
  * The Gemfire hero: the logo set in the two halves of the palette, the pitch,
  * the store buttons, and the splash art standing in a phone that leans toward
  * the pointer. The key art sits far behind everything as a colour wash.
  */
-export function GameHero() {
+export async function GameHero() {
+  const { t } = await getText();
+  const g = t.gemfire;
+
   return (
     <section className="relative isolate overflow-hidden">
       <div aria-hidden className="absolute inset-0 -z-20">
@@ -46,7 +49,7 @@ export function GameHero() {
         <div>
           <p className="chip reveal">
             <span className="chip-dot" />
-            {gemfire.genre}
+            {g.genre}
           </p>
 
           <h1
@@ -61,16 +64,13 @@ export function GameHero() {
             className="reveal mt-5 max-w-lg text-2xl font-medium leading-snug text-ink sm:text-3xl"
             style={{ "--delay": "160ms" } as React.CSSProperties}
           >
-            {gemfire.pitch}
+            {g.pitch}
           </p>
           <p
             className="reveal mt-5 max-w-xl text-lg leading-relaxed text-ink-2"
             style={{ "--delay": "220ms" } as React.CSSProperties}
           >
-            A match-3 board bolted to a castle wall. Line up three gems and the
-            turret of that colour opens fire on the raiders coming down the
-            hill. Hold the wall, upgrade your arsenal, and build a kingdom
-            behind it.
+            {g.hero.body}
           </p>
 
           <div
@@ -84,26 +84,24 @@ export function GameHero() {
             className="reveal mt-8 flex flex-wrap gap-2"
             style={{ "--delay": "340ms" } as React.CSSProperties}
           >
-            {["Free to play", "Android 8.0+", "iOS 15+", "Plays offline", "No forced adverts"].map(
-              (t) => (
-                <li key={t} className="chip">
-                  {t}
-                </li>
-              )
-            )}
+            {g.hero.chips.map((chip) => (
+              <li key={chip} className="chip">
+                {chip}
+              </li>
+            ))}
           </ul>
 
           <dl
             className="reveal mt-12 grid max-w-xl grid-cols-2 gap-6 sm:grid-cols-4"
             style={{ "--delay": "400ms" } as React.CSSProperties}
           >
-            {stats.map((s) => (
-              <div key={s.label} className="border-l-2 pl-4" style={{ borderColor: s.color }}>
+            {stats.map((s, i) => (
+              <div key={i} className="border-l-2 pl-4" style={{ borderColor: s.color }}>
                 <dd className="font-display text-3xl font-bold" style={{ color: s.color }}>
                   {s.value}
                 </dd>
                 <dt className="mt-1 text-xs font-semibold uppercase tracking-[0.14em] text-ink-3">
-                  {s.label}
+                  {g.hero.stats[i]}
                 </dt>
               </div>
             ))}
@@ -118,7 +116,7 @@ export function GameHero() {
           <div className="phone anim-float" style={{ "--glow": "var(--ember)" } as React.CSSProperties}>
             <Image
               src={splash}
-              alt="The Gemfire title screen: three turrets on stone plinths firing into a horde of shadow creatures under a rain of gems."
+              alt={g.hero.splashAlt}
               sizes="(min-width: 1024px) 22rem, 80vw"
               preload
             />

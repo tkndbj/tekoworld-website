@@ -1,10 +1,12 @@
 import Image from "next/image";
 import cover from "../../../public/gemfire/cover-sm.webp";
 import { StoreButtons } from "@/components/ui/StoreButtons";
-import { gemfire } from "@/lib/site";
+import { getText } from "@/i18n/server";
 
 /** The closing call to action, on the key art. */
-export function GetIt() {
+export async function GetIt() {
+  const { t } = await getText();
+
   return (
     <section id="get" className="relative scroll-mt-20 overflow-hidden pb-28 sm:pb-36">
       <div className="mx-auto max-w-7xl px-5 sm:px-6">
@@ -26,13 +28,13 @@ export function GetIt() {
             }}
           />
           <div className="relative px-6 py-16 sm:px-12 sm:py-24">
-            <p className="kicker">Get the game</p>
+            <p className="kicker">{t.gemfire.getIt.kicker}</p>
             <h2 className="font-display mt-4 text-5xl font-bold uppercase tracking-[0.04em] sm:text-7xl">
               <span className="text-gem">Gem</span>
               <span className="text-fire">fire</span>
             </h2>
             <p className="mt-4 max-w-md text-lg text-ink-2">
-              {gemfire.pitch} Free on Android and iOS.
+              {t.gemfire.pitch} {t.gemfire.getIt.free}
             </p>
             <StoreButtons className="mt-8" size="btn-lg" />
           </div>

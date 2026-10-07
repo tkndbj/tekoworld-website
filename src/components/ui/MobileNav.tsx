@@ -3,6 +3,8 @@
 import Link from "next/link";
 import { usePathname } from "next/navigation";
 import { useEffect, useRef, useState } from "react";
+import { LanguageMenu } from "@/components/ui/LanguageMenu";
+import type { Locale } from "@/i18n/locales";
 
 /**
  * The small-screen menu.
@@ -15,8 +17,12 @@ import { useEffect, useRef, useState } from "react";
  */
 export function MobileNav({
   items,
+  current,
+  words,
 }: {
   items: readonly { href: string; label: string }[];
+  current: Locale;
+  words: { menu: string; open: string; close: string; language: string };
 }) {
   const [open, setOpen] = useState(false);
   const panelRef = useRef<HTMLDivElement>(null);
@@ -79,7 +85,7 @@ export function MobileNav({
         aria-haspopup="dialog"
         className="btn btn-sm px-3 lg:hidden"
       >
-        <span className="sr-only">Open menu</span>
+        <span className="sr-only">{words.open}</span>
         <svg width="20" height="20" viewBox="0 0 20 20" aria-hidden>
           <g fill="currentColor">
             <rect x="2" y="4" width="16" height="2" />
@@ -93,7 +99,7 @@ export function MobileNav({
         <div className="fixed inset-0 z-[60] lg:hidden">
           <button
             type="button"
-            aria-label="Close menu"
+            aria-label={words.close}
             tabIndex={-1}
             onClick={() => setOpen(false)}
             className="absolute inset-0 h-full w-full cursor-default bg-bg/80 backdrop-blur-sm"
@@ -102,11 +108,11 @@ export function MobileNav({
             ref={panelRef}
             role="dialog"
             aria-modal="true"
-            aria-label="Menu"
-            className="panel panel-glow absolute inset-x-3 top-3 bg-panel-solid p-3"
+            aria-label={words.menu}
+            className="panel panel-glow absolute inset-x-3 top-3 max-h-[calc(100svh-1.5rem)] overflow-y-auto bg-panel-solid p-3"
           >
             <div className="flex items-center justify-between px-2 pb-2">
-              <span className="kicker">Menu</span>
+              <span className="kicker">{words.menu}</span>
               <button
                 type="button"
                 onClick={() => {
@@ -115,7 +121,7 @@ export function MobileNav({
                 }}
                 className="btn btn-sm px-3"
               >
-                <span className="sr-only">Close menu</span>
+                <span className="sr-only">{words.close}</span>
                 <svg width="16" height="16" viewBox="0 0 16 16" aria-hidden>
                   <path
                     d="M3 3l10 10M13 3L3 13"
@@ -139,6 +145,10 @@ export function MobileNav({
                 </li>
               ))}
             </ul>
+            <div className="mt-2 border-t border-line px-0 pt-3">
+              <p className="kicker px-4 pb-1 text-ink-3">{words.language}</p>
+              <LanguageMenu current={current} label={words.language} variant="list" />
+            </div>
           </div>
         </div>
       )}

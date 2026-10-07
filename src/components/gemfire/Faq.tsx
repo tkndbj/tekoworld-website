@@ -1,25 +1,27 @@
-import Link from "next/link";
-import { faq } from "@/lib/content";
+import { Rich } from "@/i18n/rich";
+import { getText } from "@/i18n/server";
 
 /** The short answers. Native disclosure elements: no script, keyboard-operable by default. */
-export function Faq() {
+export async function Faq() {
+  const { locale, t } = await getText();
+  const f = t.gemfire.faq;
+
   return (
     <section id="faq" className="relative scroll-mt-20 py-24 sm:py-32">
       <div className="mx-auto max-w-7xl px-5 sm:px-6">
         <div className="grid gap-10 lg:grid-cols-[0.8fr_1.2fr]">
           <div className="reveal">
-            <p className="kicker">Questions</p>
+            <p className="kicker">{f.kicker}</p>
             <h2 className="mt-4 text-4xl sm:text-5xl">
-              The short <span className="text-gem">answers.</span>
+              <Rich value={f.title} locale={locale} hl="text-gem" />
             </h2>
             <p className="mt-5 text-ink-2">
-              The longer ones, and the ones about purchases and accounts, are on
-              the <Link href="/support" className="text-cyan underline underline-offset-4">support page</Link>.
+              <Rich value={f.body} locale={locale} link="text-cyan underline underline-offset-4" />
             </p>
           </div>
 
           <div className="space-y-3">
-            {faq.map((item, i) => (
+            {f.items.map((item, i) => (
               <details
                 key={item.q}
                 className="reveal group panel panel-sm"

@@ -1,22 +1,38 @@
 import Link from "next/link";
-import { gemfire, site } from "@/lib/site";
+import { formatDate, gemfire, site } from "@/lib/site";
 import { Mark, Wordmark } from "@/components/ui/Wordmark";
 import { MobileNav } from "@/components/ui/MobileNav";
+import { LanguageMenu } from "@/components/ui/LanguageMenu";
+import { dictionaries, type Dictionary } from "@/i18n/dictionaries";
+import { defaultLocale, localeInfo, localePath, type Locale } from "@/i18n/locales";
+import { getText } from "@/i18n/server";
 
-const NAV = [
-  { href: "/#games", label: "Games" },
-  { href: gemfire.path, label: gemfire.name },
-  { href: "/#studio", label: "Studio" },
-  { href: "/support", label: "Support" },
-] as const;
+function nav(t: Dictionary, locale: Locale) {
+  return [
+    { href: localePath(locale, "/#games"), label: t.nav.games },
+    { href: localePath(locale, gemfire.path), label: gemfire.name },
+    { href: localePath(locale, "/#studio"), label: t.nav.studio },
+    { href: localePath(locale, "/support"), label: t.nav.support },
+  ];
+}
 
-const LEGAL = [
-  { href: "/privacy", label: "Privacy" },
-  { href: "/terms", label: "Terms" },
-  { href: "/delete-account", label: "Delete your data" },
-] as const;
+function legal(t: Dictionary, locale: Locale) {
+  return [
+    { href: localePath(locale, "/privacy"), label: t.nav.privacy },
+    { href: localePath(locale, "/terms"), label: t.nav.terms },
+    { href: localePath(locale, "/delete-account"), label: t.nav.deleteData },
+  ];
+}
 
-export function SiteHeader() {
+/**
+ * Header and footer take the locale as a prop rather than reading the route, because the
+ * global 404 (an address that matched no route, so has no `[lang]`) draws them too.
+ */
+export function SiteHeader({ locale }: { locale: Locale }) {
+  const t = dictionaries[locale];
+  const NAV = nav(t, locale);
+  const LEGAL = legal(t, locale);
+
   return (
     <header className="sticky top-0 z-50 border-b border-line bg-bg/70 backdrop-blur-xl">
       <div
@@ -25,14 +41,10 @@ export function SiteHeader() {
         style={{ background: "var(--grad-edge)" }}
       />
       <nav
-        aria-label="Main"
+        aria-label={t.nav.main}
         className="mx-auto flex max-w-7xl items-center gap-4 px-4 py-3 sm:px-6"
       >
-        <Link
-          href="/"
-          className="shrink-0"
-          aria-label={`${site.company} home`}
-        >
+        <Link href={localePath(locale, "/")} className="shrink-0" aria-label={t.nav.home}>
           <Wordmark id="hdr" />
         </Link>
 
@@ -49,33 +61,47 @@ export function SiteHeader() {
           ))}
         </ul>
 
+        <div className="hidden lg:block">
+          <LanguageMenu current={locale} label={t.nav.language} />
+        </div>
+
         <Link
-          href={`${gemfire.path}#get`}
-          className="btn btn-fire btn-sm ml-auto hidden xs:inline-flex lg:ml-3"
+          href={localePath(locale, `${gemfire.path}#get`)}
+          className="btn btn-fire btn-sm ml-auto hidden xs:inline-flex lg:ml-0"
         >
-          Play {gemfire.name}
+          {t.nav.play}
         </Link>
 
-        <MobileNav items={[...NAV, ...LEGAL]} />
+        <MobileNav
+          items={[...NAV, ...LEGAL]}
+          current={locale}
+          words={{
+            menu: t.nav.menu,
+            open: t.nav.openMenu,
+            close: t.nav.closeMenu,
+            language: t.nav.language,
+          }}
+        />
       </nav>
     </header>
   );
 }
 
-export function SiteFooter() {
+export function SiteFooter({ locale }: { locale: Locale }) {
+  const t = dictionaries[locale];
+  const NAV = nav(t, locale);
+  const LEGAL = legal(t, locale);
+
   return (
     <footer className="relative mt-auto overflow-hidden border-t border-line">
       <div className="orb" style={{ "--x": "10%", "--y": "120%", "--c": "var(--violet)", "--s": "50rem" } as React.CSSProperties} />
       <div className="orb" style={{ "--x": "90%", "--y": "110%", "--c": "var(--ember)", "--s": "44rem" } as React.CSSProperties} />
 
       <div className="relative mx-auto max-w-7xl px-5 py-16 sm:px-6">
-        <div className="grid gap-12 sm:grid-cols-2 lg:grid-cols-4">
-          <div className="lg:col-span-2">
+        <div className="grid gap-12 sm:grid-cols-2 lg:grid-cols-[2fr_1fr_1fr_1.2fr]">
+          <div>
             <Wordmark id="ftr" />
-            <p className="mt-5 max-w-sm text-sm leading-relaxed text-ink-2">
-              An independent mobile game studio. We make small, loud games with
-              real mechanics under the sparkle, and we publish them ourselves.
-            </p>
+            <p className="mt-5 max-w-sm text-sm leading-relaxed text-ink-2">{t.footer.blurb}</p>
             <a
               href={`mailto:${site.email}`}
               className="mt-5 inline-flex items-center gap-2 text-sm font-semibold text-cyan hover:underline"
@@ -85,7 +111,7 @@ export function SiteFooter() {
           </div>
 
           <div>
-            <h2 className="kicker mb-4 text-ink-3">Studio</h2>
+            <h2 className="kicker mb-4 text-ink-3">{t.footer.studio}</h2>
             <ul className="space-y-2.5 text-sm">
               {NAV.map((item) => (
                 <li key={item.href}>
@@ -101,7 +127,7 @@ export function SiteFooter() {
           </div>
 
           <div>
-            <h2 className="kicker mb-4 text-ink-3">The small print</h2>
+            <h2 className="kicker mb-4 text-ink-3">{t.footer.smallPrint}</h2>
             <ul className="space-y-2.5 text-sm">
               {LEGAL.map((item) => (
                 <li key={item.href}>
@@ -122,10 +148,10 @@ export function SiteFooter() {
               */}
               <li>
                 <Link
-                  href="/credits"
+                  href={localePath(locale, "/credits")}
                   className="font-medium text-ink-2 transition-colors hover:text-ink"
                 >
-                  Credits
+                  {t.nav.credits}
                 </Link>
               </li>
               <li>
@@ -138,14 +164,16 @@ export function SiteFooter() {
               </li>
             </ul>
           </div>
+
+          <div>
+            <h2 className="kicker mb-4 text-ink-3">{t.nav.language}</h2>
+            <LanguageMenu current={locale} label={t.nav.language} variant="list" />
+          </div>
         </div>
 
         <div className="rule mt-14" />
         <div className="mt-6 flex flex-col gap-3 text-xs text-ink-3 sm:flex-row sm:items-center sm:justify-between">
-          <p>
-            © {new Date().getFullYear()} {site.entity}, trading as {site.company}.{" "}
-            {gemfire.name} and its artwork are the property of {site.company}.
-          </p>
+          <p>{t.footer.copyright(new Date().getFullYear())}</p>
           <p className="inline-flex items-center gap-2">
             <Mark className="h-4 w-4" id="ftr-mini" />
             {site.address}
@@ -162,15 +190,20 @@ export function SiteFooter() {
  * policy without a visible revision date is one a reader cannot tell has
  * changed.
  */
-export function LegalPage({
+export async function LegalPage({
   title,
   intro,
+  path,
   children,
 }: {
   title: string;
   intro?: string;
+  /** The page's locale-free address, for the link to the English original. */
+  path: string;
   children: React.ReactNode;
 }) {
+  const { locale, t } = await getText();
+
   return (
     <main className="relative">
       <div
@@ -187,10 +220,27 @@ export function LegalPage({
           <h1 className="text-4xl sm:text-5xl">{title}</h1>
           <p className="chip mt-5">
             <span className="chip-dot" />
-            Last updated {site.updated}
+            {t.legal.lastUpdated} {formatDate(site.updated, localeInfo[locale].tag)}
           </p>
           {intro ? (
             <p className="mt-6 text-lg leading-relaxed text-ink-2">{intro}</p>
+          ) : null}
+          {/*
+            A translated policy says that it is one, and points at the original. The policies
+            are legal documents written in English; a translation is there to be understood,
+            and where the two differ the English text is the one that was agreed.
+          */}
+          {locale !== defaultLocale ? (
+            <p className="mt-6 border-l-2 border-line-2 pl-4 text-sm leading-relaxed text-ink-3">
+              {t.legal.translated}{" "}
+              <a
+                href={localePath(defaultLocale, path)}
+                hrefLang={localeInfo[defaultLocale].tag}
+                className="text-cyan underline underline-offset-4"
+              >
+                {t.legal.original}
+              </a>
+            </p>
           ) : null}
         </header>
         <div className="prose-legal mt-10">{children}</div>
@@ -200,10 +250,12 @@ export function LegalPage({
 }
 
 /** A short, plain-words box at the top of a long document. */
-export function Summary({ children }: { children: React.ReactNode }) {
+export async function Summary({ children }: { children: React.ReactNode }) {
+  const { t } = await getText();
+
   return (
     <aside className="panel panel-sm panel-glow not-prose p-6">
-      <p className="kicker mb-3">In short</p>
+      <p className="kicker mb-3">{t.legal.inShort}</p>
       <div className="text-[0.95rem] leading-relaxed text-ink-2">{children}</div>
     </aside>
   );

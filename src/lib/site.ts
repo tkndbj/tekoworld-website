@@ -16,9 +16,6 @@ export const site = {
    */
   company: "Tekoworld",
 
-  /** The one-line description of what the studio is. */
-  tagline: "Mobile games with fire in them.",
-
   /**
    * The canonical origin, and it is the **www** host deliberately.
    *
@@ -40,8 +37,15 @@ export const site = {
    */
   entity: "Tekin Dabaj",
 
-  /** TODO: the postal address for the entity above, as it appears on the store listings. */
+  /**
+   * TODO: the postal address for the entity above, as it appears on the store listings.
+   * The policies print it as written here, in every language: it is an address, not prose.
+   */
   address: "Famagusta, Cyprus",
+
+  /** Where the studio is, for prose ("an independent studio in ..."); see `placeName`. */
+  city: "Famagusta",
+  country: "CY",
 
   /** Where privacy, deletion and support requests are received and answered. */
   email: "arcadetkn@gmail.com",
@@ -50,12 +54,16 @@ export const site = {
    * TODO: the jurisdiction whose law governs the Terms.
    *
    * Should follow the entity, not where the developer happens to sit. Worth confirming with
-   * whoever incorporated the business.
+   * whoever incorporated the business. The translated terms (src/i18n/legal/terms/*.tsx) name
+   * it in their own language, so changing it here means changing it there.
    */
   jurisdiction: "the Republic of Cyprus",
 
-  /** Shown on every policy. Bump when the text changes in a way that affects a reader. */
-  updated: "14 September 2026",
+  /**
+   * Shown on every policy, in every language. Bump when the text changes in a way that affects
+   * a reader. ISO so each language can print it its own way (`formatDate`).
+   */
+  updated: "2026-10-07",
 } as const;
 
 /**
@@ -66,10 +74,6 @@ export const gemfire = {
   name: "Gemfire",
   slug: "gemfire",
   path: "/gemfire",
-  genre: "Match-3 tower defence",
-  pitch: "Match gems. Fire turrets. Hold the wall.",
-  description:
-    "Gemfire is a match-3 tower-defence game. Every match on the board fires the turret of the same colour at the horde marching on your castle. Clear waves, upgrade your turrets, and build your kingdom.",
 
   /** A store left empty hides its button. Android waits for the Play listing to go public. */
   stores: {
@@ -87,7 +91,27 @@ export const gemfire = {
   },
 } as const;
 
-/** The support address as a mailto link with a subject already filled in. */
+/**
+ * The support address as a mailto link with a subject already filled in. The subject is the
+ * reader's language (the `mail` block of the dictionary); the game's name in front of it is
+ * what sorts the inbox.
+ */
 export function mailto(subject: string) {
   return `mailto:${site.email}?subject=${encodeURIComponent(`${gemfire.name} - ${subject}`)}`;
+}
+
+/** The studio's city and country, the country named in the reader's language. */
+export function placeName(tag: string) {
+  const country = new Intl.DisplayNames([tag], { type: "region" }).of(site.country);
+  return `${site.city}, ${country}`;
+}
+
+/** A date from this file, written the way `tag` (a BCP 47 language tag) writes dates. */
+export function formatDate(iso: string, tag: string) {
+  return new Intl.DateTimeFormat(tag, {
+    day: "numeric",
+    month: "long",
+    year: "numeric",
+    timeZone: "UTC",
+  }).format(new Date(`${iso}T00:00:00Z`));
 }

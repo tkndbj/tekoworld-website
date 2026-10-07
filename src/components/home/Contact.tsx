@@ -1,11 +1,17 @@
 import Link from "next/link";
+import { Rich } from "@/i18n/rich";
+import { localePath } from "@/i18n/locales";
+import { getText } from "@/i18n/server";
 import { site } from "@/lib/site";
 
 /**
  * The one way to reach the studio. Press, partnership and player support all
  * land in the same inbox on purpose - there is one team, and it reads all of it.
  */
-export function Contact() {
+export async function Contact() {
+  const { locale, t } = await getText();
+  const c = t.home.contact;
+
   return (
     <section id="contact" className="relative scroll-mt-20 overflow-hidden pb-28 pt-8 sm:pb-36">
       <div className="mx-auto max-w-7xl px-5 sm:px-6">
@@ -23,14 +29,11 @@ export function Contact() {
             style={{ "--x": "15%", "--y": "100%", "--c": "var(--cyan)", "--s": "36rem" } as React.CSSProperties}
           />
           <div className="relative">
-            <p className="kicker justify-center">Contact</p>
+            <p className="kicker justify-center">{c.kicker}</p>
             <h2 className="mt-4 text-4xl sm:text-5xl">
-              Say hello. <span className="text-gem">We read everything.</span>
+              <Rich value={c.title} locale={locale} hl="text-gem" />
             </h2>
-            <p className="mx-auto mt-5 max-w-xl text-lg text-ink-2">
-              Players, press, platforms and partners all reach the same inbox.
-              Support questions get an answer within a couple of days.
-            </p>
+            <p className="mx-auto mt-5 max-w-xl text-lg text-ink-2">{c.body}</p>
             <div className="mt-9 flex flex-wrap items-center justify-center gap-3">
               <a
                 href={`mailto:${site.email}`}
@@ -38,8 +41,8 @@ export function Contact() {
               >
                 {site.email}
               </a>
-              <Link href="/support" className="btn btn-lg">
-                Player support
+              <Link href={localePath(locale, "/support")} className="btn btn-lg">
+                {c.support}
               </Link>
             </div>
           </div>

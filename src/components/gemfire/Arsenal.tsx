@@ -1,5 +1,7 @@
 import Image from "next/image";
 import turretsArt from "../../../public/gemfire/turrets.webp";
+import { getText } from "@/i18n/server";
+import { Rich } from "@/i18n/rich";
 import { charms, kit, turrets } from "@/lib/content";
 
 /**
@@ -7,9 +9,13 @@ import { charms, kit, turrets } from "@/lib/content";
  * and the three charms. It is a lot of nouns on purpose - a loadout screen is
  * the most convincing thing a strategy game can show a player.
  */
-export function Arsenal() {
-  const tier1 = turrets.filter((t) => t.tier === 1);
-  const tier2 = turrets.filter((t) => t.tier === 2);
+export async function Arsenal() {
+  const { locale, t, game } = await getText();
+  const a = t.gemfire.arsenal;
+  const named = (tier: 1 | 2) =>
+    turrets.filter((x) => x.tier === tier).map((x) => ({ id: x.id, ...game.turrets[x.id] }));
+  const tier1 = named(1);
+  const tier2 = named(2);
 
   return (
     <section id="arsenal" className="relative scroll-mt-20 overflow-hidden py-24 sm:py-32">
@@ -22,15 +28,11 @@ export function Arsenal() {
       <div className="relative mx-auto max-w-7xl px-5 sm:px-6">
         <div className="grid items-center gap-10 lg:grid-cols-[1fr_0.9fr]">
           <div className="reveal">
-            <p className="kicker">The arsenal</p>
+            <p className="kicker">{a.kicker}</p>
             <h2 className="mt-4 text-4xl sm:text-5xl">
-              Twenty turrets. <span className="text-gem">Five stars each.</span>
+              <Rich value={a.title} locale={locale} hl="text-gem" />
             </h2>
-            <p className="mt-5 max-w-xl text-lg text-ink-2">
-              Every turret is bought per colour and upgraded to five stars. The
-              first ten cost coins. The second ten cost gems, and each is the
-              grown-up version of one you already know.
-            </p>
+            <p className="mt-5 max-w-xl text-lg text-ink-2">{a.body}</p>
           </div>
           <div
             className="reveal relative mx-auto aspect-square w-full max-w-md"
@@ -48,7 +50,7 @@ export function Arsenal() {
             />
             <Image
               src={turretsArt}
-              alt="Three turrets, green, red and cyan, on grey plinths, each firing a bolt of flame."
+              alt={a.art}
               sizes="(min-width: 1024px) 28rem, 90vw"
               className="anim-float relative rounded-[2rem] [mask-image:radial-gradient(70%_70%_at_50%_50%,#000_55%,transparent_100%)]"
             />
@@ -56,19 +58,19 @@ export function Arsenal() {
         </div>
 
         <div className="mt-16 grid gap-6 lg:grid-cols-2">
-          <TurretTier title="Tier I" sub="bought with coins" list={tier1} color="var(--gold)" delay={0} />
-          <TurretTier title="Tier II" sub="bought with gems" list={tier2} color="var(--cyan)" delay={100} />
+          <TurretTier title={a.tier1} sub={a.tier1Sub} list={tier1} color="var(--gold)" delay={0} />
+          <TurretTier title={a.tier2} sub={a.tier2Sub} list={tier2} color="var(--cyan)" delay={100} />
         </div>
 
         <div className="mt-20 grid gap-12 lg:grid-cols-[1.3fr_1fr]">
           <div>
             <p className="kicker reveal" style={{ color: "var(--ember)" }}>
-              The kit
+              {a.kit}
             </p>
             <ul className="mt-6 grid gap-4 sm:grid-cols-2">
               {kit.map((k, i) => (
                 <li
-                  key={k.name}
+                  key={k.id}
                   className="reveal panel panel-sm card p-5"
                   style={{ "--delay": `${i * 70}ms`, "--glow": k.color } as React.CSSProperties}
                 >
@@ -77,9 +79,11 @@ export function Arsenal() {
                       className="h-3 w-3 rotate-45"
                       style={{ background: k.color, boxShadow: `0 0 14px ${k.color}` }}
                     />
-                    <h3 className="text-xl">{k.name}</h3>
+                    <h3 className="text-xl">{game.kit[k.id].name}</h3>
                   </div>
-                  <p className="mt-3 text-[0.95rem] leading-relaxed text-ink-2">{k.note}</p>
+                  <p className="mt-3 text-[0.95rem] leading-relaxed text-ink-2">
+                    {game.kit[k.id].note}
+                  </p>
                 </li>
               ))}
             </ul>
@@ -87,20 +91,20 @@ export function Arsenal() {
 
           <div>
             <p className="kicker reveal" style={{ color: "var(--violet)" }}>
-              Charms on the board
+              {a.charms}
             </p>
             <ul className="mt-6 space-y-3">
               {charms.map((c, i) => (
                 <li
-                  key={c.name}
+                  key={c}
                   className="reveal flex gap-4 border-l-2 border-violet/60 pl-4"
                   style={{ "--delay": `${i * 70}ms` } as React.CSSProperties}
                 >
                   <div>
                     <h3 className="font-display text-base font-semibold uppercase tracking-[0.12em] text-violet">
-                      {c.name}
+                      {game.charms[c]}
                     </h3>
-                    <p className="mt-1 text-[0.95rem] text-ink-2">{c.note}</p>
+                    <p className="mt-1 text-[0.95rem] text-ink-2">{a.charmNotes[c]}</p>
                   </div>
                 </li>
               ))}
@@ -121,7 +125,7 @@ function TurretTier({
 }: {
   title: string;
   sub: string;
-  list: { name: string; note: string }[];
+  list: { id: string; name: string; note: string }[];
   color: string;
   delay: number;
 }) {
@@ -138,7 +142,7 @@ function TurretTier({
       </div>
       <ul className="mt-6 grid gap-x-6 gap-y-3 sm:grid-cols-2">
         {list.map((t, i) => (
-          <li key={t.name} className="flex items-start gap-3">
+          <li key={t.id} className="flex items-start gap-3">
             <span
               className="font-display mt-1 w-6 shrink-0 text-xs font-semibold text-ink-3"
               aria-hidden

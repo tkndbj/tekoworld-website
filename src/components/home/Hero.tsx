@@ -1,7 +1,10 @@
 import Image from "next/image";
 import Link from "next/link";
 import cover from "../../../public/gemfire/cover.webp";
-import { gemfire, site } from "@/lib/site";
+import { localePath } from "@/i18n/locales";
+import { Rich } from "@/i18n/rich";
+import { getText } from "@/i18n/server";
+import { gemfire } from "@/lib/site";
 
 /**
  * The studio hero. The Gemfire key art is the whole backdrop, pushed back into
@@ -9,7 +12,10 @@ import { gemfire, site } from "@/lib/site";
  * perspective grid rises out of the floor to say "this is a games company"
  * without a single word of copy having to.
  */
-export function Hero() {
+export async function Hero() {
+  const { locale, t } = await getText();
+  const h = t.home.hero;
+
   return (
     <section className="relative isolate overflow-hidden">
       {/* backdrop */}
@@ -52,37 +58,33 @@ export function Hero() {
       <div className="mx-auto flex min-h-[min(calc(100svh-4rem),52rem)] max-w-7xl flex-col justify-center px-5 pb-20 pt-24 sm:px-6 lg:pt-28">
         <p className="chip reveal w-fit">
           <span className="chip-dot" />
-          Independent mobile game studio
+          {h.chip}
         </p>
 
         <h1
           className="reveal mt-7 max-w-4xl text-[2.9rem] leading-[0.98] sm:text-6xl lg:text-[5.25rem]"
           style={{ "--delay": "80ms" } as React.CSSProperties}
         >
-          We make games
-          <br />
-          with <span className="text-fire glow-fire">fire</span> in them.
+          <Rich value={h.title} locale={locale} hl="text-fire glow-fire" />
         </h1>
 
         <p
           className="reveal mt-7 max-w-xl text-lg leading-relaxed text-ink-2 sm:text-xl"
           style={{ "--delay": "160ms" } as React.CSSProperties}
         >
-          {site.company} builds small, loud, mechanically honest games for the
-          phone in your pocket. Our first is {gemfire.name}: a match-3 board
-          bolted to a castle wall, where every match you make fires a turret.
+          {h.body}
         </p>
 
         <div
           className="reveal mt-10 flex flex-wrap items-center gap-3"
           style={{ "--delay": "240ms" } as React.CSSProperties}
         >
-          <Link href={gemfire.path} className="btn btn-fire btn-lg shine">
-            Explore {gemfire.name}
+          <Link href={localePath(locale, gemfire.path)} className="btn btn-fire btn-lg shine">
+            {h.explore}
             <Arrow />
           </Link>
-          <Link href="/#studio" className="btn btn-lg">
-            About the studio
+          <Link href={localePath(locale, "/#studio")} className="btn btn-lg">
+            {h.about}
           </Link>
         </div>
 
@@ -90,10 +92,10 @@ export function Hero() {
           className="reveal mt-16 grid max-w-2xl grid-cols-2 gap-x-6 gap-y-6 sm:grid-cols-4"
           style={{ "--delay": "320ms" } as React.CSSProperties}
         >
-          <Stat value="01" label="game in the forge" color="var(--ember)" />
-          <Stat value="2" label="platforms at launch" color="var(--cyan)" />
-          <Stat value="0" label="forced adverts" color="var(--emerald)" />
-          <Stat value="∞" label="skeletons to stop" color="var(--violet)" />
+          <Stat value="01" label={h.stats[0]} color="var(--ember)" />
+          <Stat value="2" label={h.stats[1]} color="var(--cyan)" />
+          <Stat value="0" label={h.stats[2]} color="var(--emerald)" />
+          <Stat value="∞" label={h.stats[3]} color="var(--violet)" />
         </dl>
       </div>
     </section>

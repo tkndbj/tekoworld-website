@@ -4,6 +4,9 @@ import cover from "../../../public/gemfire/cover.webp";
 import turrets from "../../../public/gemfire/turrets.webp";
 import { Tilt } from "@/components/ui/Tilt";
 import { Arrow } from "@/components/home/Hero";
+import { localePath } from "@/i18n/locales";
+import { Rich } from "@/i18n/rich";
+import { getText } from "@/i18n/server";
 import { gemfire } from "@/lib/site";
 
 /**
@@ -11,7 +14,10 @@ import { gemfire } from "@/lib/site";
  * card that leans toward the pointer, and beside it a sealed slot for the next
  * project - honest about being empty, and a promise that the list grows.
  */
-export function Games() {
+export async function Games() {
+  const { locale, t } = await getText();
+  const g = t.home.games;
+
   return (
     <section id="games" className="relative scroll-mt-20 overflow-hidden py-24 sm:py-32">
       <div
@@ -23,15 +29,12 @@ export function Games() {
       <div className="relative mx-auto max-w-7xl px-5 sm:px-6">
         <div className="reveal flex flex-col gap-4 sm:flex-row sm:items-end sm:justify-between">
           <div>
-            <p className="kicker">Our games</p>
+            <p className="kicker">{g.kicker}</p>
             <h2 className="mt-4 text-4xl sm:text-5xl">
-              One title. <span className="text-gem">All in.</span>
+              <Rich value={g.title} locale={locale} hl="text-gem" />
             </h2>
           </div>
-          <p className="max-w-md text-ink-2">
-            We ship one game at a time and keep working on it after launch. Here
-            is the one on the anvil now.
-          </p>
+          <p className="max-w-md text-ink-2">{g.body}</p>
         </div>
 
         <div className="mt-12 grid gap-6 lg:grid-cols-[1.6fr_1fr]">
@@ -41,7 +44,7 @@ export function Games() {
             style={{ "--delay": "80ms" } as React.CSSProperties}
           >
             <Link
-              href={gemfire.path}
+              href={localePath(locale, gemfire.path)}
               className="panel panel-glow card group block overflow-hidden"
               style={{ "--glow": "var(--ember)" } as React.CSSProperties}
             >
@@ -49,7 +52,7 @@ export function Games() {
               <div className="relative aspect-[16/9] w-full overflow-hidden sm:aspect-[2/1]">
                 <Image
                   src={cover}
-                  alt={`${gemfire.name} key art: four turrets on a castle wall firing at a skeleton army over a gem board.`}
+                  alt={g.coverAlt}
                   fill
                   sizes="(min-width: 1024px) 60vw, 100vw"
                   className="object-cover transition-transform duration-700 group-hover:scale-[1.04]"
@@ -64,9 +67,9 @@ export function Games() {
                 <div className="absolute left-5 top-5 flex flex-wrap gap-2">
                   <span className="chip bg-bg/60">
                     <span className="chip-dot" />
-                    In development
+                    {g.status}
                   </span>
-                  <span className="chip bg-bg/60">{gemfire.genre}</span>
+                  <span className="chip bg-bg/60">{t.gemfire.genre}</span>
                 </div>
               </div>
 
@@ -76,10 +79,10 @@ export function Games() {
                     <span className="text-gem">Gem</span>
                     <span className="text-fire">fire</span>
                   </h3>
-                  <p className="mt-2 max-w-md text-ink-2">{gemfire.pitch}</p>
+                  <p className="mt-2 max-w-md text-ink-2">{t.gemfire.pitch}</p>
                 </div>
                 <span className="btn btn-fire shrink-0">
-                  View game
+                  {g.view}
                   <Arrow />
                 </span>
               </div>
@@ -93,14 +96,10 @@ export function Games() {
           >
             <div>
               <p className="kicker" style={{ color: "var(--violet)" }}>
-                Slot 02
+                {g.nextKicker}
               </p>
-              <h3 className="mt-4 text-2xl">The next one</h3>
-              <p className="mt-3 text-ink-2">
-                Everything we learn from {gemfire.name} goes into what comes
-                after it. When there is something worth showing, it will show up
-                here first.
-              </p>
+              <h3 className="mt-4 text-2xl">{g.nextTitle}</h3>
+              <p className="mt-3 text-ink-2">{g.nextBody}</p>
             </div>
 
             <div className="relative mt-10 aspect-square w-full overflow-hidden opacity-80">
@@ -115,7 +114,7 @@ export function Games() {
               <div className="absolute inset-0 grid place-items-center">
                 <span className="chip bg-bg/70 text-ink">
                   <Lock />
-                  Sealed
+                  {g.sealed}
                 </span>
               </div>
             </div>

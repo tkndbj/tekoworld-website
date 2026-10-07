@@ -1,7 +1,8 @@
 import Image from "next/image";
 import shot1 from "../../../public/gemfire/shot-1.webp";
 import { Tilt } from "@/components/ui/Tilt";
-import { companions, lands, leagues } from "@/lib/content";
+import { Rich } from "@/i18n/rich";
+import { getText } from "@/i18n/server";
 
 /**
  * The meta-game: the kingdom you build between sieges, the land it grows
@@ -9,7 +10,10 @@ import { companions, lands, leagues } from "@/lib/content";
  * companion roll is a ticker of names because thirty-one is too many for a
  * grid and exactly the right number to scroll.
  */
-export function Kingdom() {
+export async function Kingdom() {
+  const { locale, t, game } = await getText();
+  const k = t.gemfire.kingdom;
+
   return (
     <section id="kingdom" className="relative scroll-mt-20 overflow-hidden py-24 sm:py-32">
       <div
@@ -24,7 +28,7 @@ export function Kingdom() {
             <div className="phone anim-float-slow" style={{ "--glow": "var(--emerald)" } as React.CSSProperties}>
               <Image
                 src={shot1}
-                alt="Build your kingdom: an island growing from an empty fenced plot, to a workshop, to a keep, to a full castle with red-roofed towers."
+                alt={k.art}
                 sizes="(min-width: 1024px) 20rem, 80vw"
               />
             </div>
@@ -32,22 +36,19 @@ export function Kingdom() {
 
           <div className="lg:order-2">
             <p className="kicker reveal" style={{ color: "var(--emerald)" }}>
-              Between the sieges
+              {k.kicker}
             </p>
             <h2
               className="reveal mt-4 text-4xl sm:text-5xl"
               style={{ "--delay": "60ms" } as React.CSSProperties}
             >
-              Build your <span className="text-gem">kingdom.</span>
+              <Rich value={k.title} locale={locale} hl="text-gem" />
             </h2>
             <p
               className="reveal mt-5 max-w-xl text-lg leading-relaxed text-ink-2"
               style={{ "--delay": "120ms" } as React.CSSProperties}
             >
-              Coins won on the wall are spent behind it. Buy land, raise a home
-              from a fenced plot to a castle, and lay out homes, halls, walls
-              and gardens across a field of tiles, any way you like. Every
-              piece turns to face four ways. No two kingdoms come out the same.
+              {k.body}
             </p>
 
             <div
@@ -56,20 +57,20 @@ export function Kingdom() {
             >
               <div className="panel panel-sm p-5">
                 <p className="kicker" style={{ color: "var(--gold)" }}>
-                  Nine lands
+                  {k.lands}
                 </p>
                 <ul className="mt-3 flex flex-wrap gap-x-3 gap-y-1 text-sm text-ink-2">
-                  {lands.map((l) => (
+                  {k.landList.map((l) => (
                     <li key={l}>{l}</li>
                   ))}
                 </ul>
               </div>
               <div className="panel panel-sm p-5">
                 <p className="kicker" style={{ color: "var(--cyan)" }}>
-                  Nine leagues
+                  {k.leagues}
                 </p>
                 <ul className="mt-3 flex flex-wrap gap-x-3 gap-y-1 text-sm text-ink-2">
-                  {leagues.map((l) => (
+                  {k.leagueList.map((l) => (
                     <li key={l}>{l}</li>
                   ))}
                 </ul>
@@ -85,20 +86,16 @@ export function Kingdom() {
           <div className="flex flex-col gap-3 sm:flex-row sm:items-end sm:justify-between">
             <div>
               <p className="kicker" style={{ color: "var(--magenta)" }}>
-                Companions
+                {k.companions}
               </p>
-              <h3 className="mt-3 text-3xl">Thirty-one friends, one at a time.</h3>
+              <h3 className="mt-3 text-3xl">{k.companionsTitle}</h3>
             </div>
-            <p className="max-w-md text-ink-2">
-              Monarch is with you from the first siege. The rest are met as
-              your kingdom grows, and whichever you choose stands in for you on
-              the boards.
-            </p>
+            <p className="max-w-md text-ink-2">{k.companionsBody}</p>
           </div>
 
           <div className="marquee mt-8" aria-hidden>
-            <NameTrack />
-            <NameTrack />
+            <NameTrack names={game.companions} />
+            <NameTrack names={game.companions} />
           </div>
         </div>
       </div>
@@ -106,12 +103,12 @@ export function Kingdom() {
   );
 }
 
-function NameTrack() {
+function NameTrack({ names }: { names: readonly string[] }) {
   return (
     <ul className="marquee-track">
-      {companions.map((c, i) => (
+      {names.map((c, i) => (
         <li
-          key={c}
+          key={i}
           className="font-display flex items-center gap-12 whitespace-nowrap text-2xl font-semibold uppercase tracking-[0.18em]"
           style={{
             color: ["var(--cyan)", "var(--gold)", "var(--emerald)", "var(--violet)", "var(--ruby)"][i % 5],

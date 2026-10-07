@@ -2,18 +2,12 @@
  * A slow ticker between the hero and the games. Decorative, so hidden from
  * assistive tech: the same words appear in real headings further down.
  */
-const WORDS = [
-  "Gemfire",
-  "Match-3 tower defence",
-  "Android",
-  "iOS",
-  "Tekoworld",
-  "Build your kingdom",
-  "Upgrade your turrets",
-  "Hold the wall",
-];
+import { getText } from "@/i18n/server";
 
-export function Ticker() {
+export async function Ticker() {
+  const { t } = await getText();
+  const WORDS = t.home.ticker;
+
   const track = (
     <ul className="marquee-track" aria-hidden>
       {WORDS.map((w, i) => (

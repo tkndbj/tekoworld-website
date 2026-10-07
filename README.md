@@ -24,8 +24,8 @@ Everything below lives in one file: **`src/lib/site.ts`**. Nothing else needs to
 | `site.company` | The studio name players see - **Tekoworld**. Shown in the header, the footer and the social card, and named in the policies alongside `entity`. |
 | `site.entity` | **Must match the Google Play developer account and the App Store Connect seller.** The policies claim to be issued by whoever this names; a mismatch is something a store review checks. |
 | `site.address` | Appears in the privacy policy and terms as the controller's address. |
-| `site.jurisdiction` | Governing law in the terms. Should follow the entity, not where you happen to sit. |
-| `site.updated` | The revision date on every policy. Bump it when the text changes. |
+| `site.jurisdiction` | Governing law in the terms. Should follow the entity, not where you happen to sit. The translated terms (`src/i18n/legal/terms/*.tsx`) name it in their own words, so a change here is a change there too. |
+| `site.updated` | The revision date on every policy, ISO (`2026-10-07`), printed in each language's own format. Bump it when the text changes. |
 | `gemfire.stores` | The two listing URLs. Every store button hides itself and says "coming soon" until these are filled in, so the site never shows a dead download link. |
 
 ### The domain
@@ -44,13 +44,46 @@ change; a canonical URL that redirects is the one failure here that is silent.
 
 ### Vocabulary
 
-The store listing, this site and the splash screen say **Gemfire**. Inside the game the
-village you build is still called your "groove" (the button on the Profile tab reads
-*Hide my groove*, the delete overlay reads *Keep my grove*). The policies and support page
-quote the in-game button labels exactly, because a reader has to be able to find them, and
-call the village "your kingdom" everywhere else, matching the store screenshots. If the
-in-game vocabulary is renamed, update `src/app/delete-account/page.tsx` and
-`src/app/support/page.tsx` in the same change.
+The store listing, this site and the splash screen say **Gemfire**. The policies and support
+page quote in-game button labels (*Delete account*, *Hide me from the boards*, *Privacy & ad
+choices*, ...) and those are not typed here: they are read from the game's own loc tables (see
+**Languages** below), so the button a page names is the button on the player's screen, in the
+player's language.
+
+## Languages
+
+The site is published in the game's eight languages: English, Spanish, Portuguese (Brazil),
+French, German, Italian, Turkish and Polish. `src/i18n/locales.ts` is the list.
+
+**Addresses.** English is unprefixed (`/privacy`, `/gemfire`), exactly as before, because those
+URLs are written into both store listings, the AdMob consent message and the game binary. The
+other languages live under a prefix (`/es/privacy`, `/tr/gemfire`). Every page is in
+`src/app/[lang]/`; `next.config.ts` rewrites the unprefixed English addresses onto `/en/...`
+internally (no redirect), and `/en/...` itself 308s back to the unprefixed spelling. Every page
+declares its canonical address and `hreflang` alternates, and the sitemap lists every language.
+
+**No redirect by browser language.** A reader whose browser prefers another language the site
+has is *offered* it in a small panel (`LanguageSuggestion`), never sent there: a store reviewer or
+crawler must get the page it asked for. Choosing a language is remembered for the tab in
+`sessionStorage` only, which the privacy policy's "This website" section says.
+
+**Where the words are.**
+
+| What | Where |
+|---|---|
+| Site copy (header, footer, home, the Gemfire page, 404) | `src/i18n/dictionaries/{lang}.ts`. `en.ts` defines the shape; every other file is typed against it, so a missing key fails the build. |
+| Policies, support, deletion, credits | `src/i18n/legal/{page}/{lang}.tsx`, one whole document per language. English is the original; each translation says so and links to it. |
+| Names from the game (turrets, kit, chapters, levels, bosses, charms, companions, button labels) | `src/i18n/game-text.ts`, **generated**: `python scripts/sync-game-text.py "<game>/Assets/StreamingAssets/Content/loc"`. Re-run when the game's loc tables change; `--check` fails if the file is stale. |
+
+**Adding a language:** add it to `locales.ts`, add it to the game-text script's list, write
+`dictionaries/{lang}.ts` and the five legal documents. The build refuses until all exist.
+
+**Fonts** load the `latin-ext` subset as well as `latin`; Turkish and Polish letters need it.
+Capitals come from CSS `text-transform`, which reads `<html lang>`, so Turkish i correctly
+becomes İ.
+
+The translations were drafted by Claude, like the game's, and have not been reviewed by native
+speakers yet.
 
 ## How the site is built
 
@@ -72,11 +105,9 @@ The renders are 2 MB PNGs; the site serves lossy WebP at the widths the layout u
 1 MB in total, through `next/image` with static imports so every image has its intrinsic
 size and never shifts the layout.
 
-**Copy** for the Gemfire page lives in `src/lib/content.ts` and is lifted from the game's
-own content files (`Assets/StreamingAssets/Content/loc/en.json`, `manifest.json`,
-`progression.json`): chapter and level names, the twenty turrets and their in-game notes,
-the kit, the companions, the lands and the leagues. If a name changes in the game it should
-change there in the same commit.
+**The Gemfire page's shape** (which chapters, turrets, kit and charms, in what order and
+colour) is in `src/lib/content.ts`; their names and in-game notes come from the game through
+`src/i18n/game-text.ts`, and the site's own descriptions from the dictionaries.
 
 ## Where each URL is needed
 

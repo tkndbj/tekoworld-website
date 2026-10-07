@@ -1,3 +1,4 @@
+import { getText } from "@/i18n/server";
 import { gemfire } from "@/lib/site";
 
 function GooglePlay() {
@@ -24,13 +25,14 @@ function AppStore() {
  * so. A "Download" that goes nowhere is worse than an honest "coming soon" -
  * and this disappears by itself the moment the store URLs are filled in.
  */
-export function StoreButtons({
+export async function StoreButtons({
   className = "",
   size = "",
 }: {
   className?: string;
   size?: "" | "btn-lg";
 }) {
+  const { t } = await getText();
   const { android, ios } = gemfire.stores;
 
   if (!android && !ios) {
@@ -38,7 +40,7 @@ export function StoreButtons({
       <div className={className}>
         <p className="chip py-3 pl-4 pr-5 text-[0.78rem] text-ink">
           <span className="chip-dot" />
-          Coming soon to Google Play and the App Store
+          {t.store.comingSoon}
         </p>
       </div>
     );
@@ -49,13 +51,13 @@ export function StoreButtons({
       {android ? (
         <a href={android} className={`btn btn-fire ${size}`}>
           <GooglePlay />
-          Get it on Google Play
+          {t.store.googlePlay}
         </a>
       ) : null}
       {ios ? (
         <a href={ios} className={`btn ${size}`}>
           <AppStore />
-          Download on the App Store
+          {t.store.appStore}
         </a>
       ) : null}
     </div>
