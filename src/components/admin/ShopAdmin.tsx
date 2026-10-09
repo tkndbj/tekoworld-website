@@ -1,0 +1,392 @@
+"use client";
+
+/**
+ * The shop admin: make a limited-time deal (coins for gems, for a duration) and end one early.
+ *
+ * Every number and every rule is the server's - `adminListDeals`, `adminCreateDeal` and
+ * `adminEndDeal` in the game's functions, which check the caller is one of the owner's Google
+ * accounts, validate the request, and write the one public document the game reads
+ * (`config/deals`). This page only asks and shows the answer. Nothing here listens: the list
+ * is fetched once on sign-in, after each change, and when Refresh is pressed; the countdowns
+ * tick on the browser's clock, corrected by the server's.
+ */
+
+import { useCallback, useEffect, useMemo, useState } from "react";
+import {
+  GoogleAuthProvider,
+  onAuthStateChanged,
+  signInWithPopup,
+  signOut,
+  type User,
+} from "firebase/auth";
+import { httpsCallable } from "firebase/functions";
+import { webAuth, webFunctions } from "@/lib/firebase-web";
+
+interface ShopDeal {
+  id: string;
+  credits: number;
+  gems: number;
+  startUnix: number;
+  endUnix: number;
+}
+
+interface Limits {
+  minSeconds: number;
+  maxSeconds: number;
+  maxCredits: number;
+  maxGems: number;
+  maxLive: number;
+  graceSeconds: number;
+}
+
+interface DealsReply {
+  nowUnix: number;
+  deals: ShopDeal[];
+  limits: Limits;
+}
+
+type Access = "checking" | "signed-out" | "denied" | "allowed";
+
+const number = new Intl.NumberFormat("en-US");
+
+/** A wait, the way the game writes one: "2d 4h", "3h 07m", "12:05". */
+function countdown(seconds: number): string {
+  const s = Math.max(0, Math.floor(seconds));
+  if (s >= 86400) return `${Math.floor(s / 86400)}d ${Math.floor((s % 86400) / 3600)}h`;
+  if (s >= 3600) return `${Math.floor(s / 3600)}h ${String(Math.floor((s % 3600) / 60)).padStart(2, "0")}m`;
+  return `${Math.floor(s / 60)}:${String(s % 60).padStart(2, "0")}`;
+}
+
+function when(unix: number): string {
+  return new Date(unix * 1000).toLocaleString(undefined, {
+    weekday: "short", day: "numeric", month: "short", hour: "2-digit", minute: "2-digit",
+  });
+}
+
+/** What a failed call says, in words the owner can act on. */
+function explain(error: unknown): string {
+  const code = (error as { code?: string })?.code ?? "";
+  const message = (error as { message?: string })?.message ?? String(error);
+  if (code === "functions/permission-denied") return "This Google account is not allowed to manage the shop.";
+  if (code === "functions/unauthenticated") return "Sign in again.";
+  if (code === "functions/unavailable" || code === "functions/deadline-exceeded") {
+    return "The server could not be reached. Check the connection and try again.";
+  }
+  if (code === "functions/internal" && message === "internal") {
+    return "The server failed to answer. If this keeps happening, the functions may not be deployed.";
+  }
+  return message;
+}
+
+export function ShopAdmin() {
+  const [user, setUser] = useState<User | null>(null);
+  const [access, setAccess] = useState<Access>("checking");
+  const [reply, setReply] = useState<DealsReply | null>(null);
+  const [skew, setSkew] = useState(0);
+  const [now, setNow] = useState(() => Math.floor(Date.now() / 1000));
+  const [busy, setBusy] = useState(false);
+  const [error, setError] = useState<string | null>(null);
+  const [notice, setNotice] = useState<string | null>(null);
+
+  const [credits, setCredits] = useState("26000");
+  const [gems, setGems] = useState("");
+  const [days, setDays] = useState("1");
+  const [hours, setHours] = useState("0");
+  const [minutes, setMinutes] = useState("0");
+
+  // The page's own clock, for the countdowns only. Corrected by the server's on every reply,
+  // so a laptop whose clock is wrong still shows the time a player's phone will.
+  useEffect(() => {
+    const timer = window.setInterval(() => setNow(Math.floor(Date.now() / 1000)), 1000);
+    return () => window.clearInterval(timer);
+  }, []);
+
+  const serverNow = now + skew;
+
+  const adopt = useCallback((data: DealsReply) => {
+    setReply(data);
+    setSkew(data.nowUnix - Math.floor(Date.now() / 1000));
+  }, []);
+
+  const load = useCallback(async () => {
+    setError(null);
+    try {
+      const call = httpsCallable<void, DealsReply>(webFunctions(), "adminListDeals");
+      const result = await call();
+      adopt(result.data);
+      setAccess("allowed");
+    } catch (e) {
+      if ((e as { code?: string })?.code === "functions/permission-denied") setAccess("denied");
+      else setAccess("allowed");
+      setError(explain(e));
+    }
+  }, [adopt]);
+
+  useEffect(() => {
+    return onAuthStateChanged(webAuth(), (next) => {
+      setUser(next);
+      setReply(null);
+      setNotice(null);
+      if (!next) {
+        setAccess("signed-out");
+        return;
+      }
+      setAccess("checking");
+      void load();
+    });
+  }, [load]);
+
+  async function signIn() {
+    setError(null);
+    try {
+      const provider = new GoogleAuthProvider();
+      provider.setCustomParameters({ prompt: "select_account" });
+      await signInWithPopup(webAuth(), provider);
+    } catch (e) {
+      const code = (e as { code?: string })?.code ?? "";
+      if (code === "auth/popup-closed-by-user" || code === "auth/cancelled-popup-request") return;
+      setError(code === "auth/popup-blocked"
+        ? "The browser blocked the sign-in window. Allow pop-ups for this site and try again."
+        : explain(e));
+    }
+  }
+
+  const limits = reply?.limits;
+  const durationSeconds =
+    (Number(days) || 0) * 86400 + (Number(hours) || 0) * 3600 + (Number(minutes) || 0) * 60;
+  const creditsValue = Number(credits);
+  const gemsValue = Number(gems);
+
+  const live = useMemo(
+    () => (reply?.deals ?? []).filter((d) => serverNow >= d.startUnix && serverNow < d.endUnix),
+    [reply, serverNow]
+  );
+  const past = useMemo(
+    () => (reply?.deals ?? []).filter((d) => serverNow >= d.endUnix).sort((a, b) => b.endUnix - a.endUnix),
+    [reply, serverNow]
+  );
+
+  const problem = useMemo(() => {
+    if (!limits) return null;
+    if (!Number.isInteger(creditsValue) || creditsValue < 1 || creditsValue > limits.maxCredits) {
+      return `Coins must be a whole number from 1 to ${number.format(limits.maxCredits)}.`;
+    }
+    if (!Number.isInteger(gemsValue) || gemsValue < 1 || gemsValue > limits.maxGems) {
+      return `Gems must be a whole number from 1 to ${number.format(limits.maxGems)}.`;
+    }
+    if (![days, hours, minutes].every((v) => /^\d+$/.test(v.trim()))) {
+      return "Days, hours and minutes must be whole numbers.";
+    }
+    if (durationSeconds < limits.minSeconds || durationSeconds > limits.maxSeconds) {
+      return `The duration must be between ${limits.minSeconds / 60} minutes and ${limits.maxSeconds / 86400} days.`;
+    }
+    if (live.length >= limits.maxLive) return "A deal is already on sale. End it before making another.";
+    return null;
+  }, [limits, creditsValue, gemsValue, days, hours, minutes, durationSeconds, live.length]);
+
+  async function create() {
+    if (problem || busy) return;
+    const ends = when(serverNow + durationSeconds);
+    const ok = window.confirm(
+      `Start this deal for every player now?\n\n` +
+      `${number.format(creditsValue)} coins for ${number.format(gemsValue)} gems\n` +
+      `Runs ${countdown(durationSeconds)}, until ${ends}.\n\n` +
+      `It cannot be edited once it starts, only ended early.`
+    );
+    if (!ok) return;
+
+    setBusy(true);
+    setError(null);
+    setNotice(null);
+    try {
+      const call = httpsCallable<{ credits: number; gems: number; durationSeconds: number }, DealsReply & { deal: ShopDeal }>(
+        webFunctions(), "adminCreateDeal");
+      const result = await call({ credits: creditsValue, gems: gemsValue, durationSeconds });
+      adopt(result.data);
+      setGems("");
+      setNotice(`Deal ${result.data.deal.id} is on sale. Players see it within 15 minutes, or at their next launch.`);
+    } catch (e) {
+      setError(explain(e));
+    } finally {
+      setBusy(false);
+    }
+  }
+
+  async function end(deal: ShopDeal) {
+    if (busy) return;
+    const ok = window.confirm(
+      `End this deal now?\n\n${number.format(deal.credits)} coins for ${number.format(deal.gems)} gems\n\n` +
+      `Players who bought it keep it. It leaves the shop at each player's next refresh.`
+    );
+    if (!ok) return;
+
+    setBusy(true);
+    setError(null);
+    setNotice(null);
+    try {
+      const call = httpsCallable<{ id: string }, DealsReply & { deal: ShopDeal }>(webFunctions(), "adminEndDeal");
+      const result = await call({ id: deal.id });
+      adopt(result.data);
+      setNotice(`Deal ${deal.id} has ended.`);
+    } catch (e) {
+      setError(explain(e));
+    } finally {
+      setBusy(false);
+    }
+  }
+
+  return (
+    <main className="mx-auto w-full max-w-3xl flex-1 px-4 py-10 sm:px-6 sm:py-14">
+      <header className="mb-8 flex flex-wrap items-center justify-between gap-4">
+        <div>
+          <p className="kicker">Gemfire admin</p>
+          <h1 className="mt-2 text-3xl sm:text-4xl">Shop deals</h1>
+        </div>
+        {user && (
+          <div className="flex items-center gap-3 text-sm text-ink-2">
+            <span className="max-w-[16rem] truncate">{user.email}</span>
+            <button className="btn btn-sm" onClick={() => void signOut(webAuth())}>Sign out</button>
+          </div>
+        )}
+      </header>
+
+      {error && (
+        <p role="alert" className="panel panel-sm mb-6 border-l-2 border-ruby px-5 py-4 text-sm text-ink">
+          {error}
+        </p>
+      )}
+      {notice && (
+        <p role="status" className="panel panel-sm mb-6 px-5 py-4 text-sm text-emerald">
+          {notice}
+        </p>
+      )}
+
+      {access === "checking" && <p className="text-ink-2">Checking your account...</p>}
+
+      {access === "signed-out" && (
+        <section className="panel px-6 py-8">
+          <h2 className="text-xl">Sign in</h2>
+          <p className="mt-3 text-ink-2">Use one of the owner&apos;s Google accounts.</p>
+          <button className="btn btn-fire mt-6" onClick={() => void signIn()}>Sign in with Google</button>
+        </section>
+      )}
+
+      {access === "denied" && (
+        <section className="panel px-6 py-8">
+          <h2 className="text-xl">Not allowed</h2>
+          <p className="mt-3 text-ink-2">
+            {user?.email} cannot manage the shop. Sign out and use one of the owner&apos;s accounts.
+          </p>
+        </section>
+      )}
+
+      {access === "allowed" && (
+        <div className="flex flex-col gap-8">
+          <section className="panel px-6 py-7">
+            <div className="flex items-center justify-between gap-4">
+              <h2 className="text-xl">On sale now</h2>
+              <button className="btn btn-sm" disabled={busy} onClick={() => void load()}>Refresh</button>
+            </div>
+            {!reply && <p className="mt-4 text-ink-2">Loading...</p>}
+            {reply && live.length === 0 && <p className="mt-4 text-ink-2">No deal is on sale.</p>}
+            {live.map((deal) => (
+              <div key={deal.id} className="mt-5 flex flex-wrap items-center justify-between gap-4 border-t border-line pt-5">
+                <div>
+                  <p className="font-display text-2xl text-gold">
+                    {number.format(deal.credits)} coins <span className="text-ink-2">for</span>{" "}
+                    <span className="text-violet">{number.format(deal.gems)} gems</span>
+                  </p>
+                  <p className="mt-1 text-sm text-ink-2">
+                    Ends in <span className="font-display text-ink">{countdown(deal.endUnix - serverNow)}</span>
+                    {" "}({when(deal.endUnix)}) &middot; <span className="font-mono text-xs text-ink-3">{deal.id}</span>
+                  </p>
+                </div>
+                <button className="btn btn-sm" disabled={busy} onClick={() => void end(deal)}>End now</button>
+              </div>
+            ))}
+          </section>
+
+          <section className="panel px-6 py-7">
+            <h2 className="text-xl">New limited-time deal</h2>
+            <p className="mt-2 text-sm text-ink-2">
+              Coins, bought with gems, once per player. It starts the moment you create it and shows in
+              the shop under Refer a Friend with a countdown, and as a purple badge on the Shop button.
+            </p>
+
+            <form
+              className="mt-6 grid gap-5"
+              onSubmit={(e) => {
+                e.preventDefault();
+                void create();
+              }}
+            >
+              <div className="grid gap-5 sm:grid-cols-2">
+                <Field label="Coins the player gets" value={credits} onChange={setCredits} />
+                <Field label="Price in gems" value={gems} onChange={setGems} />
+              </div>
+
+              <fieldset className="grid grid-cols-3 gap-4">
+                <legend className="mb-2 text-sm text-ink-2">Duration</legend>
+                <Field label="Days" value={days} onChange={setDays} />
+                <Field label="Hours" value={hours} onChange={setHours} />
+                <Field label="Minutes" value={minutes} onChange={setMinutes} />
+              </fieldset>
+
+              <div className="text-sm text-ink-2">
+                {!problem && (
+                  <p>
+                    Runs <span className="text-ink">{countdown(durationSeconds)}</span>, until{" "}
+                    <span className="text-ink">{when(serverNow + durationSeconds)}</span> (your time).{" "}
+                    {gemsValue > 0 && (
+                      <>That is {number.format(Math.round(creditsValue / gemsValue))} coins per gem.</>
+                    )}
+                  </p>
+                )}
+                {problem && gems !== "" && <p className="text-ember">{problem}</p>}
+              </div>
+
+              <div>
+                <button type="submit" className="btn btn-fire" disabled={busy || !!problem}>
+                  {busy ? "Working..." : "Create deal"}
+                </button>
+              </div>
+            </form>
+          </section>
+
+          {past.length > 0 && (
+            <section className="panel px-6 py-7">
+              <h2 className="text-xl">Recently ended</h2>
+              <ul className="mt-4 divide-y divide-line text-sm">
+                {past.map((deal) => (
+                  <li key={deal.id} className="flex flex-wrap justify-between gap-2 py-3">
+                    <span>
+                      {number.format(deal.credits)} coins for {number.format(deal.gems)} gems
+                    </span>
+                    <span className="text-ink-3">
+                      {when(deal.startUnix)} to {when(deal.endUnix)}
+                    </span>
+                  </li>
+                ))}
+              </ul>
+            </section>
+          )}
+        </div>
+      )}
+    </main>
+  );
+}
+
+function Field({ label, value, onChange }: { label: string; value: string; onChange: (v: string) => void }) {
+  return (
+    <label className="grid gap-2 text-sm text-ink-2">
+      {label}
+      <input
+        inputMode="numeric"
+        pattern="[0-9]*"
+        className="w-full border border-line-2 bg-panel-solid px-4 py-3 font-display text-lg text-ink outline-none focus:border-cyan"
+        value={value}
+        onChange={(e) => onChange(e.target.value.replace(/[^\d]/g, ""))}
+      />
+    </label>
+  );
+}

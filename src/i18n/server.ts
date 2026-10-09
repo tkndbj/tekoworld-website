@@ -11,8 +11,10 @@ import { isLocale, type Locale } from "@/i18n/locales";
  * `next/root-params` already fails the build if a client component tries.
  */
 export async function getLocale(): Promise<Locale> {
+  // `undefined` under a root layout with no `[lang]` above it - the admin pages, which never
+  // call this. Typed as possible because two root layouts exist.
   const value = await lang();
-  if (!isLocale(value)) notFound();
+  if (value === undefined || !isLocale(value)) notFound();
   return value;
 }
 
