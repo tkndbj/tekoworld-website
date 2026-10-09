@@ -9,6 +9,11 @@
  * (`config/deals`). This page only asks and shows the answer. Nothing here listens: the list
  * is fetched once on sign-in, after each change, and when Refresh is pressed; the countdowns
  * tick on the browser's clock, corrected by the server's.
+ *
+ * The history is every deal that has ended, twenty a page, newest first, fetched only when asked
+ * for (Load more). Buyer counts come from the server's index (`adminDealHistory`), and an ended
+ * deal's count is stored once it can no longer change, so paging back through old deals costs
+ * the reads of the page and nothing more.
  */
 
 import { useCallback, useEffect, useMemo, useState } from "react";
@@ -43,6 +48,23 @@ interface DealsReply {
   nowUnix: number;
   deals: ShopDeal[];
   limits: Limits;
+}
+
+/** A deal with how many accounts bought it; `settled` once no purchase can still land. */
+interface DealRow extends ShopDeal {
+  buyers: number;
+  settled: boolean;
+}
+
+interface HistoryCursor {
+  endUnix: number;
+  id: string;
+}
+
+interface HistoryReply {
+  nowUnix: number;
+  rows: DealRow[];
+  next: HistoryCursor | null;
 }
 
 type Access = "checking" | "signed-out" | "denied" | "allowed";
@@ -82,6 +104,11 @@ export function ShopAdmin() {
   const [user, setUser] = useState<User | null>(null);
   const [access, setAccess] = useState<Access>("checking");
   const [reply, setReply] = useState<DealsReply | null>(null);
+  const [buyers, setBuyers] = useState<Record<string, number>>({});
+  const [history, setHistory] = useState<DealRow[]>([]);
+  const [cursor, setCursor] = useState<HistoryCursor | null>(null);
+  const [historyDone, setHistoryDone] = useState(false);
+  const [historyBusy, setHistoryBusy] = useState(false);
   const [skew, setSkew] = useState(0);
   const [now, setNow] = useState(() => Math.floor(Date.now() / 1000));
   const [busy, setBusy] = useState(false);
@@ -111,9 +138,10 @@ export function ShopAdmin() {
   const load = useCallback(async () => {
     setError(null);
     try {
-      const call = httpsCallable<void, DealsReply>(webFunctions(), "adminListDeals");
+      const call = httpsCallable<void, DealsReply & { rows: DealRow[] }>(webFunctions(), "adminListDeals");
       const result = await call();
       adopt(result.data);
+      setBuyers(Object.fromEntries((result.data.rows ?? []).map((row) => [row.id, row.buyers])));
       setAccess("allowed");
     } catch (e) {
       if ((e as { code?: string })?.code === "functions/permission-denied") setAccess("denied");
@@ -122,19 +150,43 @@ export function ShopAdmin() {
     }
   }, [adopt]);
 
+  /** One page of ended deals: the first when `fresh`, else the one after the last shown. */
+  const loadHistory = useCallback(async (fresh: boolean, after: HistoryCursor | null) => {
+    setHistoryBusy(true);
+    try {
+      const call = httpsCallable<{ after?: HistoryCursor }, HistoryReply>(webFunctions(), "adminDealHistory");
+      const result = await call(fresh || !after ? {} : { after });
+      setHistory((shown) => {
+        const rows = fresh ? [] : shown;
+        const seen = new Set(rows.map((row) => row.id));
+        return [...rows, ...result.data.rows.filter((row) => !seen.has(row.id))];
+      });
+      setCursor(result.data.next);
+      setHistoryDone(result.data.next === null);
+    } catch (e) {
+      setError(explain(e));
+    } finally {
+      setHistoryBusy(false);
+    }
+  }, []);
+
   useEffect(() => {
     return onAuthStateChanged(webAuth(), (next) => {
       setUser(next);
       setReply(null);
       setNotice(null);
+      setHistory([]);
+      setCursor(null);
+      setHistoryDone(false);
       if (!next) {
         setAccess("signed-out");
         return;
       }
       setAccess("checking");
       void load();
+      void loadHistory(true, null);
     });
-  }, [load]);
+  }, [load, loadHistory]);
 
   async function signIn() {
     setError(null);
@@ -159,10 +211,6 @@ export function ShopAdmin() {
 
   const live = useMemo(
     () => (reply?.deals ?? []).filter((d) => serverNow >= d.startUnix && serverNow < d.endUnix),
-    [reply, serverNow]
-  );
-  const past = useMemo(
-    () => (reply?.deals ?? []).filter((d) => serverNow >= d.endUnix).sort((a, b) => b.endUnix - a.endUnix),
     [reply, serverNow]
   );
 
@@ -203,6 +251,7 @@ export function ShopAdmin() {
         webFunctions(), "adminCreateDeal");
       const result = await call({ credits: creditsValue, gems: gemsValue, durationSeconds });
       adopt(result.data);
+      void load();
       setGems("");
       setNotice(`Deal ${result.data.deal.id} is on sale. Players see it within 15 minutes, or at their next launch.`);
     } catch (e) {
@@ -227,6 +276,8 @@ export function ShopAdmin() {
       const call = httpsCallable<{ id: string }, DealsReply & { deal: ShopDeal }>(webFunctions(), "adminEndDeal");
       const result = await call({ id: deal.id });
       adopt(result.data);
+      void load();
+      void loadHistory(true, null);
       setNotice(`Deal ${deal.id} has ended.`);
     } catch (e) {
       setError(explain(e));
@@ -285,7 +336,8 @@ export function ShopAdmin() {
           <section className="panel px-6 py-7">
             <div className="flex items-center justify-between gap-4">
               <h2 className="text-xl">On sale now</h2>
-              <button className="btn btn-sm" disabled={busy} onClick={() => void load()}>Refresh</button>
+              <button className="btn btn-sm" disabled={busy}
+                      onClick={() => { void load(); void loadHistory(true, null); }}>Refresh</button>
             </div>
             {!reply && <p className="mt-4 text-ink-2">Loading...</p>}
             {reply && live.length === 0 && <p className="mt-4 text-ink-2">No deal is on sale.</p>}
@@ -299,6 +351,10 @@ export function ShopAdmin() {
                   <p className="mt-1 text-sm text-ink-2">
                     Ends in <span className="font-display text-ink">{countdown(deal.endUnix - serverNow)}</span>
                     {" "}({when(deal.endUnix)}) &middot; <span className="font-mono text-xs text-ink-3">{deal.id}</span>
+                  </p>
+                  <p className="mt-1 text-sm text-ink-2">
+                    Bought by <span className="font-display text-emerald">{buyers[deal.id] === undefined ? "..." : number.format(buyers[deal.id])}</span>
+                    {buyers[deal.id] === 1 ? " player" : " players"} so far
                   </p>
                 </div>
                 <button className="btn btn-sm" disabled={busy} onClick={() => void end(deal)}>End now</button>
@@ -353,23 +409,48 @@ export function ShopAdmin() {
             </form>
           </section>
 
-          {past.length > 0 && (
-            <section className="panel px-6 py-7">
-              <h2 className="text-xl">Recently ended</h2>
-              <ul className="mt-4 divide-y divide-line text-sm">
-                {past.map((deal) => (
-                  <li key={deal.id} className="flex flex-wrap justify-between gap-2 py-3">
-                    <span>
-                      {number.format(deal.credits)} coins for {number.format(deal.gems)} gems
-                    </span>
-                    <span className="text-ink-3">
-                      {when(deal.startUnix)} to {when(deal.endUnix)}
-                    </span>
-                  </li>
-                ))}
-              </ul>
-            </section>
-          )}
+          <section className="panel px-6 py-7">
+            <h2 className="text-xl">History</h2>
+            <p className="mt-2 text-sm text-ink-2">Every deal that has ended, newest first.</p>
+            {history.length === 0 && !historyBusy && <p className="mt-4 text-ink-2">No deal has ended yet.</p>}
+            {history.length > 0 && (
+              <div className="mt-4 overflow-x-auto">
+                <table className="w-full min-w-[34rem] text-left text-sm">
+                  <thead className="text-ink-3">
+                    <tr className="border-b border-line">
+                      <th className="py-2 pr-4 font-normal">Deal</th>
+                      <th className="py-2 pr-4 font-normal">Ran</th>
+                      <th className="py-2 text-right font-normal">Buyers</th>
+                    </tr>
+                  </thead>
+                  <tbody className="divide-y divide-line">
+                    {history.map((deal) => (
+                      <tr key={deal.id}>
+                        <td className="py-3 pr-4">
+                          <span className="text-gold">{number.format(deal.credits)} coins</span>
+                          <span className="text-ink-2"> for </span>
+                          <span className="text-violet">{number.format(deal.gems)} gems</span>
+                        </td>
+                        <td className="py-3 pr-4 text-ink-2">
+                          {when(deal.startUnix)} to {when(deal.endUnix)}
+                          <span className="text-ink-3"> ({countdown(deal.endUnix - deal.startUnix)})</span>
+                        </td>
+                        <td className="py-3 text-right font-display text-lg text-emerald">
+                          {number.format(deal.buyers)}
+                          {!deal.settled && <span className="ml-1 text-xs text-ink-3" title="Purchases made in the last minutes may still land">so far</span>}
+                        </td>
+                      </tr>
+                    ))}
+                  </tbody>
+                </table>
+              </div>
+            )}
+            {!historyDone && (
+              <button className="btn btn-sm mt-5" disabled={historyBusy} onClick={() => void loadHistory(false, cursor)}>
+                {historyBusy ? "Loading..." : "Load more"}
+              </button>
+            )}
+          </section>
         </div>
       )}
     </main>
