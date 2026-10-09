@@ -228,7 +228,9 @@ export function ShopAdmin() {
     if (durationSeconds < limits.minSeconds || durationSeconds > limits.maxSeconds) {
       return `The duration must be between ${limits.minSeconds / 60} minutes and ${limits.maxSeconds / 86400} days.`;
     }
-    if (live.length >= limits.maxLive) return "A deal is already on sale. End it before making another.";
+    if (live.length >= limits.maxLive) {
+      return `${limits.maxLive} deals are already on sale, the most at once. End one to make another.`;
+    }
     return null;
   }, [limits, creditsValue, gemsValue, days, hours, minutes, durationSeconds, live.length]);
 
@@ -335,7 +337,10 @@ export function ShopAdmin() {
         <div className="flex flex-col gap-8">
           <section className="panel px-6 py-7">
             <div className="flex items-center justify-between gap-4">
-              <h2 className="text-xl">On sale now</h2>
+              <h2 className="text-xl">
+                On sale now
+                {limits && <span className="ml-2 text-sm font-normal text-ink-3">{live.length} of {limits.maxLive}</span>}
+              </h2>
               <button className="btn btn-sm" disabled={busy}
                       onClick={() => { void load(); void loadHistory(true, null); }}>Refresh</button>
             </div>
@@ -365,7 +370,7 @@ export function ShopAdmin() {
           <section className="panel px-6 py-7">
             <h2 className="text-xl">New limited-time deal</h2>
             <p className="mt-2 text-sm text-ink-2">
-              Coins, bought with gems, once per player. It starts the moment you create it and shows in
+              Coins, bought with gems, once per player. Several can run at once. It starts the moment you create it and shows in
               the shop under Refer a Friend with a countdown, and as a purple badge on the Shop button.
             </p>
 
@@ -398,7 +403,9 @@ export function ShopAdmin() {
                     )}
                   </p>
                 )}
-                {problem && gems !== "" && <p className="text-ember">{problem}</p>}
+                {problem && (gems !== "" || (limits && live.length >= limits.maxLive)) && (
+                  <p className="text-ember">{problem}</p>
+                )}
               </div>
 
               <div>
