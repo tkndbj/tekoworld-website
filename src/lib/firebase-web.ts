@@ -9,8 +9,12 @@
  * account against the owner's three addresses (`firebase/functions/src/deals.ts`).
  *
  * Sign-in from this site works because `tekoworld.com` and `www.tekoworld.com` are in the
- * project's Authorized domains (Firebase console > Authentication > Settings). A new host -
- * a preview deployment, a renamed domain - has to be added there before it can sign in.
+ * project's Authorized domains (Firebase console > Authentication > Settings), and because the
+ * API key below - "Browser key (auto created by Firebase)" - only answers requests from
+ * tekoworld.com, www.tekoworld.com, the project's firebaseapp.com / web.app hosts (the sign-in
+ * popup runs there) and http://localhost:3000 (Google Cloud console > APIs & Services >
+ * Credentials). A new host - a preview deployment, a renamed domain - has to be added in both
+ * places before it can sign in.
  */
 
 import { getApp, getApps, initializeApp, type FirebaseApp } from "firebase/app";
