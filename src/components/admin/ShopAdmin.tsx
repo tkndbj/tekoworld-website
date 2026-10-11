@@ -26,6 +26,7 @@ import {
 } from "firebase/auth";
 import { httpsCallable } from "firebase/functions";
 import { webAuth, webFunctions } from "@/lib/firebase-web";
+import { AdminNav, explain } from "./AdminSession";
 
 interface ShopDeal {
   id: string;
@@ -83,21 +84,6 @@ function when(unix: number): string {
   return new Date(unix * 1000).toLocaleString(undefined, {
     weekday: "short", day: "numeric", month: "short", hour: "2-digit", minute: "2-digit",
   });
-}
-
-/** What a failed call says, in words the owner can act on. */
-function explain(error: unknown): string {
-  const code = (error as { code?: string })?.code ?? "";
-  const message = (error as { message?: string })?.message ?? String(error);
-  if (code === "functions/permission-denied") return "This Google account is not allowed to manage the shop.";
-  if (code === "functions/unauthenticated") return "Sign in again.";
-  if (code === "functions/unavailable" || code === "functions/deadline-exceeded") {
-    return "The server could not be reached. Check the connection and try again.";
-  }
-  if (code === "functions/internal" && message === "internal") {
-    return "The server failed to answer. If this keeps happening, the functions may not be deployed.";
-  }
-  return message;
 }
 
 export function ShopAdmin() {
@@ -302,6 +288,8 @@ export function ShopAdmin() {
           </div>
         )}
       </header>
+
+      <AdminNav />
 
       {error && (
         <p role="alert" className="panel panel-sm mb-6 border-l-2 border-ruby px-5 py-4 text-sm text-ink">

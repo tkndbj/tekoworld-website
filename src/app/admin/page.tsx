@@ -1,6 +1,6 @@
 import { redirect } from "next/navigation";
 
-/** `/admin` has one page so far; the bare address goes to it. */
+/** The bare address goes to the dashboard, which links to the other admin pages. */
 export default function AdminIndex() {
-  redirect("/admin/shop");
+  redirect("/admin/dashboard");
 }
