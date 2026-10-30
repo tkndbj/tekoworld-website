@@ -107,7 +107,7 @@ const de: Dictionary = {
       view: "Zum Spiel",
       gemfire: {
         alt: `${gemfire.name}-Titelbild: vier Türme auf einer Burgmauer feuern über einem Juwelenbrett auf eine Skelettarmee.`,
-        status: "Jetzt für iOS",
+        status: "Jetzt für Android und iOS",
       },
       balanceBuddies: {
         alt: `${balanceBuddies.name}-Titelbild: ein wackliger Turm aus bunten Monster-Buddies vor blauem Himmel.`,

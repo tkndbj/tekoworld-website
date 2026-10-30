@@ -114,7 +114,7 @@ const fr: Dictionary = {
       view: "Voir le jeu",
       gemfire: {
         alt: `Illustration de ${gemfire.name} : quatre tourelles sur le rempart d'un château tirent sur une armée de squelettes au-dessus d'un plateau de gemmes.`,
-        status: "Disponible sur iOS",
+        status: "Disponible sur Android et iOS",
       },
       balanceBuddies: {
         alt: `Illustration de ${balanceBuddies.name} : une tour bancale de petits monstres colorés sur fond de ciel bleu.`,

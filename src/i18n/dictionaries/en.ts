@@ -113,7 +113,7 @@ const en = {
       view: "View game",
       gemfire: {
         alt: `${gemfire.name} key art: four turrets on a castle wall firing at a skeleton army over a gem board.`,
-        status: "Out now on iOS",
+        status: "Out now on Android and iOS",
       },
       balanceBuddies: {
         alt: `${balanceBuddies.name} key art: a wobbly tower of colourful monster buddies against a blue sky.`,

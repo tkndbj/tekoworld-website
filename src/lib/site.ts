@@ -86,9 +86,9 @@ export const gemfire = {
   slug: "gemfire",
   path: "/gemfire",
 
-  /** A store left empty hides its button. Android waits for the Play listing to go public. */
+  /** A store left empty hides its button. */
   stores: {
-    android: "",
+    android: "https://play.google.com/store/apps/details?id=com.tekoworld.glimmergroove",
     ios: "https://apps.apple.com/app/id6804516450",
   },
 

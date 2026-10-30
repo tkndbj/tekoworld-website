@@ -116,7 +116,7 @@ const pl: Dictionary = {
       view: "Zobacz grę",
       gemfire: {
         alt: `Grafika z gry ${gemfire.name}: cztery wieże na murach zamku strzelają do armii szkieletów ponad planszą z klejnotami.`,
-        status: "Już na iOS",
+        status: "Już na Androidzie i iOS",
       },
       balanceBuddies: {
         alt: `Grafika z gry ${balanceBuddies.name}: chwiejna wieża z kolorowych potworków-kumpli na tle błękitnego nieba.`,

@@ -114,7 +114,7 @@ const pt: Dictionary = {
       view: "Ver o jogo",
       gemfire: {
         alt: `Arte de ${gemfire.name}: quatro torres na muralha de um castelo atirando num exército de esqueletos acima de um tabuleiro de gemas.`,
-        status: "Já disponível no iOS",
+        status: "Já disponível no Android e iOS",
       },
       balanceBuddies: {
         alt: `Arte de ${balanceBuddies.name}: uma torre bamba de amiguinhos monstrinhos coloridos contra um céu azul.`,

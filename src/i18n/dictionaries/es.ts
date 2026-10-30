@@ -114,7 +114,7 @@ const es: Dictionary = {
       view: "Ver el juego",
       gemfire: {
         alt: `Ilustración de ${gemfire.name}: cuatro torres sobre la muralla de un castillo disparando a un ejército de esqueletos por encima de un tablero de gemas.`,
-        status: "Ya disponible en iOS",
+        status: "Ya disponible en Android e iOS",
       },
       balanceBuddies: {
         alt: `Ilustración de ${balanceBuddies.name}: una torre tambaleante de amiguitos monstruo de colores sobre un cielo azul.`,

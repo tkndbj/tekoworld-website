@@ -115,7 +115,7 @@ const tr: Dictionary = {
       view: "Oyunu gör",
       gemfire: {
         alt: `${gemfire.name} görseli: bir kale surundaki dört kule, mücevher tahtasının üzerinden bir iskelet ordusuna ateş ediyor.`,
-        status: "iOS'ta çıktı",
+        status: "Android ve iOS'ta çıktı",
       },
       balanceBuddies: {
         alt: `${balanceBuddies.name} görseli: mavi bir gökyüzünde rengârenk canavar dostlardan oluşan sallantılı bir kule.`,
