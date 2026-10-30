@@ -5,7 +5,7 @@ import { Arsenal } from "@/components/gemfire/Arsenal";
 import { Campaign } from "@/components/gemfire/Campaign";
 import { Kingdom } from "@/components/gemfire/Kingdom";
 import { Promises } from "@/components/gemfire/Promises";
-import { Faq } from "@/components/gemfire/Faq";
+import { Faq } from "@/components/ui/GameFaq";
 import { GetIt } from "@/components/gemfire/GetIt";
 import { localeInfo, localePath } from "@/i18n/locales";
 import { pageAlternates, pageOpenGraph } from "@/i18n/metadata";

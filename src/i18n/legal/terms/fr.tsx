@@ -3,16 +3,17 @@ import { Summary } from "@/components/SiteChrome";
 import { dictionaries } from "@/i18n/dictionaries";
 import { localePath } from "@/i18n/locales";
 import type { LegalDoc } from "@/i18n/legal/types";
-import { gemfire, mailto, site } from "@/lib/site";
+import { balanceBuddies, gemfire, mailto, site } from "@/lib/site";
 
 const mail = dictionaries.fr.mail;
 const game = gemfire.name;
+const bb = balanceBuddies.name;
 
 /** Translation of terms/en.tsx. Where the two differ, the English text applies. */
 const doc: LegalDoc = {
   title: "Conditions d'utilisation",
-  description: `Les règles pour jouer à ${game}.`,
-  intro: `Voici les conditions que tu acceptes en jouant à ${game}.`,
+  description: `Les règles pour jouer à ${game} et à ${bb}.`,
+  intro: `Voici les conditions que tu acceptes en jouant à nos jeux, ${game} et ${bb}.`,
   Body: () => (
     <>
       <Summary>
@@ -44,6 +45,11 @@ const doc: LegalDoc = {
         Ces conditions sont aussi publiées dans d&rsquo;autres langues. Ce sont des traductions
         de ce texte anglais, et si l&rsquo;une d&rsquo;elles en diffère, c&rsquo;est le texte
         anglais qui s&rsquo;applique.
+      </p>
+
+      <p>
+        Ces conditions s&rsquo;appliquent à chacun de nos jeux, {game} et {bb}. Quand elles
+        parlent du &laquo;&nbsp;jeu&nbsp;&raquo;, il s&rsquo;agit de celui auquel tu joues.
       </p>
 
       <h2 id="licence">2. Ta licence</h2>
@@ -90,6 +96,12 @@ const doc: LegalDoc = {
         remplacer quoi que ce soit.
       </p>
 
+      <p>
+        Dans {bb}, te connecter avec un compte qui a déjà une progression bascule sur ce
+        compte ; la progression de ton appareil n&rsquo;est remplacée qu&rsquo;après ta
+        confirmation. Les achats faits sur l&rsquo;appareil sont conservés dans tous les cas.
+      </p>
+
       <h2 id="virtual-items">4. Pièces, gemmes, cœurs et objets</h2>
       <p>
         Tout ce que tu récupères ou achètes dans le jeu, y compris les pièces, gemmes, cœurs,
@@ -117,6 +129,12 @@ const doc: LegalDoc = {
         annulée.
       </p>
 
+      <p>
+        Il en va de même pour les indices et le temps sans publicité de {bb} : ce sont une
+        licence limitée d&rsquo;utilisation dans {bb}, sans valeur hors du jeu, et ils ne se
+        transfèrent pas d&rsquo;un de nos jeux à l&rsquo;autre.
+      </p>
+
       <h2 id="purchases">5. Achats et remboursements</h2>
       <p>
         Les achats se font via l&rsquo;App Store d&rsquo;Apple ou Google Play, et ce sont ces
@@ -142,7 +160,26 @@ const doc: LegalDoc = {
         et une fiole de cœurs remboursée ramène ta capacité de cœurs à ce qu&rsquo;elle était.
       </p>
 
+      <h3>Abonnements</h3>
+      <p>
+        L&rsquo;abonnement <strong>No Ads</strong> de {bb} coupe les publicités affichées entre
+        les énigmes tant qu&rsquo;il est actif. Les vidéos que tu choisis de regarder pour des
+        indices restent disponibles. Il se renouvelle automatiquement chaque mois au prix
+        affiché dans le store, et ton store te débite à chaque renouvellement jusqu&rsquo;à ce
+        que tu résilies. Tu peux résilier à tout moment dans les réglages d&rsquo;abonnement de
+        l&rsquo;App Store ou de Google Play ; il reste alors actif jusqu&rsquo;à la fin de la
+        période déjà payée. Supprimer l&rsquo;appli ne le résilie pas.
+      </p>
+      <p>
+        Les jours sans publicité du Starter Bundle de {bb} sont un achat unique, pas un
+        abonnement : ils se décomptent à partir de l&rsquo;achat et ne se renouvellent jamais.
+      </p>
+
       <h2 id="boards">6. Les noms, le classement et les visites</h2>
+      <p>
+        Cette section concerne {game}. {bb} n&rsquo;a ni noms de joueurs, ni classements, ni
+        visites.
+      </p>
       <p>
         Si tu choisis un nom de gardien et laisses le classement activé, ce nom, ton avatar, ton
         niveau, le score de ton royaume et ta ligue sont visibles par les autres joueurs, et

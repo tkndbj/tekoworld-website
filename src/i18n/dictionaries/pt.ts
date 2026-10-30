@@ -1,4 +1,4 @@
-import { gemfire, placeName, site } from "@/lib/site";
+import { balanceBuddies, gemfire, placeName, site } from "@/lib/site";
 import { rich } from "@/i18n/rich-text";
 import type { Dictionary } from "./en";
 
@@ -9,11 +9,12 @@ import type { Dictionary } from "./en";
 const pt: Dictionary = {
   site: {
     tagline: "Jogos para celular com fogo por dentro.",
-    description: `A ${site.company} é um estúdio independente de jogos para celular. A casa de ${gemfire.name}, o jogo de combinar três com defesa de torres em que cada combinação dispara uma torre.`,
+    description: `A ${site.company} é um estúdio independente de jogos para celular. A casa de ${gemfire.name}, o jogo de combinar três com defesa de torres em que cada combinação dispara uma torre, e de ${balanceBuddies.name}, o quebra-cabeça de equilíbrio tranquilo.`,
     keywords: [
       "estúdio de jogos para celular",
       "jogo de combinar três",
       "defesa de torres",
+      "quebra-cabeça de equilíbrio",
       "jogos para celular",
       "estúdio indie",
     ],
@@ -31,7 +32,7 @@ const pt: Dictionary = {
     terms: "Termos",
     deleteData: "Excluir seus dados",
     credits: "Créditos",
-    play: `Jogue ${gemfire.name}`,
+    play: "Nossos jogos",
     menu: "Menu",
     openMenu: "Abrir o menu",
     closeMenu: "Fechar o menu",
@@ -44,7 +45,7 @@ const pt: Dictionary = {
     studio: "Estúdio",
     smallPrint: "As letras miúdas",
     copyright: (year: number) =>
-      `© ${year} ${site.entity}, operando como ${site.company}. ${gemfire.name} e suas artes são propriedade da ${site.company}.`,
+      `© ${year} ${site.entity}, operando como ${site.company}. ${gemfire.name}, ${balanceBuddies.name} e suas artes são propriedade da ${site.company}.`,
   },
 
   suggest: {
@@ -90,31 +91,38 @@ const pt: Dictionary = {
     hero: {
       chip: "Estúdio independente de jogos para celular",
       title: rich("Fazemos jogos", "\n", "com ", { hl: "fogo" }, " por dentro."),
-      body: `A ${site.company} cria jogos pequenos, barulhentos e honestos na mecânica para o celular no seu bolso. O primeiro é ${gemfire.name}: um tabuleiro de combinar três parafusado na muralha de um castelo, onde cada combinação que você faz dispara uma torre.`,
-      explore: `Conheça ${gemfire.name}`,
+      body: `A ${site.company} cria jogos pequenos e honestos na mecânica para o celular no seu bolso. ${gemfire.name} é um tabuleiro de combinar três parafusado na muralha de um castelo, onde cada combinação dispara uma torre. ${balanceBuddies.name} é o tranquilo: solte os amiguinhos até tudo ficar nivelado.`,
+      explore: "Veja nossos jogos",
       about: "Sobre o estúdio",
-      stats: ["jogo na forja", "plataformas no lançamento", "anúncios obrigatórios", "esqueletos para deter"],
+      stats: ["jogos na forja", "plataformas", "quebra-cabeças para equilibrar", "esqueletos para deter"],
     },
     ticker: [
       gemfire.name,
       "Combine três e defenda",
+      balanceBuddies.name,
+      "Quebra-cabeças de equilíbrio tranquilos",
       "Android",
       "iOS",
       site.company,
-      "Construa seu reino",
-      "Melhore suas torres",
       "Defenda a muralha",
+      "Encontre o equilíbrio",
     ],
     games: {
       kicker: "Nossos jogos",
-      title: rich("Um título. ", { hl: "Tudo nele." }),
-      body: "Lançamos um jogo de cada vez e continuamos trabalhando nele depois do lançamento. Este é o que está na bigorna agora.",
-      coverAlt: `Arte de ${gemfire.name}: quatro torres na muralha de um castelo atirando num exército de esqueletos acima de um tabuleiro de gemas.`,
-      status: "Em desenvolvimento",
+      title: rich("Dois jogos. ", { hl: "Tudo neles." }),
+      body: "Lançamos um jogo de cada vez e continuamos trabalhando em cada um depois do lançamento. Um é barulhento, o outro é tranquilo, e os dois são construídos sobre regras de verdade.",
       view: "Ver o jogo",
-      nextKicker: "Espaço 02",
+      gemfire: {
+        alt: `Arte de ${gemfire.name}: quatro torres na muralha de um castelo atirando num exército de esqueletos acima de um tabuleiro de gemas.`,
+        status: "Já disponível no iOS",
+      },
+      balanceBuddies: {
+        alt: `Arte de ${balanceBuddies.name}: uma torre bamba de amiguinhos monstrinhos coloridos contra um céu azul.`,
+        status: "Em breve",
+      },
+      nextKicker: "Espaço 03",
       nextTitle: "O próximo",
-      nextBody: `Tudo o que aprendemos com ${gemfire.name} vai para o que vier depois. Quando houver algo que valha a pena mostrar, vai aparecer aqui primeiro.`,
+      nextBody: `Tudo o que aprendemos com ${gemfire.name} e ${balanceBuddies.name} vai para o que vier depois deles. Quando houver algo que valha a pena mostrar, vai aparecer aqui primeiro.`,
       sealed: "Lacrado",
     },
     studio: {
@@ -309,6 +317,162 @@ const pt: Dictionary = {
         {
           q: "É seguro para crianças?",
           a: "Não há chat, nem mensagens, nem forma de os jogadores entrarem em contato. A única coisa que outro jogador pode ver é o nome e o companheiro que você escolheu e a pontuação do seu reino, e você pode esconder tudo isso com um toque.",
+        },
+      ],
+    },
+    getIt: {
+      kicker: "Baixe o jogo",
+      free: "Grátis para Android e iOS.",
+    },
+  },
+
+  balanceBuddies: {
+    genre: "Quebra-cabeça de equilíbrio tranquilo",
+    pitch: "Solte os amiguinhos. Encontre o equilíbrio. Respire fundo.",
+    description: `${balanceBuddies.name} é um jogo de quebra-cabeça de equilíbrio tranquilo. Arraste os amiguinhos da bandeja para móbiles, gangorras, rodas-gigantes, molas e jangadas até tudo ficar nivelado e parado. Matemática de verdade, física de verdade, sem cronômetro e sem como perder.`,
+    ogAlt: `${balanceBuddies.name}: uma torre alegre de amiguinhos monstrinhos coloridos contra um céu azul.`,
+    hero: {
+      body: "Cada quebra-cabeça é uma engenhoca que não fica parada: um móbile pendurado, uma gangorra, uma roda-gigante, uma barra presa em duas molas, uma jangada na água. Arraste os amiguinhos da bandeja e solte cada um onde ele equilibra. Sem relógio, sem fim de jogo, só aquele momento tranquilo em que tudo fica nivelado.",
+      chips: ["Grátis", "Android 8.0+", "iOS 15+", "Sem cronômetro", "Sem derrota", "Joga offline"],
+      stats: ["quebra-cabeças de equilíbrio", "tipos de engenhoca", "dicas para começar", "cronômetros"],
+      shotAlt: `${balanceBuddies.name}, First Swing: três amiguinhos pendurados num móbile de dois níveis ao pôr do sol.`,
+      bannerAlt: `Arte de ${balanceBuddies.name}: uma torre bamba de amiguinhos monstrinhos coloridos ao lado do logotipo do jogo, num céu azul cheio de nuvens.`,
+    },
+    play: {
+      kicker: "Como se joga",
+      title: rich("Arraste. Solte. ", { hl: "Equilibre." }),
+      body: "Uma bandeja de amiguinhos, uma engenhoca e uma resposta certa, que a física revela no instante em que você a encontra.",
+      steps: {
+        drag: {
+          title: "Escolha um amiguinho",
+          body: "Todo quebra-cabeça começa com uma bandeja de amiguinhos na parte de baixo da tela, cada um com o seu peso escrito. Arraste um para cima e solte onde você acha que ele deve ficar.",
+          alt: "Little Builder: blocos numerados e uma casinha numa viga de madeira equilibrada sobre uma pedra.",
+        },
+        balance: {
+          title: "Encontre o equilíbrio",
+          body: "Pendure num gancho, coloque num pino, faça flutuar numa jangada. Cada engenhoca segue a regra de verdade: num móbile, peso vezes distância tem que bater dos dois lados. O medidor no alto mostra o quanto você está perto.",
+          alt: "First Swing: um móbile pendurado com três amiguinhos em ganchos numerados e um medidor de equilíbrio no alto.",
+        },
+        settle: {
+          title: "Deixe assentar",
+          body: "Quando tudo fica nivelado e parado por um instante, o quebra-cabeça está resolvido. Menos jogadas dão mais estrelas, e o que cai simplesmente desliza de volta para a bandeja.",
+          alt: "Springy: amiguinhos numa barra pendurada em duas molas que esticam quantidades diferentes.",
+        },
+      },
+    },
+    contraptions: {
+      kicker: "As engenhocas",
+      title: rich("Seis jeitos de ", { hl: "pesar a balança." }),
+      body: "Cada uma é uma pequena aula de física de verdade, e os quebra-cabeças mais adiante as misturam: caixas misteriosas, vento, gelo, espinhos e esteiras.",
+      items: {
+        mobile: {
+          title: "Móbiles",
+          body: "Barras penduradas em barras. Peso vezes distância tem que se anular em cada uma delas.",
+          alt: "Um móbile de dois níveis com amiguinhos pendurados em ganchos numerados.",
+        },
+        seesaw: {
+          title: "Gangorras",
+          body: "Blocos de pedra, madeira e metal numa prancha que inclina de verdade. O metal é mais pesado do que parece.",
+          alt: "Heavy Metal: uma gangorra de madeira num suporte com um bloco de metal numa ponta.",
+        },
+        wheel: {
+          title: "Rodas-gigantes",
+          body: "Passageiros numa roda que gira. Ela só para nivelada quando os pesos se anulam em volta do eixo.",
+          alt: "Ferris Wheel: dois amiguinhos andando numa roda que saiu do nível.",
+        },
+        spring: {
+          title: "Molas",
+          body: "Uma barra em duas molas de rigidez diferente. Carregue até as duas esticarem exatamente a mesma medida.",
+          alt: "Springy: amiguinhos numa barra pendurada em duas molas espirais.",
+        },
+        raft: {
+          title: "Jangadas",
+          body: "Caixas numa jangada que flutua de verdade. Carregue de um jeito que ela fique nivelada na água.",
+          alt: "Lazy Raft: caixas de pedra e de madeira empilhadas numa jangada boiando em água calma.",
+        },
+        balloon: {
+          title: "Balões",
+          body: "Balões puxam para cima em vez de para baixo. Eles contam contra o peso, e são o truque de mais de um quebra-cabeça.",
+          alt: "Up and Away: dois balões e um amiguinho pendurados numa barra inclinada.",
+        },
+      },
+    },
+    hints: {
+      kicker: "Travou?",
+      title: rich("Uma dica, ", { hl: "nunca um muro." }),
+      body: "Uma dica mostra um fantasma brilhante exatamente onde vai o próximo amiguinho. Um passo revelado continua revelado, quando você tenta de novo e no seu outro celular.",
+      points: [
+        "Dez dicas para começar, e uma volta a cada quatro horas.",
+        "Assista a um vídeo curto para ganhar mais duas, quando quiser.",
+        "Ou compre um pacote. Todo quebra-cabeça pode ser resolvido sem isso.",
+      ],
+      hintAlt: "Uma lupa com um botão de play: assista a um vídeo para ganhar dicas.",
+      noAdsAlt: "Uma almofada macia com uma placa AD riscada: a assinatura No Ads.",
+      noAds: "No Ads, mensal",
+      noAdsBody: "Desliga os anúncios entre os quebra-cabeças. Cancele quando quiser pela sua conta da loja.",
+    },
+    promises: {
+      kicker: "Jogo limpo",
+      title: rich("Tranquilo, ", { hl: "de propósito." }),
+      list: {
+        timers: {
+          title: "Sem cronômetro, sem fim de jogo",
+          body: "Nada faz contagem regressiva e nada pode ser perdido. O que cai desliza de volta para a bandeja, então dá para tentar de novo na hora.",
+        },
+        real: {
+          title: "Matemática de verdade, física de verdade",
+          body: "Cada quebra-cabeça se resolve pela regra real, a lei da alavanca, a lei de Hooke ou o empuxo, e não adivinhando o que o designer tinha em mente.",
+        },
+        ads: {
+          title: "Anúncios que não atrapalham",
+          body: "Nenhum nos seus primeiros oito quebra-cabeças, nunca no meio de um, e nenhum banner. Depois disso, um anúncio curto pode aparecer entre os quebra-cabeças, e a assinatura No Ads os desliga.",
+        },
+        offline: {
+          title: "Joga sem sinal",
+          body: "Todos os quebra-cabeças rodam no seu celular. Os anúncios, a loja e o salvamento na nuvem precisam de conexão; os quebra-cabeças não.",
+        },
+        save: {
+          title: "Seu progresso em segurança",
+          body: "O progresso tem cópia de segurança desde o seu primeiro quebra-cabeça, numa conta anônima. Entre com Google ou Apple para levá-lo para outro celular.",
+        },
+        sound: {
+          title: "Suave para os ouvidos",
+          body: "Sons delicados afinados no mesmo tom musical e música tranquila, feitos para o sofá no fim de um dia longo.",
+        },
+      },
+    },
+    faq: {
+      kicker: "Perguntas",
+      title: rich("As respostas ", { hl: "curtas." }),
+      body: rich(
+        "As longas, e as sobre compras e contas, estão na ",
+        { link: "página de suporte", href: "/support" },
+        "."
+      ),
+      items: [
+        {
+          q: "Custa alguma coisa?",
+          a: `Não. ${balanceBuddies.name} é grátis, e todos os quebra-cabeças podem ser resolvidos sem gastar nada. Você pode comprar dicas extras ou uma assinatura que desliga os anúncios.`,
+        },
+        {
+          q: "Tem anúncios?",
+          a: "Sim, com moderação. Não há nenhum nos seus primeiros oito quebra-cabeças e nunca durante um. Depois disso, um anúncio curto pode aparecer a cada dois quebra-cabeças que você termina. Os vídeos para ganhar dicas extras são sempre escolha sua, e a assinatura No Ads, ou os 30 dias sem anúncios do Starter Bundle, desligam o resto.",
+        },
+        {
+          q: "E se eu travar?",
+          a: "Use uma dica. Ela mostra um fantasma brilhante onde vai o próximo amiguinho. Você começa com dez, uma volta a cada quatro horas, e um vídeo curto dá mais duas.",
+        },
+        {
+          q: "Preciso de uma conta ou de conexão?",
+          a: "De nenhuma das duas. Todos os quebra-cabeças rodam no seu celular sem sinal. Uma conta anônima faz cópia de segurança do seu progresso; entre com Google ou Apple só se quiser jogar em outro aparelho.",
+        },
+        {
+          q: "Vai rodar no meu celular?",
+          a: "Precisa de Android 8.0 ou iOS 15 e pouco mais.",
+        },
+        {
+          q: "É adequado para crianças?",
+          a: "É feito para todo mundo. Não há chat, nem mensagens, nem nada sobre você que outros jogadores possam ver.",
         },
       ],
     },

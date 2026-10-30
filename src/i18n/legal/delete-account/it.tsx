@@ -4,11 +4,12 @@ import { dictionaries } from "@/i18n/dictionaries";
 import { gameTextFor } from "@/i18n/game-text";
 import { localePath } from "@/i18n/locales";
 import type { LegalDoc } from "@/i18n/legal/types";
-import { gemfire, mailto, site } from "@/lib/site";
+import { balanceBuddies, gemfire, mailto, site } from "@/lib/site";
 
 const mail = dictionaries.it.mail;
 const label = gameTextFor("it").labels;
 const game = gemfire.name;
+const bb = balanceBuddies.name;
 
 /**
  * Translation of delete-account/en.tsx. Button names are the game's own Italian labels, so
@@ -16,9 +17,9 @@ const game = gemfire.name;
  */
 const doc: LegalDoc = {
   title: "Eliminare l'account e i dati",
-  description: `Come eliminare il tuo account di ${game} e i dati conservati con esso.`,
+  description: `Come eliminare il tuo account di ${game} o di ${bb} e i dati conservati con esso.`,
   intro:
-    "Puoi far cancellare tutto ciò che conserviamo sul tuo regno. Ecco esattamente cosa succede.",
+    "Puoi far cancellare tutto ciò che conserviamo su di te in uno qualsiasi dei nostri giochi. Ecco esattamente cosa succede.",
   Body: () => (
     <>
       <Summary>
@@ -36,7 +37,17 @@ const doc: LegalDoc = {
           Eliminare solo l&rsquo;app <strong>non</strong> cancella i dati sui nostri server.
           Toglie solo la copia su quel dispositivo.
         </p>
+        <p className="mt-2">
+          In {bb}: <strong>Settings</strong> › <strong>Delete account</strong>. Vedi la{" "}
+          <a href="#balance-buddies">sezione 5</a>.
+        </p>
+
       </Summary>
+      <p>
+        I due giochi sono app separate con account separati: eliminarne uno non tocca
+        l&rsquo;altro. Le sezioni da 1 a 4 riguardano {game}; la{" "}
+        <a href="#balance-buddies">sezione 5</a> riguarda {bb}.
+      </p>
 
       <h2 id="in-app">1. Eliminalo dall&rsquo;interno del gioco</h2>
       <p>
@@ -136,6 +147,57 @@ const doc: LegalDoc = {
         Se vuoi che vengano rimossi, dovrai chiederlo a loro.
       </p>
 
+      <h2 id="balance-buddies">5. {bb}</h2>
+      <h3>Eliminarlo dal gioco</h3>
+      <ol>
+        <li>
+          Apri {bb} e tocca <strong>Settings</strong> (Impostazioni) nel menu principale.
+        </li>
+        <li>
+          Se non hai effettuato l&rsquo;accesso, accedi prima con Google o Apple. Così i tuoi
+          progressi vengono collegati a quell&rsquo;accesso e il pulsante ha un account da
+          eliminare.
+        </li>
+        <li>
+          Tocca <strong>Delete account</strong> (elimina account), leggi l&rsquo;avviso e
+          conferma.
+        </li>
+      </ol>
+      <p>
+        Potrebbe esserti chiesto di accedere di nuovo, per essere sicuri che sia davvero tu, e
+        serve una connessione a internet. Se l&rsquo;eliminazione non può essere completata, il
+        gioco te lo dice e non viene eliminato nulla.
+      </p>
+      <p>
+        Se non riesci più ad aprire il gioco, scrivi a{" "}
+        <a href={mailto(mail.deleteAccount, bb)}>{site.email}</a> dall&rsquo;indirizzo del tuo
+        accesso Google o Apple, con oggetto <strong>{mail.deleteAccount}</strong>, e lo
+        elimineremo entro <strong>30 giorni</strong>. Se non hai mai effettuato l&rsquo;accesso,
+        i tuoi progressi appartengono a un account anonimo che non possiamo ricondurre a te solo
+        da un&rsquo;email. Segui i passaggi qui sopra se hai ancora il gioco; altrimenti
+        scrivici comunque con il modello del dispositivo e più o meno quando hai giocato
+        l&rsquo;ultima volta, e faremo il possibile per trovarlo.
+      </p>
+      <h3>Cosa viene eliminato</h3>
+      <ul>
+        <li>
+          Il tuo account e qualsiasi accesso Google o Apple collegato. L&rsquo;autorizzazione di
+          &laquo;Accedi con Apple&raquo; viene revocata presso Apple.
+        </li>
+        <li>
+          I progressi salvati sui nostri server: puzzle risolti, mosse e stelle migliori, i
+          suggerimenti, i passaggi svelati e il tempo senza pubblicità.
+        </li>
+        <li>I progressi salvati sul dispositivo da cui elimini.</li>
+      </ul>
+      <p>
+        È irreversibile. Come per {game}, le <strong>ricevute d&rsquo;acquisto</strong> sono
+        conservate per il tempo richiesto dalle norme fiscali e contabili, e Apple e Google
+        tengono le proprie. Eliminare l&rsquo;account <strong>non</strong> annulla un
+        abbonamento No Ads: annullalo nelle impostazioni degli abbonamenti dell&rsquo;App Store
+        o di Google Play.
+      </p>
+
       <h2 id="less">Se vuoi meno di una cancellazione completa</h2>
       <p>
         Forse non serve cancellare tutto. Ognuna di queste opzioni ha effetto subito, e nessuna
@@ -156,6 +218,14 @@ const doc: LegalDoc = {
           <strong>Cambiare il tuo nome da custode</strong>: la scheda <strong>Profilo</strong>,
           poi tocca il tuo nome. Il vecchio nome torna libero e la classifica mostra quello
           nuovo.
+        </li>
+        <li>
+          <strong>Ritirare il consenso pubblicitario in {bb}</strong>:{" "}
+          <strong>Settings</strong> › <strong>Ad privacy choices</strong>.
+        </li>
+        <li>
+          <strong>Smettere di salvare {bb} nel cloud</strong>: <strong>Settings</strong> ›{" "}
+          <strong>Sign out</strong> (esci). Il dispositivo continua come un nuovo ospite.
         </li>
       </ul>
       <p>

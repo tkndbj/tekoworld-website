@@ -4,11 +4,12 @@ import { dictionaries } from "@/i18n/dictionaries";
 import { gameTextFor } from "@/i18n/game-text";
 import { localePath } from "@/i18n/locales";
 import type { LegalDoc } from "@/i18n/legal/types";
-import { gemfire, mailto, site } from "@/lib/site";
+import { balanceBuddies, gemfire, mailto, site } from "@/lib/site";
 
 const mail = dictionaries.fr.mail;
 const label = gameTextFor("fr").labels;
 const game = gemfire.name;
+const bb = balanceBuddies.name;
 
 /**
  * Translation of delete-account/en.tsx. Button names are the game's own French labels, so
@@ -16,9 +17,9 @@ const game = gemfire.name;
  */
 const doc: LegalDoc = {
   title: "Supprimer ton compte et tes données",
-  description: `Comment supprimer ton compte ${game} et les données qui y sont liées.`,
+  description: `Comment supprimer ton compte ${game} ou ${bb} et les données qui y sont liées.`,
   intro:
-    "Tu peux faire effacer tout ce que nous détenons sur ton royaume. Voici exactement ce qui se passe.",
+    "Tu peux faire effacer tout ce que nous détenons sur toi dans l'un ou l'autre de nos jeux. Voici exactement ce qui se passe.",
   Body: () => (
     <>
       <Summary>
@@ -36,7 +37,17 @@ const doc: LegalDoc = {
           Supprimer l&rsquo;app seule <strong>n&rsquo;efface pas</strong> les données sur nos
           serveurs. Cela retire seulement la copie de cet appareil.
         </p>
+        <p className="mt-2">
+          Dans {bb} : <strong>Settings</strong> › <strong>Delete account</strong>. Voir la{" "}
+          <a href="#balance-buddies">section 5</a>.
+        </p>
+
       </Summary>
+      <p>
+        Les deux jeux sont des applis séparées avec des comptes séparés : supprimer l&rsquo;un
+        ne touche pas à l&rsquo;autre. Les sections 1 à 4 concernent {game} ; la{" "}
+        <a href="#balance-buddies">section 5</a> concerne {bb}.
+      </p>
 
       <h2 id="in-app">1. Supprime-le depuis le jeu</h2>
       <p>
@@ -137,6 +148,57 @@ const doc: LegalDoc = {
         de nous. Si tu veux qu&rsquo;ils soient supprimés, il faudra le leur demander.
       </p>
 
+      <h2 id="balance-buddies">5. {bb}</h2>
+      <h3>Le supprimer depuis le jeu</h3>
+      <ol>
+        <li>
+          Ouvre {bb} et touche <strong>Settings</strong> (Réglages) dans le menu principal.
+        </li>
+        <li>
+          Si tu n&rsquo;es pas connecté, connecte-toi d&rsquo;abord avec Google ou Apple. Ta
+          progression est alors rattachée à cette connexion, ce qui donne au bouton un compte à
+          supprimer.
+        </li>
+        <li>
+          Touche <strong>Delete account</strong> (supprimer le compte), lis
+          l&rsquo;avertissement et confirme.
+        </li>
+      </ol>
+      <p>
+        Il se peut qu&rsquo;on te demande de te reconnecter, pour être sûrs que c&rsquo;est
+        bien toi, et il faut une connexion internet. Si la suppression ne peut pas aboutir, le
+        jeu te le dit et rien n&rsquo;est supprimé.
+      </p>
+      <p>
+        Si tu ne peux plus ouvrir le jeu, écris à{" "}
+        <a href={mailto(mail.deleteAccount, bb)}>{site.email}</a> depuis l&rsquo;adresse de ta
+        connexion Google ou Apple, avec l&rsquo;objet <strong>{mail.deleteAccount}</strong>, et
+        nous le supprimerons sous <strong>30 jours</strong>. Si tu ne t&rsquo;es jamais
+        connecté, ta progression appartient à un compte anonyme que nous ne pouvons pas
+        retrouver à partir d&rsquo;un simple e-mail. Suis les étapes ci-dessus si tu as encore
+        le jeu ; sinon, écris-nous quand même avec le modèle de ton appareil et la date
+        approximative de ta dernière partie, et nous ferons notre possible pour le retrouver.
+      </p>
+      <h3>Ce qui est supprimé</h3>
+      <ul>
+        <li>
+          Ton compte et toute connexion Google ou Apple associée. L&rsquo;autorisation
+          &laquo;&nbsp;Se connecter avec Apple&nbsp;&raquo; est révoquée auprès d&rsquo;Apple.
+        </li>
+        <li>
+          Ta progression sauvegardée sur nos serveurs : énigmes résolues, meilleurs coups et
+          étoiles, tes indices, les étapes d&rsquo;indice révélées et ton temps sans publicité.
+        </li>
+        <li>La progression enregistrée sur l&rsquo;appareil depuis lequel tu supprimes.</li>
+      </ul>
+      <p>
+        C&rsquo;est irréversible. Comme pour {game}, les <strong>preuves d&rsquo;achat</strong>{" "}
+        sont conservées aussi longtemps que le droit fiscal et comptable l&rsquo;exige, et
+        Apple et Google gardent les leurs. Supprimer ton compte ne résilie{" "}
+        <strong>pas</strong> un abonnement No Ads : résilie-le dans les réglages
+        d&rsquo;abonnement de l&rsquo;App Store ou de Google Play.
+      </p>
+
       <h2 id="less">Si tu veux moins qu&rsquo;une suppression complète</h2>
       <p>
         Tu n&rsquo;as peut-être pas besoin de tout supprimer. Chacune de ces options prend effet
@@ -158,6 +220,15 @@ const doc: LegalDoc = {
           <strong>Changer ton nom de gardien</strong> : l&rsquo;onglet <strong>Profil</strong>,
           puis touche ton nom. L&rsquo;ancien nom est libéré et le classement affiche le
           nouveau.
+        </li>
+        <li>
+          <strong>Retirer ton consentement publicitaire dans {bb}</strong> :{" "}
+          <strong>Settings</strong> › <strong>Ad privacy choices</strong>.
+        </li>
+        <li>
+          <strong>Arrêter la sauvegarde de {bb} dans le cloud</strong> :{" "}
+          <strong>Settings</strong> › <strong>Sign out</strong> (se déconnecter).
+          L&rsquo;appareil continue comme un nouvel invité.
         </li>
       </ul>
       <p>

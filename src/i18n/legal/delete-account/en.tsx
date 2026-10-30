@@ -4,11 +4,12 @@ import { dictionaries } from "@/i18n/dictionaries";
 import { gameTextFor } from "@/i18n/game-text";
 import { localePath } from "@/i18n/locales";
 import type { LegalDoc } from "@/i18n/legal/types";
-import { gemfire, mailto, site } from "@/lib/site";
+import { balanceBuddies, gemfire, mailto, site } from "@/lib/site";
 
 const mail = dictionaries.en.mail;
 const label = gameTextFor("en").labels;
 const game = gemfire.name;
+const bb = balanceBuddies.name;
 
 /**
  * Google Play requires a publicly reachable URL where a player can request deletion of
@@ -26,19 +27,21 @@ const game = gemfire.name;
  * section at the bottom is not optional.
  *
  * Button names are the game's own (`label`), in every language, so the steps can be
- * followed on the screen they describe.
+ * followed on the screen they describe. Balance Buddies is English-only, so its button
+ * names are written in English in every translation.
  */
 const doc: LegalDoc = {
   title: "Delete your account and data",
-  description: `How to delete your ${game} account and the data held with it.`,
+  description: `How to delete your ${game} or ${bb} account and the data held with it.`,
   intro:
-    "You can have everything we hold about your kingdom erased. Here is exactly what happens.",
+    "You can have everything we hold about you in either of our games erased. Here is exactly what happens.",
   Body: () => (
     <>
       <Summary>
         <p className="mb-2">
-          The fastest way is inside the game: the <strong>Profile</strong> tab, then the{" "}
-          <strong>Account</strong> card, then <strong>{label.deleteAccount}</strong>. It takes
+          The fastest way is inside the game. In {game}: the <strong>Profile</strong> tab,
+          then the <strong>Account</strong> card, then <strong>{label.deleteAccount}</strong>.
+          In {bb}: <strong>Settings</strong>, then <strong>Delete account</strong>. It takes
           effect immediately.
         </p>
         <p className="mb-2">
@@ -51,6 +54,12 @@ const doc: LegalDoc = {
           servers. It only removes the copy on that device.
         </p>
       </Summary>
+
+      <p>
+        The two games are separate apps with separate accounts, so deleting one leaves the
+        other untouched. Sections 1 to 4 are about {game};{" "}
+        <a href="#balance-buddies">section 5</a> is about {bb}.
+      </p>
 
       <h2 id="in-app">1. Delete it from inside the game</h2>
       <p>
@@ -149,6 +158,54 @@ const doc: LegalDoc = {
         want those removed, you will need to ask them.
       </p>
 
+      <h2 id="balance-buddies">5. {bb}</h2>
+      <h3>Delete it from inside the game</h3>
+      <ol>
+        <li>
+          Open {bb} and tap <strong>Settings</strong> on the main menu.
+        </li>
+        <li>
+          If you have not signed in, sign in with Google or Apple first. This attaches your
+          progress to that sign-in, so there is an account the button can delete.
+        </li>
+        <li>
+          Tap <strong>Delete account</strong>, read the warning, and confirm.
+        </li>
+      </ol>
+      <p>
+        You may be asked to sign in once more, so we know it is really you, and you need an
+        internet connection. If the deletion cannot be completed, the game says so and
+        nothing is deleted.
+      </p>
+      <p>
+        If you can no longer open the game, write to{" "}
+        <a href={mailto(mail.deleteAccount, bb)}>{site.email}</a> from the email address of
+        your Google or Apple sign-in, with the subject{" "}
+        <strong>{mail.deleteAccount}</strong>, and we will delete it within{" "}
+        <strong>30 days</strong>. If you never signed in, your progress belongs to an
+        anonymous account we cannot match to you from an email alone. Use the steps above if
+        you still have the game; if you do not, write to us anyway with the device model and
+        roughly when you last played, and we will do what we can to find it.
+      </p>
+      <h3>What gets deleted</h3>
+      <ul>
+        <li>
+          Your account and any linked Google or Apple sign-in. A Sign in with Apple grant is
+          revoked with Apple.
+        </li>
+        <li>
+          Your saved progress on our servers: solved puzzles, best moves and stars, your
+          hints, revealed hint steps and ad-free time.
+        </li>
+        <li>The progress saved on the device you delete from.</li>
+      </ul>
+      <p>
+        This is irreversible. As with {game}, <strong>purchase records</strong> are kept for
+        as long as tax and accounting law requires, and Apple and Google keep their own.
+        Deleting your account does <strong>not</strong> cancel a No Ads subscription: cancel
+        it in your App Store or Google Play subscription settings.
+      </p>
+
       <h2 id="less">If you want less than full deletion</h2>
       <p>
         You may not need to delete everything. Each of these takes effect straight away, and
@@ -156,17 +213,22 @@ const doc: LegalDoc = {
       </p>
       <ul>
         <li>
-          <strong>Leave the public boards</strong>: the <strong>Profile</strong> tab, then{" "}
+          <strong>Leave the public boards</strong> ({game}): the <strong>Profile</strong> tab, then{" "}
           <strong>{label.hideFromBoards}</strong> in the boards section. Your published card is
           taken down and your keeper name is no longer visible to anyone. Your progress,
           purchases and kingdom are untouched.
         </li>
         <li>
-          <strong>Withdraw advertising consent</strong>: <strong>Settings</strong> (the gear
-          icon), then <strong>{label.privacyChoices}</strong>.
+          <strong>Withdraw advertising consent</strong>: in {game}, <strong>Settings</strong>{" "}
+          (the gear icon), then <strong>{label.privacyChoices}</strong>; in {bb},{" "}
+          <strong>Settings</strong>, then <strong>Ad privacy choices</strong>.
         </li>
         <li>
-          <strong>Change your keeper name</strong>: the <strong>Profile</strong> tab, then
+          <strong>Stop syncing {bb} to the cloud</strong>: <strong>Settings</strong>, then{" "}
+          <strong>Sign out</strong>. The device carries on as a fresh guest.
+        </li>
+        <li>
+          <strong>Change your keeper name</strong> ({game}): the <strong>Profile</strong> tab, then
           tap your name. The old name is released and the boards show the new one.
         </li>
       </ul>

@@ -4,17 +4,18 @@ import { dictionaries } from "@/i18n/dictionaries";
 import { gameTextFor } from "@/i18n/game-text";
 import { localePath } from "@/i18n/locales";
 import type { LegalDoc } from "@/i18n/legal/types";
-import { gemfire, mailto, site } from "@/lib/site";
+import { balanceBuddies, gemfire, mailto, site } from "@/lib/site";
 
 const mail = dictionaries.fr.mail;
 const label = gameTextFor("fr").labels;
 const game = gemfire.name;
+const bb = balanceBuddies.name;
 
 /** Translation of support/en.tsx. Button names are the game's own French labels. */
 const doc: LegalDoc = {
   title: "Aide",
-  description: `De l'aide pour ${game} : progression perdue, achats, cœurs, publicités et comptes.`,
-  intro: `Quelque chose ne marche pas dans ${game} ? Écris-nous. Une vraie personne te lit.`,
+  description: `De l'aide pour ${game} et ${bb} : progression perdue, achats, indices, publicités et comptes.`,
+  intro: `Quelque chose ne marche pas dans ${game} ou ${bb} ? Écris-nous. Une vraie personne te lit.`,
   Body: () => (
     <>
       <p className="not-prose mb-10">
@@ -162,6 +163,101 @@ const doc: LegalDoc = {
           </p>
         </Question>
       </div>
+
+      <h2 id="balance-buddies">{bb} : questions fréquentes</h2>
+
+      <div className="not-prose">
+        <Question q="J'ai perdu ma progression après une réinstallation.">
+          <p>
+            Ta progression est sauvegardée dans le cloud dès la première énigme, sous un compte
+            anonyme propre à cet appareil. Une réinstallation en crée un nouveau. Pour garder ta
+            progression d&rsquo;une installation ou d&rsquo;un téléphone à l&rsquo;autre, ouvre{" "}
+            <strong>Settings</strong> et connecte-toi avec Google ou Apple. Connecte-toi avec le
+            même fournisseur sur la nouvelle installation et ta progression revient.
+          </p>
+          <p>Sinon, écris-nous depuis l&rsquo;adresse de cette connexion.</p>
+        </Question>
+
+        <Question q="Je me suis connecté et ma progression a changé.">
+          <p>
+            Ce compte avait déjà sa propre progression. Le jeu demande avant de remplacer celle
+            de ton appareil et ne bascule que si tu confirmes. Les achats faits sur
+            l&rsquo;appareil sont conservés dans tous les cas. Pour revenir en arrière,
+            déconnecte-toi et connecte-toi avec l&rsquo;autre compte.
+          </p>
+        </Question>
+
+        <Question q="Comment marchent les indices ?">
+          <p>
+            Tu commences avec dix. En dessous de dix, un indice revient tout seul toutes les
+            quatre heures. Un indice montre un fantôme lumineux là où va le prochain buddy ; une
+            étape payée reste révélée gratuitement quand tu recommences et sur tes autres
+            appareils.
+          </p>
+          <p>
+            Tu peux aussi regarder une courte vidéo pour en gagner deux, ou acheter un pack dans
+            la boutique. Chaque énigme peut se résoudre sans.
+          </p>
+        </Question>
+
+        <Question q="Pourquoi je vois des publicités entre les énigmes ?">
+          <p>
+            Il n&rsquo;y en a aucune pendant tes huit premières énigmes, et jamais au milieu
+            d&rsquo;une énigme. Ensuite, une courte publicité peut passer toutes les deux
+            énigmes résolues ; c&rsquo;est ce qui garde le jeu gratuit. L&rsquo;abonnement{" "}
+            <strong>No Ads</strong> de la boutique, ou les 30 jours sans publicité du Starter
+            Bundle, les coupent.
+          </p>
+        </Question>
+
+        <Question q="Comment résilier l'abonnement No Ads ?">
+          <p>
+            Dans ton store, pas dans le jeu : sur Android, Google Play › Paiements et
+            abonnements › Abonnements ; sur iOS, Réglages › ton nom › Abonnements. Il reste
+            actif jusqu&rsquo;à la fin du mois déjà payé. Supprimer l&rsquo;appli ou ton compte
+            ne le résilie pas.
+          </p>
+        </Question>
+
+        <Question q="J'ai payé et je n'ai rien reçu.">
+          <p>
+            Rouvre le jeu en étant connecté : les achats inachevés et un abonnement actif sont
+            récupérés au lancement. Si ce n&rsquo;est toujours pas arrivé, écris-nous avec le
+            reçu ou le numéro de commande du store et nous réglerons ça. Les remboursements
+            sont gérés par Apple et Google selon leurs propres règles.
+          </p>
+        </Question>
+
+        <Question q="Comment changer mon choix publicitaire ?">
+          <p>
+            <strong>Settings</strong> › <strong>Ad privacy choices</strong>. Le bouton apparaît
+            partout où la loi l&rsquo;exige, par exemple dans l&rsquo;UE et au Royaume-Uni.
+          </p>
+        </Question>
+
+        <Question q="Comment supprimer mon compte ?">
+          <p>
+            <strong>Settings</strong> › <strong>Delete account</strong> (visible une fois
+            connecté). Tous les détails sur{" "}
+            <Link href={localePath("fr", "/delete-account#balance-buddies")}>
+              la suppression du compte et des données
+            </Link>
+            .
+          </p>
+        </Question>
+
+        <Question q="Le jeu marche-t-il hors ligne ?">
+          <p>
+            Oui. Chaque énigme tourne sur ton téléphone sans connexion, et ta progression est
+            envoyée dès que tu es de nouveau en ligne. Les publicités, la boutique et la
+            connexion à un compte ont besoin d&rsquo;internet.
+          </p>
+        </Question>
+      </div>
+
+      <p className="mt-8">
+        <a href={mailto(mail.support, bb)}>Nous écrire au sujet de {bb}</a>
+      </p>
 
       <h2>Signaler un problème de sécurité</h2>
       <p>

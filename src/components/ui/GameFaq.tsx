@@ -1,10 +1,14 @@
 import { Rich } from "@/i18n/rich";
 import { getText } from "@/i18n/server";
 
-/** The short answers. Native disclosure elements: no script, keyboard-operable by default. */
-export async function Faq() {
+/**
+ * A game's short answers. Native disclosure elements: no script, keyboard-operable by default.
+ * Shared by every game page; `game` picks the dictionary block and the page's display face.
+ */
+export async function Faq({ game = "gemfire" }: { game?: "gemfire" | "balanceBuddies" }) {
   const { locale, t } = await getText();
-  const f = t.gemfire.faq;
+  const f = t[game].faq;
+  const buddies = game === "balanceBuddies";
 
   return (
     <section id="faq" className="relative scroll-mt-20 py-24 sm:py-32">
@@ -12,8 +16,8 @@ export async function Faq() {
         <div className="grid gap-10 lg:grid-cols-[0.8fr_1.2fr]">
           <div className="reveal">
             <p className="kicker">{f.kicker}</p>
-            <h2 className="mt-4 text-4xl sm:text-5xl">
-              <Rich value={f.title} locale={locale} hl="text-gem" />
+            <h2 className={`mt-4 text-4xl sm:text-5xl ${buddies ? "font-buddies" : ""}`}>
+              <Rich value={f.title} locale={locale} hl={buddies ? "text-buddies" : "text-gem"} />
             </h2>
             <p className="mt-5 text-ink-2">
               <Rich value={f.body} locale={locale} link="text-cyan underline underline-offset-4" />

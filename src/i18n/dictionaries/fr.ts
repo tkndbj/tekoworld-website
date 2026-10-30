@@ -1,4 +1,4 @@
-import { gemfire, placeName, site } from "@/lib/site";
+import { balanceBuddies, gemfire, placeName, site } from "@/lib/site";
 import { rich } from "@/i18n/rich-text";
 import type { Dictionary } from "./en";
 
@@ -9,11 +9,12 @@ import type { Dictionary } from "./en";
 const fr: Dictionary = {
   site: {
     tagline: "Des jeux mobiles avec du feu dedans.",
-    description: `${site.company} est un studio indépendant de jeux mobiles. La maison de ${gemfire.name}, le jeu de match-3 et de tower defense où chaque alignement fait tirer une tourelle.`,
+    description: `${site.company} est un studio indépendant de jeux mobiles. La maison de ${gemfire.name}, le jeu de match-3 et de tower defense où chaque alignement fait tirer une tourelle, et de ${balanceBuddies.name}, le jeu de casse-tête d'équilibre tout en douceur.`,
     keywords: [
       "studio de jeux mobiles",
       "jeu de match-3",
       "tower defense",
+      "casse-tête d'équilibre",
       "jeux mobiles",
       "studio indépendant",
     ],
@@ -31,7 +32,7 @@ const fr: Dictionary = {
     terms: "Conditions",
     deleteData: "Supprimer tes données",
     credits: "Crédits",
-    play: `Jouer à ${gemfire.name}`,
+    play: "Nos jeux",
     menu: "Menu",
     openMenu: "Ouvrir le menu",
     closeMenu: "Fermer le menu",
@@ -44,7 +45,7 @@ const fr: Dictionary = {
     studio: "Studio",
     smallPrint: "Les petites lignes",
     copyright: (year: number) =>
-      `© ${year} ${site.entity}, sous le nom commercial ${site.company}. ${gemfire.name} et ses illustrations sont la propriété de ${site.company}.`,
+      `© ${year} ${site.entity}, sous le nom commercial ${site.company}. ${gemfire.name}, ${balanceBuddies.name} et leurs illustrations sont la propriété de ${site.company}.`,
   },
 
   suggest: {
@@ -90,31 +91,38 @@ const fr: Dictionary = {
     hero: {
       chip: "Studio indépendant de jeux mobiles",
       title: rich("Nous faisons des jeux", "\n", "avec du ", { hl: "feu" }, " dedans."),
-      body: `${site.company} crée de petits jeux bruyants et mécaniquement honnêtes pour le téléphone que tu as en poche. Le premier, c'est ${gemfire.name} : un plateau de match-3 boulonné au rempart d'un château, où chaque alignement fait tirer une tourelle.`,
-      explore: `Découvrir ${gemfire.name}`,
+      body: `${site.company} crée de petits jeux mécaniquement honnêtes pour le téléphone que tu as en poche. ${gemfire.name} est un plateau de match-3 boulonné au rempart d'un château, où chaque alignement fait tirer une tourelle. ${balanceBuddies.name}, c'est le calme : dépose les copains jusqu'à ce que tout soit bien à l'horizontale.`,
+      explore: "Voir nos jeux",
       about: "À propos du studio",
-      stats: ["jeu à la forge", "plateformes au lancement", "pubs imposées", "squelettes à arrêter"],
+      stats: ["jeux à la forge", "plateformes", "casse-têtes à équilibrer", "squelettes à arrêter"],
     },
     ticker: [
       gemfire.name,
       "Match-3 et tower defense",
+      balanceBuddies.name,
+      "Casse-têtes d'équilibre tout en douceur",
       "Android",
       "iOS",
       site.company,
-      "Bâtis ton royaume",
-      "Améliore tes tourelles",
       "Tiens le rempart",
+      "Trouve l'équilibre",
     ],
     games: {
       kicker: "Nos jeux",
-      title: rich("Un seul titre. ", { hl: "Tout dedans." }),
-      body: "Nous sortons un jeu à la fois et continuons à y travailler après sa sortie. Voici celui qui est sur l'enclume en ce moment.",
-      coverAlt: `Illustration de ${gemfire.name} : quatre tourelles sur le rempart d'un château tirent sur une armée de squelettes au-dessus d'un plateau de gemmes.`,
-      status: "En développement",
+      title: rich("Deux jeux. ", { hl: "Tout dedans." }),
+      body: "Nous sortons un jeu à la fois et continuons à travailler sur chacun après sa sortie. L'un est bruyant, l'autre est calme, et tous deux reposent sur de vraies règles.",
       view: "Voir le jeu",
-      nextKicker: "Emplacement 02",
+      gemfire: {
+        alt: `Illustration de ${gemfire.name} : quatre tourelles sur le rempart d'un château tirent sur une armée de squelettes au-dessus d'un plateau de gemmes.`,
+        status: "Disponible sur iOS",
+      },
+      balanceBuddies: {
+        alt: `Illustration de ${balanceBuddies.name} : une tour bancale de petits monstres colorés sur fond de ciel bleu.`,
+        status: "Bientôt disponible",
+      },
+      nextKicker: "Emplacement 03",
       nextTitle: "Le prochain",
-      nextBody: `Tout ce que nous apprenons avec ${gemfire.name} servira au jeu suivant. Quand il y aura quelque chose qui vaut la peine d'être montré, il apparaîtra ici en premier.`,
+      nextBody: `Tout ce que nous apprenons avec ${gemfire.name} et ${balanceBuddies.name} servira aux jeux suivants. Quand il y aura quelque chose qui vaut la peine d'être montré, il apparaîtra ici en premier.`,
       sealed: "Scellé",
     },
     studio: {
@@ -309,6 +317,162 @@ const fr: Dictionary = {
         {
           q: "Est-ce adapté aux enfants ?",
           a: "Il n'y a ni chat, ni messagerie, ni moyen pour les joueurs de se contacter. Les seules choses qu'un autre joueur peut voir sont le nom et le compagnon que tu as choisis et le score de ton royaume, et tu peux tout cacher d'un seul geste.",
+        },
+      ],
+    },
+    getIt: {
+      kicker: "Obtenir le jeu",
+      free: "Gratuit sur Android et iOS.",
+    },
+  },
+
+  balanceBuddies: {
+    genre: "Casse-tête d'équilibre tout en douceur",
+    pitch: "Dépose les copains. Trouve l'équilibre. Respire.",
+    description: `${balanceBuddies.name} est un jeu de casse-tête d'équilibre tout en calme. Fais glisser les copains du plateau vers des mobiles, des balançoires, des grandes roues, des ressorts et des radeaux jusqu'à ce que tout soit à l'horizontale et ne bouge plus. De vraies maths, de la vraie physique, sans minuteur et sans possibilité de perdre.`,
+    ogAlt: `${balanceBuddies.name} : une joyeuse tour de petits monstres colorés sur fond de ciel bleu.`,
+    hero: {
+      body: "Chaque casse-tête est une drôle de machine qui ne tient pas en place : un mobile suspendu, une balançoire à bascule, une grande roue, une barre sur deux ressorts, un radeau sur l'eau. Fais monter les copains depuis le plateau et dépose chacun là où il fait l'équilibre. Pas de chrono, pas de game over, juste ce moment paisible où tout se met à l'horizontale.",
+      chips: ["Gratuit", "Android 8.0+", "iOS 15+", "Aucun minuteur", "Impossible de perdre", "Jouable hors ligne"],
+      stats: ["casse-têtes d'équilibre", "types de machines", "indices pour commencer", "minuteurs"],
+      shotAlt: `${balanceBuddies.name}, First Swing : trois copains suspendus à un mobile à deux étages au coucher du soleil.`,
+      bannerAlt: `Illustration de ${balanceBuddies.name} : une tour bancale de petits monstres colorés à côté du logo du jeu, dans un ciel bleu plein de nuages.`,
+    },
+    play: {
+      kicker: "Comment on joue",
+      title: rich("Glisse. Dépose. ", { hl: "Équilibre." }),
+      body: "Un plateau de copains, une machine, et une seule bonne réponse, que la physique te confirme à l'instant où tu la trouves.",
+      steps: {
+        drag: {
+          title: "Choisis un copain",
+          body: "Chaque casse-tête commence avec un plateau de copains en bas de l'écran, chacun avec son poids écrit dessus. Fais-en glisser un vers le haut et dépose-le là où tu penses qu'il doit aller.",
+          alt: "Little Builder : des blocs numérotés et une petite maison sur une poutre en bois en équilibre sur un rocher.",
+        },
+        balance: {
+          title: "Trouve l'équilibre",
+          body: "Accroche-le à un crochet, pose-le sur une cheville, fais-le flotter sur un radeau. Chaque machine suit la vraie règle : sur un mobile, le poids multiplié par la distance doit être le même des deux côtés. La jauge en haut te dit à quel point tu es proche.",
+          alt: "First Swing : un mobile suspendu avec trois copains sur des crochets numérotés et une jauge d'équilibre en haut.",
+        },
+        settle: {
+          title: "Laisse reposer",
+          body: "Quand tout est à l'horizontale et reste immobile un instant, le casse-tête est résolu. Moins de coups rapportent plus d'étoiles, et tout ce qui tombe revient simplement en glissant sur le plateau.",
+          alt: "Springy : des copains sur une barre suspendue à deux ressorts qui s'étirent différemment.",
+        },
+      },
+    },
+    contraptions: {
+      kicker: "Les machines",
+      title: rich("Six façons de ", { hl: "faire pencher la balance." }),
+      body: "Chacune est une petite leçon de vraie physique, et les casse-têtes suivants les mélangent : caisses mystère, vent, glace, épines et tapis roulants.",
+      items: {
+        mobile: {
+          title: "Mobiles",
+          body: "Des barres suspendues à des barres. Le poids multiplié par la distance doit s'annuler sur chacune d'elles.",
+          alt: "Un mobile à deux étages avec des copains suspendus à des crochets numérotés.",
+        },
+        seesaw: {
+          title: "Balançoires",
+          body: "Des blocs de pierre, de bois et de métal sur une vraie planche à bascule. Le métal est plus lourd qu'il n'en a l'air.",
+          alt: "Heavy Metal : une balançoire en bois sur un support avec un bloc de métal à un bout.",
+        },
+        wheel: {
+          title: "Grandes roues",
+          body: "Des passagers sur une roue qui tourne. Elle ne s'arrête à l'horizontale que lorsque leurs poids s'annulent autour de l'axe.",
+          alt: "Ferris Wheel : deux copains sur une roue qui a basculé.",
+        },
+        spring: {
+          title: "Ressorts",
+          body: "Une barre sur deux ressorts de raideurs différentes. Charge-la jusqu'à ce que les deux s'étirent exactement de la même longueur.",
+          alt: "Springy : des copains sur une barre suspendue à deux ressorts.",
+        },
+        raft: {
+          title: "Radeaux",
+          body: "Des caisses sur un radeau qui flotte pour de vrai. Charge-le pour qu'il reste à l'horizontale sur l'eau.",
+          alt: "Lazy Raft : des caisses de pierre et de bois empilées sur un radeau qui flotte sur une eau calme.",
+        },
+        balloon: {
+          title: "Ballons",
+          body: "Les ballons tirent vers le haut au lieu du bas. Ils se soustraient au poids, et ce sont eux l'astuce de plus d'un casse-tête.",
+          alt: "Up and Away : deux ballons et un copain suspendus à une barre inclinée.",
+        },
+      },
+    },
+    hints: {
+      kicker: "Bloqué ?",
+      title: rich("Un indice, ", { hl: "jamais un mur." }),
+      body: "Un indice montre un fantôme lumineux exactement là où va le prochain copain. Une étape révélée le reste, quand tu recommences et sur ton autre téléphone.",
+      points: [
+        "Dix indices pour commencer, et un revient toutes les quatre heures.",
+        "Regarde une courte vidéo pour en gagner deux de plus, quand tu veux.",
+        "Ou achète un pack. Chaque casse-tête peut être résolu sans.",
+      ],
+      hintAlt: "Une loupe avec un bouton lecture : regarde une vidéo pour gagner des indices.",
+      noAdsAlt: "Un coussin moelleux avec un panneau AD barré : l'abonnement No Ads.",
+      noAds: "No Ads, mensuel",
+      noAdsBody: "Supprime les pubs entre les casse-têtes. Résiliable à tout moment depuis ton compte de la boutique.",
+    },
+    promises: {
+      kicker: "Fair-play",
+      title: rich("Calme, ", { hl: "exprès." }),
+      list: {
+        timers: {
+          title: "Pas de minuteur, pas de game over",
+          body: "Rien ne décompte et rien ne peut être perdu. Tout ce qui tombe revient en glissant sur le plateau, pour que tu puisses réessayer tout de suite.",
+        },
+        real: {
+          title: "De vraies maths, de la vraie physique",
+          body: "Chaque casse-tête se résout avec la vraie règle, la loi du levier, la loi de Hooke ou la flottabilité, pas en devinant ce que le concepteur avait en tête.",
+        },
+        ads: {
+          title: "Des pubs qui restent discrètes",
+          body: "Aucune pendant tes huit premiers casse-têtes, jamais au milieu d'un casse-tête, et pas de bannières. Ensuite, une courte pub peut passer entre deux casse-têtes, et un abonnement No Ads les supprime.",
+        },
+        offline: {
+          title: "Jouable sans réseau",
+          body: "Chaque casse-tête tourne sur ton téléphone. Les pubs, la boutique et la sauvegarde dans le cloud ont besoin d'une connexion ; les casse-têtes, non.",
+        },
+        save: {
+          title: "Ta progression, en sécurité",
+          body: "La progression est sauvegardée dès ton premier casse-tête, sous un compte anonyme. Connecte-toi avec Google ou Apple pour l'emporter sur un autre téléphone.",
+        },
+        sound: {
+          title: "Doux pour les oreilles",
+          body: "Des sons délicats accordés dans la même tonalité, et une musique calme, faits pour le canapé à la fin d'une longue journée.",
+        },
+      },
+    },
+    faq: {
+      kicker: "Questions",
+      title: rich("Les réponses ", { hl: "courtes." }),
+      body: rich(
+        "Les longues, et celles sur les achats et les comptes, sont sur la ",
+        { link: "page d'aide", href: "/support" },
+        "."
+      ),
+      items: [
+        {
+          q: "Est-ce que c'est payant ?",
+          a: `Non. ${balanceBuddies.name} est gratuit, et chaque casse-tête peut être résolu sans rien dépenser. Tu peux acheter des indices en plus, ou un abonnement qui supprime les pubs.`,
+        },
+        {
+          q: "Y a-t-il des pubs ?",
+          a: "Oui, en douceur. Aucune pendant tes huit premiers casse-têtes, et jamais pendant un casse-tête. Ensuite, une courte pub peut passer tous les deux casse-têtes terminés. Les vidéos pour gagner des indices sont toujours ton choix, et l'abonnement No Ads, ou les 30 jours sans pub du Starter Bundle, suppriment le reste.",
+        },
+        {
+          q: "Et si je bloque ?",
+          a: "Utilise un indice. Il montre un fantôme lumineux là où va le prochain copain. Tu commences avec dix, un revient toutes les quatre heures, et une courte vidéo t'en donne deux de plus.",
+        },
+        {
+          q: "Faut-il un compte ou une connexion ?",
+          a: "Ni l'un ni l'autre. Chaque casse-tête tourne sur ton téléphone sans réseau. Un compte anonyme sauvegarde ta progression ; connecte-toi avec Google ou Apple seulement si tu veux jouer sur un autre appareil.",
+        },
+        {
+          q: "Est-ce que ça tournera sur mon téléphone ?",
+          a: "Il faut Android 8.0 ou iOS 15, et pas grand-chose d'autre.",
+        },
+        {
+          q: "Est-ce adapté aux enfants ?",
+          a: "Il est fait pour tout le monde. Pas de chat, pas de messagerie, et rien sur toi que les autres joueurs puissent voir.",
         },
       ],
     },

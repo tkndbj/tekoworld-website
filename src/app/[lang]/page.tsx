@@ -5,7 +5,7 @@ import { Studio } from "@/components/home/Studio";
 import { Contact } from "@/components/home/Contact";
 import { localeInfo, localePath } from "@/i18n/locales";
 import { getText } from "@/i18n/server";
-import { gemfire, site } from "@/lib/site";
+import { games, site } from "@/lib/site";
 
 /**
  * Structured data for the company. A store reviewer or a journalist looking
@@ -22,17 +22,17 @@ async function StructuredData() {
     email: site.email,
     description: t.site.description,
     address: { "@type": "PostalAddress", addressLocality: site.address },
-    makesOffer: {
+    makesOffer: games.map((game) => ({
       "@type": "Offer",
       itemOffered: {
         "@type": "VideoGame",
-        name: gemfire.name,
-        url: `${site.url}${localePath(locale, gemfire.path)}`,
+        name: game.name,
+        url: `${site.url}${localePath(locale, game.path)}`,
         inLanguage: localeInfo[locale].tag,
         applicationCategory: "GameApplication",
         operatingSystem: "Android, iOS",
       },
-    },
+    })),
   };
   return (
     <script

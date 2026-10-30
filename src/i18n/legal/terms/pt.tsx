@@ -3,16 +3,17 @@ import { Summary } from "@/components/SiteChrome";
 import { dictionaries } from "@/i18n/dictionaries";
 import { localePath } from "@/i18n/locales";
 import type { LegalDoc } from "@/i18n/legal/types";
-import { gemfire, mailto, site } from "@/lib/site";
+import { balanceBuddies, gemfire, mailto, site } from "@/lib/site";
 
 const mail = dictionaries.pt.mail;
 const game = gemfire.name;
+const bb = balanceBuddies.name;
 
 /** Translation of terms/en.tsx. Where the two differ, the English text applies. */
 const doc: LegalDoc = {
   title: "Termos de Serviço",
-  description: `As regras para jogar ${game}.`,
-  intro: `Estes são os termos que você aceita ao jogar ${game}.`,
+  description: `As regras para jogar ${game} e ${bb}.`,
+  intro: `Estes são os termos que você aceita ao jogar nossos jogos, ${game} e ${bb}.`,
   Body: () => (
     <>
       <Summary>
@@ -40,6 +41,11 @@ const doc: LegalDoc = {
       <p>
         Estes termos também são publicados em outros idiomas. São traduções deste texto em
         inglês, e se alguma for diferente dele, vale o texto em inglês.
+      </p>
+
+      <p>
+        Estes termos valem para cada um dos nossos jogos, {game} e {bb}. Quando falam do
+        &ldquo;jogo&rdquo;, referem-se àquele que você está jogando.
       </p>
 
       <h2 id="licence">2. Sua licença</h2>
@@ -83,6 +89,12 @@ const doc: LegalDoc = {
         qualquer coisa.
       </p>
 
+      <p>
+        No {bb}, entrar com uma conta que já tem progresso muda para essa conta; o progresso
+        do seu aparelho só é substituído depois que você confirma. As compras feitas no
+        aparelho são mantidas de qualquer forma.
+      </p>
+
       <h2 id="virtual-items">4. Moedas, gemas, corações e itens</h2>
       <p>
         Tudo o que você coleta ou compra dentro do jogo, incluindo moedas, gemas, corações,
@@ -109,6 +121,12 @@ const doc: LegalDoc = {
         arquivo salvo foi modificado, ela pode ser recusada ou revertida.
       </p>
 
+      <p>
+        O mesmo vale para as dicas e o tempo sem anúncios do {bb}: são uma licença limitada de
+        uso dentro do {bb}, não têm valor fora do jogo e não podem ser transferidos entre os
+        nossos jogos.
+      </p>
+
       <h2 id="purchases">5. Compras e reembolsos</h2>
       <p>
         As compras são feitas pela App Store da Apple ou pelo Google Play, e são essas lojas
@@ -133,7 +151,24 @@ const doc: LegalDoc = {
         capacidade de corações voltar ao que era.
       </p>
 
+      <h3>Assinaturas</h3>
+      <p>
+        A assinatura <strong>No Ads</strong> do {bb} desliga os anúncios entre os
+        quebra-cabeças enquanto estiver ativa. Os vídeos que você escolhe ver em troca de dicas
+        continuam disponíveis. Ela é renovada automaticamente todo mês pelo preço mostrado na
+        loja, e a loja cobra você a cada renovação até que você cancele. Você pode cancelar a
+        qualquer momento nas configurações de assinatura da App Store ou do Google Play; ela
+        continua ativa até o fim do período já pago. Excluir o app não cancela a assinatura.
+      </p>
+      <p>
+        Os dias sem anúncios do Starter Bundle do {bb} são uma compra única, não uma
+        assinatura: contam a partir da compra e nunca se renovam.
+      </p>
+
       <h2 id="boards">6. Nomes, o ranking e visitas</h2>
+      <p>
+        Esta seção vale para o {game}. O {bb} não tem nomes de jogadores, placares nem visitas.
+      </p>
       <p>
         Se você escolher um nome de guardião e deixar o ranking ativado, esse nome, seu avatar,
         seu nível, a pontuação do seu reino e sua liga ficam visíveis para outros jogadores, e

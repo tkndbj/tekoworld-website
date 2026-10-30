@@ -4,11 +4,12 @@ import { dictionaries } from "@/i18n/dictionaries";
 import { gameTextFor } from "@/i18n/game-text";
 import { localePath } from "@/i18n/locales";
 import type { LegalDoc } from "@/i18n/legal/types";
-import { gemfire, mailto, site } from "@/lib/site";
+import { balanceBuddies, gemfire, mailto, site } from "@/lib/site";
 
 const mail = dictionaries.pl.mail;
 const label = gameTextFor("pl").labels;
 const game = gemfire.name;
+const bb = balanceBuddies.name;
 
 /**
  * Translation of delete-account/en.tsx. Button names are the game's own Polish labels, so
@@ -17,9 +18,9 @@ const game = gemfire.name;
  */
 const doc: LegalDoc = {
   title: "Usuwanie konta i danych",
-  description: `Jak usunąć konto w grze ${game} i przechowywane z nim dane.`,
+  description: `Jak usunąć konto w grze ${game} lub ${bb} i przechowywane z nim dane.`,
   intro:
-    "Możesz zlecić usunięcie wszystkiego, co przechowujemy o twoim królestwie. Oto dokładnie, co się wtedy dzieje.",
+    "Możesz zlecić usunięcie wszystkiego, co przechowujemy o tobie w którejkolwiek z naszych gier. Oto dokładnie, co się wtedy dzieje.",
   Body: () => (
     <>
       <Summary>
@@ -36,7 +37,16 @@ const doc: LegalDoc = {
           Samo usunięcie aplikacji <strong>nie</strong> usuwa danych z naszych serwerów. Usuwa
           tylko kopię na tym urządzeniu.
         </p>
+        <p className="mt-2">
+          W {bb}: <strong>Settings</strong> › <strong>Delete account</strong>. Zobacz{" "}
+          <a href="#balance-buddies">sekcję 5</a>.
+        </p>
+
       </Summary>
+      <p>
+        Obie gry to osobne aplikacje z osobnymi kontami: usunięcie jednej nie rusza drugiej.
+        Sekcje 1–4 dotyczą {game}; <a href="#balance-buddies">sekcja 5</a> dotyczy {bb}.
+      </p>
 
       <h2 id="in-app">1. Usuń je w grze</h2>
       <p>
@@ -135,6 +145,56 @@ const doc: LegalDoc = {
         chcesz ją usunąć, trzeba zwrócić się do nich.
       </p>
 
+      <h2 id="balance-buddies">5. {bb}</h2>
+      <h3>Usuń je w grze</h3>
+      <ol>
+        <li>
+          Otwórz {bb} i dotknij <strong>Settings</strong> (Ustawienia) w menu głównym.
+        </li>
+        <li>
+          Jeśli nie jesteś zalogowany, najpierw zaloguj się przez Google lub Apple. Twoje
+          postępy zostaną wtedy powiązane z tym logowaniem, więc przycisk będzie miał konto do
+          usunięcia.
+        </li>
+        <li>
+          Dotknij <strong>Delete account</strong> (usuń konto), przeczytaj ostrzeżenie i
+          potwierdź.
+        </li>
+      </ol>
+      <p>
+        Możemy poprosić cię o ponowne zalogowanie, żeby mieć pewność, że to ty, i potrzebne
+        jest połączenie z internetem. Jeśli usunięcia nie da się dokończyć, gra o tym powie i
+        nic nie zostanie usunięte.
+      </p>
+      <p>
+        Jeśli nie możesz już otworzyć gry, napisz na{" "}
+        <a href={mailto(mail.deleteAccount, bb)}>{site.email}</a> z adresu e-mail swojego
+        logowania Google lub Apple, z tematem <strong>{mail.deleteAccount}</strong>, a usuniemy
+        je w ciągu <strong>30 dni</strong>. Jeśli nigdy się nie logowałeś, twoje postępy należą
+        do anonimowego konta, którego nie da się powiązać z tobą na podstawie samego e-maila.
+        Wykonaj kroki powyżej, jeśli nadal masz grę; jeśli nie, i tak do nas napisz, podając
+        model urządzenia i mniej więcej datę ostatniej gry, a zrobimy, co w naszej mocy, żeby
+        je znaleźć.
+      </p>
+      <h3>Co zostaje usunięte</h3>
+      <ul>
+        <li>
+          Twoje konto i każde podłączone logowanie Google lub Apple. Zgoda na &bdquo;Zaloguj
+          się przez Apple&rdquo; jest odwoływana w Apple.
+        </li>
+        <li>
+          Twoje postępy zapisane na naszych serwerach: rozwiązane zagadki, najlepsze wyniki i
+          gwiazdki, podpowiedzi, odkryte kroki podpowiedzi i czas bez reklam.
+        </li>
+        <li>Postępy zapisane na urządzeniu, z którego usuwasz konto.</li>
+      </ul>
+      <p>
+        Tego nie da się cofnąć. Tak jak w {game}, <strong>dane zakupów</strong> przechowujemy
+        tak długo, jak wymagają tego przepisy podatkowe i rachunkowe, a Apple i Google mają
+        własne. Usunięcie konta <strong>nie</strong> anuluje subskrypcji No Ads: anuluj ją w
+        ustawieniach subskrypcji App Store lub Google Play.
+      </p>
+
       <h2 id="less">Jeśli chcesz mniej niż pełne usunięcie</h2>
       <p>
         Być może nie trzeba usuwać wszystkiego. Każda z tych opcji działa od razu i żadna nie
@@ -154,6 +214,14 @@ const doc: LegalDoc = {
         <li>
           <strong>Zmiana imienia strażnika</strong>: zakładka <strong>Profil</strong>, potem
           dotknij swojego imienia. Stare imię staje się wolne, a ranking pokazuje nowe.
+        </li>
+        <li>
+          <strong>Wycofanie zgody reklamowej w {bb}</strong>: <strong>Settings</strong> ›{" "}
+          <strong>Ad privacy choices</strong>.
+        </li>
+        <li>
+          <strong>Wyłączenie zapisu {bb} w chmurze</strong>: <strong>Settings</strong> ›{" "}
+          <strong>Sign out</strong> (wyloguj). Urządzenie gra dalej jako nowy gość.
         </li>
       </ul>
       <p>

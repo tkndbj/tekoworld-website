@@ -4,17 +4,21 @@ import { dictionaries } from "@/i18n/dictionaries";
 import { gameTextFor } from "@/i18n/game-text";
 import { localePath } from "@/i18n/locales";
 import type { LegalDoc } from "@/i18n/legal/types";
-import { gemfire, mailto, site } from "@/lib/site";
+import { balanceBuddies, gemfire, mailto, site } from "@/lib/site";
 
 const mail = dictionaries.en.mail;
 const label = gameTextFor("en").labels;
 const game = gemfire.name;
+const bb = balanceBuddies.name;
 
-/** In-game labels are the game's own (`label`), so the button named here is the button on screen. */
+/**
+ * In-game labels are the game's own (`label`), so the button named here is the button on
+ * screen. Balance Buddies is English-only, so its labels are English in every translation.
+ */
 const doc: LegalDoc = {
   title: "Support",
-  description: `Help with ${game}: lost progress, purchases, hearts, adverts and accounts.`,
-  intro: `Something not working in ${game}? Write to us. A real person reads it.`,
+  description: `Help with ${game} and ${bb}: lost progress, purchases, hints, adverts and accounts.`,
+  intro: `Something not working in ${game} or ${bb}? Write to us. A real person reads it.`,
   Body: () => (
     <>
       <p className="not-prose mb-10">
@@ -24,12 +28,13 @@ const doc: LegalDoc = {
       </p>
 
       <p>
-        We usually answer within a couple of days. It helps enormously if you include your{" "}
-        <strong>account identifier</strong> (Profile tab, Account card), your device model,
-        and what you expected to happen.
+        We usually answer within a couple of days. It helps enormously if you say which game
+        it is about, and include your device model and what you expected to happen. For{" "}
+        {game}, add your <strong>account identifier</strong> (Profile tab, Account card); for{" "}
+        {bb}, write from the address of your Google or Apple sign-in if you have one.
       </p>
 
-      <h2>Common questions</h2>
+      <h2 id="gemfire">{game}: common questions</h2>
 
       <div className="not-prose">
         <Question q="I lost my progress after reinstalling.">
@@ -151,9 +156,105 @@ const doc: LegalDoc = {
         </Question>
       </div>
 
+      <h2 id="balance-buddies">{bb}: common questions</h2>
+
+      <div className="not-prose">
+        <Question q="I lost my progress after reinstalling.">
+          <p>
+            Your progress is backed up to the cloud from the first puzzle, under an anonymous
+            account on that device. Reinstalling starts a new one, so to carry progress
+            between installs or phones, open <strong>Settings</strong> and sign in with
+            Google or Apple. Sign in with the same provider on the new install and your
+            progress comes back.
+          </p>
+          <p>
+            If it does not, email us from the address of that sign-in.
+          </p>
+        </Question>
+
+        <Question q="I signed in and my progress changed.">
+          <p>
+            That sign-in already had progress of its own. The game asks before replacing the
+            progress on your device and only switches if you confirm. Purchases made on the
+            device are kept either way. To go back, sign out and sign in with the other
+            account.
+          </p>
+        </Question>
+
+        <Question q="How do hints work?">
+          <p>
+            You start with ten. Below ten, one comes back every four hours on its own. A hint
+            shows a glowing ghost where the next buddy goes; a step you have paid for stays
+            revealed for free on a retry and on your other devices.
+          </p>
+          <p>
+            You can also watch a short video for two more, or buy a pack in the shop. Every
+            puzzle can be solved without them.
+          </p>
+        </Question>
+
+        <Question q="Why do I see adverts between puzzles?">
+          <p>
+            There are none in your first eight puzzles and never one during a puzzle. After
+            that a short advert may play after every second puzzle you solve; that is how the
+            game stays free. The <strong>No Ads</strong> subscription in the shop, or the
+            Starter Bundle&rsquo;s 30 ad-free days, turns them off.
+          </p>
+        </Question>
+
+        <Question q="How do I cancel the No Ads subscription?">
+          <p>
+            In your store, not in the game: on Android, Google Play › Payments &amp;
+            subscriptions › Subscriptions; on iOS, Settings › your name › Subscriptions. It
+            stays active until the end of the month already paid for. Deleting the app or
+            your account does not cancel it.
+          </p>
+        </Question>
+
+        <Question q="I paid for something and did not receive it.">
+          <p>
+            Reopen the game while online: unfinished purchases and an active subscription are
+            picked up again on launch. If it still has not arrived, email us with the store
+            receipt or order number and we will sort it out. Refunds are handled by Apple and
+            Google under their own policies.
+          </p>
+        </Question>
+
+        <Question q="How do I change my advertising choice?">
+          <p>
+            <strong>Settings</strong>, then <strong>Ad privacy choices</strong>. The button
+            is shown wherever the law requires it, such as in the EU and the UK.
+          </p>
+        </Question>
+
+        <Question q="How do I delete my account?">
+          <p>
+            <strong>Settings</strong>, then <strong>Delete account</strong> (shown once you
+            are signed in). See{" "}
+            <Link href={localePath("en", "/delete-account#balance-buddies")}>
+              deleting your account and data
+            </Link>{" "}
+            for the details.
+          </p>
+        </Question>
+
+        <Question q="Does the game work offline?">
+          <p>
+            Yes. Every puzzle runs on your phone with no connection, and your progress is
+            uploaded when you are back online. Adverts, the shop and signing in need a
+            connection.
+          </p>
+        </Question>
+      </div>
+
+      <p className="mt-8">
+        <a href={mailto(mail.support, bb)}>Email us about {bb}</a>
+      </p>
+
       <h2>Reporting a security problem</h2>
       <p>
-        If you have found a way to break the economy, read another player&rsquo;s save, or
+        If you have found a way to break the economy of either game, read another
+        player&rsquo;s save, or
         otherwise get at something you should not, please tell us at{" "}
         <a href={mailto(mail.security)}>{site.email}</a> before telling anyone else. We will
         not take action against you for reporting something in good faith.

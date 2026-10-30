@@ -63,12 +63,23 @@ export const site = {
    * Shown on every policy, in every language. Bump when the text changes in a way that affects
    * a reader. ISO so each language can print it its own way (`formatDate`).
    */
-  updated: "2026-10-07",
+  updated: "2026-10-30",
 } as const;
 
+/** A game the studio publishes: its name, its page, and where to get it. */
+export type Game = {
+  name: string;
+  slug: string;
+  path: string;
+  /** A store left empty hides its button; both empty shows "coming soon". */
+  stores: { android: string; ios: string };
+  /** Store identifiers. The package name is the bundle id, which can never move. */
+  ids: { android: string; ios: string };
+};
+
 /**
- * The flagship. There is one game today; when there is a second, this becomes a list and
- * the /gemfire route becomes /games/[slug].
+ * The flagship. Each game keeps its own top-level route (/gemfire, /balance-buddies)
+ * because those addresses are written into the store listings.
  */
 export const gemfire = {
   name: "Gemfire",
@@ -89,15 +100,36 @@ export const gemfire = {
     android: "com.tekoworld.glimmergroove",
     ios: "6804516450",
   },
-} as const;
+} as const satisfies Game;
+
+/** The second game: a chill physics-and-maths balance puzzle. */
+export const balanceBuddies = {
+  name: "Balance Buddies",
+  slug: "balance-buddies",
+  path: "/balance-buddies",
+
+  /** Both listings are still in testing, so the page says "coming soon". */
+  stores: {
+    android: "",
+    ios: "",
+  },
+
+  ids: {
+    android: "com.balancebuddies.game",
+    ios: "",
+  },
+} as const satisfies Game;
+
+/** Every game, newest last. The home page, the sitemap and the policies list them in this order. */
+export const games: readonly Game[] = [gemfire, balanceBuddies];
 
 /**
  * The support address as a mailto link with a subject already filled in. The subject is the
- * reader's language (the `mail` block of the dictionary); the game's name in front of it is
- * what sorts the inbox.
+ * reader's language (the `mail` block of the dictionary); the name in front of it (a game's,
+ * or the studio's for a request about every game) is what sorts the inbox.
  */
-export function mailto(subject: string) {
-  return `mailto:${site.email}?subject=${encodeURIComponent(`${gemfire.name} - ${subject}`)}`;
+export function mailto(subject: string, about: string = site.company) {
+  return `mailto:${site.email}?subject=${encodeURIComponent(`${about} - ${subject}`)}`;
 }
 
 /** The studio's city and country, the country named in the reader's language. */

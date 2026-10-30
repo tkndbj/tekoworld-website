@@ -3,23 +3,25 @@ import { Summary } from "@/components/SiteChrome";
 import { dictionaries } from "@/i18n/dictionaries";
 import { localePath } from "@/i18n/locales";
 import type { LegalDoc } from "@/i18n/legal/types";
-import { gemfire, mailto, site } from "@/lib/site";
+import { balanceBuddies, gemfire, mailto, site } from "@/lib/site";
 
 const mail = dictionaries.es.mail;
 const game = gemfire.name;
+const bb = balanceBuddies.name;
 
 /** Translation of terms/en.tsx. Where the two differ, the English text applies. */
 const doc: LegalDoc = {
   title: "Términos del servicio",
-  description: `Las reglas para jugar a ${game}.`,
-  intro: `Estos son los términos que aceptas al jugar a ${game}.`,
+  description: `Las reglas para jugar a ${game} y a ${bb}.`,
+  intro: `Estos son los términos que aceptas al jugar a nuestros juegos, ${game} y ${bb}.`,
   Body: () => (
     <>
       <Summary>
         <p className="mb-2">
           Juega, no hagas trampas y no te hagas pasar por otra persona en la clasificación.
-          Todo lo que compras es una licencia para usarlo dentro del juego. Las monedas y las
-          gemas no son dinero y no se pueden canjear por dinero.
+          Todo lo que compras es una licencia para usarlo dentro del juego en el que lo
+          compraste. Las monedas, las gemas y las pistas no son dinero y no se pueden canjear
+          por dinero. Una suscripción se renueva hasta que la cancelas en tu tienda.
         </p>
         <p>
           Los reembolsos los gestionan Apple y Google, no nosotros. Si algo va mal, escríbenos
@@ -30,8 +32,9 @@ const doc: LegalDoc = {
       <h2 id="agreement">1. El acuerdo</h2>
       <p>
         Estos términos son un acuerdo entre tú y {site.entity}, que opera como {site.company},
-        con domicilio en {site.address} (&ldquo;nosotros&rdquo;). Al descargar o jugar a{" "}
-        {game} los aceptas. Si no los aceptas, por favor no juegues.
+        con domicilio en {site.address} (&ldquo;nosotros&rdquo;). Se aplican a cada uno de
+        nuestros juegos, {game} y {bb} (cada uno, &ldquo;el juego&rdquo;). Al descargar o
+        jugar a cualquiera de los dos los aceptas. Si no los aceptas, por favor no juegues.
       </p>
       <p>
         Tu tienda de apps también tiene sus propios términos, y cuando se aplican a una compra
@@ -45,7 +48,7 @@ const doc: LegalDoc = {
       <h2 id="licence">2. Tu licencia</h2>
       <p>
         Te concedemos una licencia personal, no exclusiva, intransferible y revocable para
-        instalar y jugar a {game} en dispositivos que controles, para tu propio
+        instalar y jugar al juego en dispositivos que controles, para tu propio
         entretenimiento. Conservamos la propiedad del juego, sus ilustraciones, su música, sus
         niveles y su código. Algunas ilustraciones y sonidos tienen licencia de terceros, que
         conservan sus derechos sobre ellos.
@@ -80,22 +83,31 @@ const doc: LegalDoc = {
         como tuyo.
       </p>
       <p>
-        Un inicio de sesión que ya está asociado a otro reino no se puede fusionar con el tuyo,
-        porque la moneda se ganó y se gastó por separado en cada uno. El juego te avisa antes
-        de sustituir nada.
+        En {game}, un inicio de sesión que ya está asociado a otro reino no se puede fusionar
+        con el tuyo, porque la moneda se ganó y se gastó por separado en cada uno. El juego te
+        avisa antes de sustituir nada.
+      </p>
+      <p>
+        En {bb}, iniciar sesión con una cuenta que ya tiene progreso te cambia a esa cuenta; el
+        progreso de tu dispositivo solo se sustituye después de que lo confirmes. Las compras
+        hechas en el dispositivo se conservan en cualquier caso.
       </p>
 
-      <h2 id="virtual-items">4. Monedas, gemas, corazones y objetos</h2>
+      <h2 id="virtual-items">4. Monedas, gemas, pistas y objetos</h2>
       <p>
-        Todo lo que reúnes o compras dentro del juego, incluidas monedas, gemas, corazones,
-        pistas, torres y sus mejoras, la mochila, compañeros, piezas del reino, tierras y
-        frascos de corazones más grandes, es una{" "}
-        <strong>licencia limitada para usarlo dentro de {game}</strong>. No es dinero, ni un
-        valor financiero, ni una propiedad. En concreto:
+        Todo lo que reúnes o compras dentro de un juego es una{" "}
+        <strong>licencia limitada para usarlo dentro de ese juego</strong>. En {game} eso
+        incluye monedas, gemas, corazones, pistas, torres y sus mejoras, la mochila,
+        compañeros, piezas del reino, tierras y frascos de corazones más grandes; en {bb}
+        incluye las pistas y el tiempo sin anuncios. No es dinero, ni un valor financiero, ni
+        una propiedad. En concreto:
       </p>
       <ul>
         <li>no tiene valor fuera del juego y no se puede cambiar por dinero;</li>
-        <li>no se puede transferir, vender ni regalar a otro jugador;</li>
+        <li>
+          no se puede transferir, vender ni regalar a otro jugador, ni pasar de uno de
+          nuestros juegos a otro;
+        </li>
         <li>
           puede reequilibrarse, ajustarse o retirarse a medida que se desarrolla el juego, y
           los precios y las recompensas pueden cambiar;
@@ -106,8 +118,8 @@ const doc: LegalDoc = {
         </li>
       </ul>
       <p>
-        Las recompensas de anuncios, cofres diarios, la ruleta y las rachas las conceden
-        nuestros servidores. Cuando una recompensa no se puede verificar, por ejemplo porque se
+        En {game}, las recompensas de anuncios, cofres diarios, la ruleta y las rachas las
+        conceden nuestros servidores. Cuando una recompensa no se puede verificar, por ejemplo porque se
         ha modificado una partida guardada, puede rechazarse o revertirse.
       </p>
 
@@ -136,7 +148,25 @@ const doc: LegalDoc = {
         corazones reembolsado devuelve tu capacidad de corazones a lo que era.
       </p>
 
+      <h3>Suscripciones</h3>
+      <p>
+        La suscripción <strong>No Ads</strong> de {bb} quita los anuncios que aparecen entre
+        puzles mientras está activa. Los vídeos que eliges ver a cambio de pistas siguen
+        disponibles. Se renueva automáticamente cada mes al precio que muestra la tienda, y tu
+        tienda te cobra en cada renovación hasta que la canceles. Puedes cancelarla cuando
+        quieras desde los ajustes de suscripciones del App Store o de Google Play; seguirá
+        activa hasta el final del periodo ya pagado. Borrar la app no la cancela.
+      </p>
+      <p>
+        Los días sin anuncios del Starter Bundle de {bb} son una compra única, no una
+        suscripción: empiezan a descontarse desde el momento de la compra y nunca se renuevan.
+      </p>
+
       <h2 id="boards">6. Nombres, la clasificación y las visitas</h2>
+      <p>
+        Este apartado se aplica a {game}. {bb} no tiene nombres de jugador, clasificación ni
+        visitas.
+      </p>
       <p>
         Si eliges un nombre de guardián y dejas activada la clasificación, ese nombre, tu
         avatar, tu nivel, la puntuación de tu reino y tu liga son visibles para otros
@@ -157,15 +187,15 @@ const doc: LegalDoc = {
 
       <h2 id="availability">7. El juego puede cambiar</h2>
       <p>
-        Añadimos capítulos, ajustamos la dificultad y las recompensas, corregimos fallos y de
+        Añadimos capítulos y puzles, ajustamos la dificultad y las recompensas, corregimos fallos y de
         vez en cuando retiramos cosas que no funcionan. Podemos suspender el servicio por
         mantenimiento y, con el tiempo, podríamos retirar el juego, en cuyo caso avisaremos
         con una antelación razonable a través del juego o de esta web cuando sea posible.
       </p>
       <p>
-        No prometemos que el juego funcione sin interrupciones ni errores, y algunas funciones,
-        como la clasificación, la tienda y los vídeos con recompensa, necesitan conexión a
-        internet.
+        No prometemos que los juegos funcionen sin interrupciones ni errores, y algunas
+        funciones, como la clasificación, la tienda, los anuncios y el guardado en la nube,
+        necesitan conexión a internet.
       </p>
 
       <h2 id="suspension">8. Suspensión</h2>

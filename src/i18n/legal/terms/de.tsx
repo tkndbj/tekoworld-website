@@ -3,16 +3,17 @@ import { Summary } from "@/components/SiteChrome";
 import { dictionaries } from "@/i18n/dictionaries";
 import { localePath } from "@/i18n/locales";
 import type { LegalDoc } from "@/i18n/legal/types";
-import { gemfire, mailto, site } from "@/lib/site";
+import { balanceBuddies, gemfire, mailto, site } from "@/lib/site";
 
 const mail = dictionaries.de.mail;
 const game = gemfire.name;
+const bb = balanceBuddies.name;
 
 /** Translation of terms/en.tsx. Where the two differ, the English text applies. */
 const doc: LegalDoc = {
   title: "Nutzungsbedingungen",
-  description: `Die Regeln für ${game}.`,
-  intro: `Diesen Bedingungen stimmst du zu, wenn du ${game} spielst.`,
+  description: `Die Regeln für ${game} und ${bb}.`,
+  intro: `Diesen Bedingungen stimmst du zu, wenn du unsere Spiele ${game} oder ${bb} spielst.`,
   Body: () => (
     <>
       <Summary>
@@ -41,6 +42,11 @@ const doc: LegalDoc = {
       <p>
         Diese Bedingungen erscheinen auch in anderen Sprachen. Das sind Übersetzungen dieses
         englischen Textes, und wo eine davon abweicht, gilt der englische Text.
+      </p>
+
+      <p>
+        Diese Bedingungen gelten für jedes unserer Spiele, {game} und {bb}. Wo sie von
+        &bdquo;dem Spiel&ldquo; sprechen, ist das Spiel gemeint, das du spielst.
       </p>
 
       <h2 id="licence">2. Deine Lizenz</h2>
@@ -86,6 +92,12 @@ const doc: LegalDoc = {
         wurde. Das Spiel warnt dich, bevor irgendetwas ersetzt wird.
       </p>
 
+      <p>
+        In {bb} wechselt eine Anmeldung mit einem Konto, das schon Fortschritt hat, zu diesem
+        Konto; der Fortschritt auf deinem Gerät wird erst ersetzt, wenn du es bestätigst. Auf
+        dem Gerät getätigte Käufe bleiben in jedem Fall erhalten.
+      </p>
+
       <h2 id="virtual-items">4. Münzen, Juwelen, Herzen und Gegenstände</h2>
       <p>
         Alles, was du im Spiel sammelst oder kaufst, darunter Münzen, Juwelen, Herzen, Hinweise,
@@ -110,6 +122,12 @@ const doc: LegalDoc = {
         Belohnungen aus Werbung, täglichen Truhen, dem Glücksrad und Serien werden von unseren
         Servern vergeben. Lässt sich eine Belohnung nicht überprüfen, etwa weil ein Spielstand
         verändert wurde, kann sie verweigert oder rückgängig gemacht werden.
+      </p>
+
+      <p>
+        Dasselbe gilt für die Tipps und die werbefreie Zeit in {bb}: Sie sind eine
+        eingeschränkte Lizenz zur Nutzung in {bb}, haben außerhalb des Spiels keinen Wert und
+        lassen sich nicht zwischen unseren Spielen übertragen.
       </p>
 
       <h2 id="purchases">5. Käufe und Erstattungen</h2>
@@ -137,7 +155,25 @@ const doc: LegalDoc = {
         Herzflasche setzt deine Herzkapazität auf den vorherigen Stand zurück.
       </p>
 
+      <h3>Abos</h3>
+      <p>
+        Das <strong>No Ads</strong>-Abo in {bb} schaltet die Werbung zwischen den Rätseln ab,
+        solange es aktiv ist. Videos, die du freiwillig für Tipps ansiehst, bleiben verfügbar.
+        Es verlängert sich jeden Monat automatisch zum im Store angezeigten Preis, und dein
+        Store belastet dich bei jeder Verlängerung, bis du kündigst. Du kannst jederzeit in den
+        Abo-Einstellungen von App Store oder Google Play kündigen; es bleibt dann bis zum Ende
+        des bereits bezahlten Zeitraums aktiv. Das Löschen der App kündigt es nicht.
+      </p>
+      <p>
+        Die werbefreien Tage im Starter Bundle von {bb} sind ein einmaliger Kauf, kein Abo: Sie
+        laufen ab dem Kauf ab und verlängern sich nie.
+      </p>
+
       <h2 id="boards">6. Namen, Rangliste und Besuche</h2>
+      <p>
+        Dieser Abschnitt gilt für {game}. {bb} hat keine Spielernamen, Bestenlisten oder
+        Besuche.
+      </p>
       <p>
         Wenn du einen Hüternamen wählst und die Rangliste aktiviert lässt, sind dieser Name, dein
         Avatar, deine Stufe, die Punkte deines Königreichs und deine Liga für andere Spielende

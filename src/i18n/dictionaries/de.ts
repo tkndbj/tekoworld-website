@@ -1,4 +1,4 @@
-import { gemfire, placeName, site } from "@/lib/site";
+import { balanceBuddies, gemfire, placeName, site } from "@/lib/site";
 import { rich } from "@/i18n/rich-text";
 import type { Dictionary } from "./en";
 
@@ -9,8 +9,8 @@ import type { Dictionary } from "./en";
 const de: Dictionary = {
   site: {
     tagline: "Handyspiele mit Feuer drin.",
-    description: `${site.company} ist ein unabhängiges Studio für Handyspiele. Die Heimat von ${gemfire.name}, dem Match-3-Tower-Defense-Spiel, in dem jede Kombination einen Turm feuern lässt.`,
-    keywords: ["Handyspiele-Studio", "Match-3", "Tower Defense", "Handyspiele", "Indie-Studio"],
+    description: `${site.company} ist ein unabhängiges Studio für Handyspiele. Die Heimat von ${gemfire.name}, dem Match-3-Tower-Defense-Spiel, in dem jede Kombination einen Turm feuern lässt, und von ${balanceBuddies.name}, dem entspannten Balance-Puzzle.`,
+    keywords: ["Handyspiele-Studio", "Match-3", "Tower Defense", "Balance-Puzzle", "Handyspiele", "Indie-Studio"],
     ogAlt: `${site.company}: Türme auf einer Burgmauer feuern über einem Juwelenbrett auf eine Skeletthorde.`,
     skip: "Zum Inhalt springen",
   },
@@ -25,7 +25,7 @@ const de: Dictionary = {
     terms: "Nutzungsbedingungen",
     deleteData: "Deine Daten löschen",
     credits: "Credits",
-    play: `${gemfire.name} spielen`,
+    play: "Unsere Spiele",
     menu: "Menü",
     openMenu: "Menü öffnen",
     closeMenu: "Menü schließen",
@@ -38,7 +38,7 @@ const de: Dictionary = {
     studio: "Studio",
     smallPrint: "Das Kleingedruckte",
     copyright: (year: number) =>
-      `© ${year} ${site.entity}, handelnd als ${site.company}. ${gemfire.name} und seine Grafiken sind Eigentum von ${site.company}.`,
+      `© ${year} ${site.entity}, handelnd als ${site.company}. ${gemfire.name}, ${balanceBuddies.name} und ihre Grafiken sind Eigentum von ${site.company}.`,
   },
 
   suggest: {
@@ -84,31 +84,38 @@ const de: Dictionary = {
     hero: {
       chip: "Unabhängiges Studio für Handyspiele",
       title: rich("Wir machen Spiele", "\n", "mit ", { hl: "Feuer" }, " drin."),
-      body: `${site.company} baut kleine, laute, mechanisch ehrliche Spiele für das Handy in deiner Tasche. Unser erstes ist ${gemfire.name}: ein Match-3-Brett, an eine Burgmauer geschraubt, auf der jede Kombination einen Turm feuern lässt.`,
-      explore: `${gemfire.name} entdecken`,
+      body: `${site.company} baut kleine, mechanisch ehrliche Spiele für das Handy in deiner Tasche. ${gemfire.name} ist ein Match-3-Brett, an eine Burgmauer geschraubt, auf der jede Kombination einen Turm feuern lässt. ${balanceBuddies.name} ist das ruhige: Setz die Buddies ab, bis alles im Gleichgewicht hängt.`,
+      explore: "Unsere Spiele ansehen",
       about: "Über das Studio",
-      stats: ["Spiel in der Schmiede", "Plattformen zum Start", "Zwangswerbung", "Skelette aufzuhalten"],
+      stats: ["Spiele in der Schmiede", "Plattformen", "Puzzles zum Ausbalancieren", "Skelette aufzuhalten"],
     },
     ticker: [
       gemfire.name,
       "Match-3 trifft Tower Defense",
+      balanceBuddies.name,
+      "Entspannte Balance-Puzzles",
       "Android",
       "iOS",
       site.company,
-      "Bau dein Königreich",
-      "Verbessere deine Türme",
       "Halte die Mauer",
+      "Finde das Gleichgewicht",
     ],
     games: {
       kicker: "Unsere Spiele",
-      title: rich("Ein Titel. ", { hl: "Alles drin." }),
-      body: "Wir bringen ein Spiel nach dem anderen heraus und arbeiten auch nach dem Start weiter daran. Das hier liegt gerade auf dem Amboss.",
-      coverAlt: `${gemfire.name}-Titelbild: vier Türme auf einer Burgmauer feuern über einem Juwelenbrett auf eine Skelettarmee.`,
-      status: "In Entwicklung",
+      title: rich("Zwei Spiele. ", { hl: "Alles drin." }),
+      body: "Wir bringen ein Spiel nach dem anderen heraus und arbeiten auch nach dem Start an jedem weiter. Eins ist laut, eins ist ruhig, und beide stehen auf echten Regeln.",
       view: "Zum Spiel",
-      nextKicker: "Platz 02",
+      gemfire: {
+        alt: `${gemfire.name}-Titelbild: vier Türme auf einer Burgmauer feuern über einem Juwelenbrett auf eine Skelettarmee.`,
+        status: "Jetzt für iOS",
+      },
+      balanceBuddies: {
+        alt: `${balanceBuddies.name}-Titelbild: ein wackliger Turm aus bunten Monster-Buddies vor blauem Himmel.`,
+        status: "Demnächst",
+      },
+      nextKicker: "Platz 03",
       nextTitle: "Das nächste",
-      nextBody: `Alles, was wir bei ${gemfire.name} lernen, fließt in das, was danach kommt. Sobald es etwas Sehenswertes gibt, taucht es zuerst hier auf.`,
+      nextBody: `Alles, was wir bei ${gemfire.name} und ${balanceBuddies.name} lernen, fließt in das, was danach kommt. Sobald es etwas Sehenswertes gibt, taucht es zuerst hier auf.`,
       sealed: "Versiegelt",
     },
     studio: {
@@ -303,6 +310,161 @@ const de: Dictionary = {
         {
           q: "Ist es für Kinder geeignet?",
           a: "Es gibt keinen Chat, keine Nachrichten und keinen Weg, wie Spielende sich gegenseitig kontaktieren können. Andere sehen höchstens den Namen und den Gefährten, die du gewählt hast, und die Punkte deines Königreichs, und das alles kannst du mit einem Tippen ausblenden.",
+        },
+      ],
+    },
+    getIt: {
+      kicker: "Hol dir das Spiel",
+      free: "Kostenlos für Android und iOS.",
+    },
+  },
+  balanceBuddies: {
+    genre: "Entspanntes Balance-Puzzle",
+    pitch: "Buddies ablegen. Gleichgewicht finden. Durchatmen.",
+    description: `${balanceBuddies.name} ist ein ruhiges Balance-Puzzlespiel. Zieh die Buddies aus der Ablage auf Mobiles, Wippen, Riesenräder, Federn und Flöße, bis alles waagerecht hängt und stillhält. Echte Mathematik, echte Physik, kein Zeitdruck und kein Verlieren.`,
+    ogAlt: `${balanceBuddies.name}: ein fröhlicher Turm aus bunten Monster-Buddies vor blauem Himmel.`,
+    hero: {
+      body: "Jedes Rätsel ist eine Konstruktion, die nicht stillhalten will: ein hängendes Mobile, eine Wippe, ein Riesenrad, eine Stange an zwei Federn, ein Floß auf dem Wasser. Zieh die Buddies aus der Ablage nach oben und leg jeden dort ab, wo er ausbalanciert. Keine Uhr, kein Game Over, nur der stille Moment, in dem alles ins Gleichgewicht kommt.",
+      chips: ["Kostenlos spielbar", "Android 8.0+", "iOS 15+", "Kein Zeitdruck", "Kein Verlieren", "Spielt offline"],
+      stats: ["Balance-Rätsel", "Arten von Konstruktion", "Tipps zum Start", "Timer"],
+      shotAlt: `${balanceBuddies.name}, First Swing: drei Buddies hängen bei Sonnenuntergang an einem zweistöckigen Mobile.`,
+      bannerAlt: `${balanceBuddies.name}-Artwork: ein wackliger Turm aus bunten Monster-Buddies neben dem Logo des Spiels, an einem blauen Himmel voller Wolken.`,
+    },
+    play: {
+      kicker: "So wird gespielt",
+      title: rich("Ziehen. Ablegen. ", { hl: "Ausbalancieren." }),
+      body: "Eine Ablage voller Buddies, eine Konstruktion und eine richtige Lösung, die dir die Physik in dem Moment verrät, in dem du sie findest.",
+      steps: {
+        drag: {
+          title: "Nimm einen Buddy",
+          body: "Jedes Rätsel beginnt mit einer Ablage voller Buddies am unteren Bildschirmrand, auf jedem steht sein Gewicht. Zieh einen nach oben und leg ihn dort ab, wo du ihn hinhaben willst.",
+          alt: "Little Builder: Zahlenblöcke und ein kleines Haus auf einem Holzbalken, der auf einem Felsen balanciert.",
+        },
+        balance: {
+          title: "Finde das Gleichgewicht",
+          body: "Häng ihn an einen Haken, setz ihn auf einen Stift, lass ihn auf einem Floß treiben. Jede Konstruktion folgt der echten Regel: Beim Mobile muss Gewicht mal Abstand auf beiden Seiten gleich sein. Die Anzeige oben zeigt dir, wie nah du dran bist.",
+          alt: "First Swing: ein hängendes Mobile mit drei Buddies an nummerierten Haken und einer Balance-Anzeige oben.",
+        },
+        settle: {
+          title: "Lass es zur Ruhe kommen",
+          body: "Wenn alles waagerecht ist und einen Moment stillhält, ist das Rätsel gelöst. Weniger Züge bringen mehr Sterne, und was herunterfällt, gleitet einfach zurück in die Ablage.",
+          alt: "Springy: Buddies auf einer Stange, die an zwei unterschiedlich weit gedehnten Federn hängt.",
+        },
+      },
+    },
+    contraptions: {
+      kicker: "Die Konstruktionen",
+      title: rich("Sechs Wege, ", { hl: "die Waage zu kippen." }),
+      body: "Jede ist eine kleine Lektion in echter Physik, und die späteren Rätsel mischen sie: geheimnisvolle Kisten, Wind, Eis, Dornen und Förderbänder.",
+      items: {
+        mobile: {
+          title: "Mobiles",
+          body: "Stangen, die an Stangen hängen. Gewicht mal Abstand muss sich an jeder einzelnen aufheben.",
+          alt: "Ein zweistöckiges Mobile mit Buddies an nummerierten Haken.",
+        },
+        seesaw: {
+          title: "Wippen",
+          body: "Blöcke aus Stein, Holz und Metall auf einem Brett, das wirklich kippt. Metall ist schwerer, als es aussieht.",
+          alt: "Heavy Metal: eine Holzwippe auf einem Ständer mit einem Metallblock an einem Ende.",
+        },
+        wheel: {
+          title: "Riesenräder",
+          body: "Fahrgäste auf einem drehenden Rad. Es kommt nur waagerecht zur Ruhe, wenn sich ihre Gewichte um die Nabe aufheben.",
+          alt: "Ferris Wheel: zwei Buddies auf einem Rad, das aus dem Gleichgewicht geschwungen ist.",
+        },
+        spring: {
+          title: "Federn",
+          body: "Eine Stange an zwei unterschiedlich starken Federn. Belade sie, bis sich beide genau gleich weit dehnen.",
+          alt: "Springy: Buddies auf einer Stange, die an zwei Spiralfedern hängt.",
+        },
+        raft: {
+          title: "Flöße",
+          body: "Kisten auf einem Floß, das wirklich schwimmt. Belade es so, dass es waagerecht auf dem Wasser liegt.",
+          alt: "Lazy Raft: Kisten aus Stein und Holz auf einem Floß auf ruhigem Wasser.",
+        },
+        balloon: {
+          title: "Ballons",
+          body: "Ballons ziehen nach oben statt nach unten. Sie zählen gegen das Gewicht und sind in mehr als einem Rätsel der Trick.",
+          alt: "Up and Away: zwei Ballons und ein Buddy an einer schrägen Stange.",
+        },
+      },
+    },
+    hints: {
+      kicker: "Festgefahren?",
+      title: rich("Ein Tipp, ", { hl: "niemals eine Mauer." }),
+      body: "Ein Tipp zeigt einen leuchtenden Geist genau dort, wo der nächste Buddy hingehört. Ein aufgedeckter Schritt bleibt aufgedeckt, beim nächsten Versuch und auf deinem anderen Handy.",
+      points: [
+        "Zehn Tipps zum Start, und alle vier Stunden kommt einer zurück.",
+        "Schau dir ein kurzes Video an, um zwei weitere zu bekommen, wann immer du willst.",
+        "Oder kauf ein Paket. Jedes Rätsel ist auch ohne lösbar.",
+      ],
+      hintAlt: "Eine Lupe mit Play-Taste: Video ansehen für Tipps.",
+      noAdsAlt: "Ein weiches Kissen mit durchgestrichenem AD-Schild: das No Ads-Abo.",
+      noAds: "No Ads, monatlich",
+      noAdsBody: "Schaltet die Werbung zwischen den Rätseln ab. Jederzeit über dein Store-Konto kündbar.",
+    },
+    promises: {
+      kicker: "Fair Play",
+      title: rich("Ruhig, ", { hl: "mit Absicht." }),
+      list: {
+        timers: {
+          title: "Kein Timer, kein Game Over",
+          body: "Nichts zählt herunter und nichts kann verloren gehen. Was herunterfällt, gleitet zurück in die Ablage, du kannst sofort weitermachen.",
+        },
+        real: {
+          title: "Echte Mathematik, echte Physik",
+          body: "Jedes Rätsel wird mit der echten Regel gelöst, dem Hebelgesetz, dem Hookeschen Gesetz oder dem Auftrieb, nicht durch Raten, was sich das Design gedacht hat.",
+        },
+        ads: {
+          title: "Werbung, die nicht im Weg steht",
+          body: "Keine in deinen ersten acht Rätseln, nie mitten in einem und keine Banner. Danach kann zwischen den Rätseln eine kurze Werbung laufen, und ein No Ads-Abo schaltet sie ab.",
+        },
+        offline: {
+          title: "Spielt ohne Empfang",
+          body: "Jedes Rätsel läuft auf deinem Handy. Werbung, der Shop und das Speichern in der Cloud brauchen eine Verbindung, die Rätsel nicht.",
+        },
+        save: {
+          title: "Dein Fortschritt, sicher aufgehoben",
+          body: "Dein Fortschritt wird ab dem ersten Rätsel unter einem anonymen Konto gesichert. Melde dich mit Google oder Apple an, um ihn auf ein anderes Handy mitzunehmen.",
+        },
+        sound: {
+          title: "Sanft für die Ohren",
+          body: "Leise Klänge in derselben Tonart und ruhige Musik, gemacht fürs Sofa am Ende eines langen Tages.",
+        },
+      },
+    },
+    faq: {
+      kicker: "Fragen",
+      title: rich("Die kurzen ", { hl: "Antworten." }),
+      body: rich(
+        "Die längeren, und die zu Käufen und Konten, stehen auf der ",
+        { link: "Support-Seite", href: "/support" },
+        "."
+      ),
+      items: [
+        {
+          q: "Kostet es etwas?",
+          a: `Nein. ${balanceBuddies.name} ist kostenlos, und jedes Rätsel lässt sich lösen, ohne etwas auszugeben. Du kannst zusätzliche Tipps kaufen oder ein Abo, das die Werbung abschaltet.`,
+        },
+        {
+          q: "Gibt es Werbung?",
+          a: "Ja, aber dezent. In deinen ersten acht Rätseln gibt es keine und nie während eines Rätsels. Danach kann nach jedem zweiten gelösten Rätsel eine kurze Werbung laufen. Videos für zusätzliche Tipps sind immer deine Entscheidung, und das No Ads-Abo oder die 30 werbefreien Tage des Starter Bundle schalten den Rest ab.",
+        },
+        {
+          q: "Was, wenn ich nicht weiterkomme?",
+          a: "Nimm einen Tipp. Er zeigt einen leuchtenden Geist dort, wo der nächste Buddy hingehört. Du startest mit zehn, alle vier Stunden kommt einer zurück, und ein kurzes Video bringt dir zwei weitere.",
+        },
+        {
+          q: "Brauche ich ein Konto oder eine Verbindung?",
+          a: "Weder noch. Jedes Rätsel läuft ohne Empfang auf deinem Handy. Ein anonymes Konto sichert deinen Fortschritt; melde dich nur mit Google oder Apple an, wenn du auf einem anderen Gerät weiterspielen willst.",
+        },
+        {
+          q: "Läuft es auf meinem Handy?",
+          a: "Es braucht Android 8.0 oder iOS 15 und sonst nicht viel.",
+        },
+        {
+          q: "Ist es für Kinder geeignet?",
+          a: "Es ist für alle gemacht. Es gibt keinen Chat, keine Nachrichten und nichts über dich, das andere Spielende sehen können.",
         },
       ],
     },

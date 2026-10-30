@@ -1,4 +1,4 @@
-import { gemfire, placeName, site } from "@/lib/site";
+import { balanceBuddies, gemfire, placeName, site } from "@/lib/site";
 import { rich } from "@/i18n/rich-text";
 import type { Dictionary } from "./en";
 
@@ -18,8 +18,8 @@ const plural = (n: number, one: string, few: string, many: string) => {
 const pl: Dictionary = {
   site: {
     tagline: "Gry mobilne z ogniem w środku.",
-    description: `${site.company} to niezależne studio gier mobilnych. Dom gry ${gemfire.name}, łączącej układanie trójek z obroną wież, w której każde dopasowanie odpala wieżę.`,
-    keywords: ["studio gier mobilnych", "gra match-3", "tower defense", "gry mobilne", "niezależne studio"],
+    description: `${site.company} to niezależne studio gier mobilnych. Dom gry ${gemfire.name}, łączącej układanie trójek z obroną wież, w której każde dopasowanie odpala wieżę, oraz ${balanceBuddies.name}, spokojnej gry logicznej o równowadze.`,
+    keywords: ["studio gier mobilnych", "gra match-3", "tower defense", "gra o równowadze", "gry mobilne", "niezależne studio"],
     ogAlt: `${site.company}: wieże na murach zamku strzelają do hordy szkieletów ponad planszą z klejnotami.`,
     skip: "Przejdź do treści",
   },
@@ -34,7 +34,7 @@ const pl: Dictionary = {
     terms: "Regulamin",
     deleteData: "Usuń swoje dane",
     credits: "Twórcy",
-    play: `Zagraj w ${gemfire.name}`,
+    play: "Nasze gry",
     menu: "Menu",
     openMenu: "Otwórz menu",
     closeMenu: "Zamknij menu",
@@ -47,7 +47,7 @@ const pl: Dictionary = {
     studio: "Studio",
     smallPrint: "Drobny druk",
     copyright: (year: number) =>
-      `© ${year} ${site.entity} (nazwa handlowa: ${site.company}). ${gemfire.name} i grafiki z gry są własnością ${site.company}.`,
+      `© ${year} ${site.entity} (nazwa handlowa: ${site.company}). ${gemfire.name}, ${balanceBuddies.name} i grafiki z tych gier są własnością ${site.company}.`,
   },
 
   suggest: {
@@ -93,31 +93,38 @@ const pl: Dictionary = {
     hero: {
       chip: "Niezależne studio gier mobilnych",
       title: rich("Robimy gry", "\n", "z ", { hl: "ogniem" }, " w środku."),
-      body: `${site.company} tworzy małe, głośne i uczciwe w mechanice gry na telefon, który nosisz w kieszeni. Pierwsza z nich to ${gemfire.name}: plansza do układania trójek przykręcona do murów zamku, na której każde dopasowanie odpala wieżę.`,
-      explore: `Poznaj ${gemfire.name}`,
+      body: `${site.company} tworzy małe, uczciwe w mechanice gry na telefon, który nosisz w kieszeni. ${gemfire.name} to plansza do układania trójek przykręcona do murów zamku, na której każde dopasowanie odpala wieżę. ${balanceBuddies.name} to ta spokojna: układasz kumpli, aż wszystko zawiśnie równo.`,
+      explore: "Zobacz nasze gry",
       about: "O studiu",
-      stats: ["gra w kuźni", "platformy na start", "wymuszonych reklam", "szkieletów do zatrzymania"],
+      stats: ["gry w kuźni", "platformy", "zagadek do zrównoważenia", "szkieletów do zatrzymania"],
     },
     ticker: [
       gemfire.name,
       "Trójki i obrona wież",
+      balanceBuddies.name,
+      "Spokojne zagadki o równowadze",
       "Android",
       "iOS",
       site.company,
-      "Zbuduj królestwo",
-      "Ulepszaj wieże",
       "Utrzymaj mur",
+      "Znajdź równowagę",
     ],
     games: {
       kicker: "Nasze gry",
-      title: rich("Jeden tytuł. ", { hl: "Wszystko w nim." }),
-      body: "Wydajemy jedną grę naraz i pracujemy nad nią także po premierze. Oto ta, która leży teraz na kowadle.",
-      coverAlt: `Grafika z gry ${gemfire.name}: cztery wieże na murach zamku strzelają do armii szkieletów ponad planszą z klejnotami.`,
-      status: "W produkcji",
+      title: rich("Dwie gry. ", { hl: "Wszystko w nich." }),
+      body: "Wydajemy jedną grę naraz i pracujemy nad każdą także po premierze. Jedna jest głośna, druga spokojna, a obie stoją na prawdziwych zasadach.",
       view: "Zobacz grę",
-      nextKicker: "Miejsce 02",
+      gemfire: {
+        alt: `Grafika z gry ${gemfire.name}: cztery wieże na murach zamku strzelają do armii szkieletów ponad planszą z klejnotami.`,
+        status: "Już na iOS",
+      },
+      balanceBuddies: {
+        alt: `Grafika z gry ${balanceBuddies.name}: chwiejna wieża z kolorowych potworków-kumpli na tle błękitnego nieba.`,
+        status: "Wkrótce",
+      },
+      nextKicker: "Miejsce 03",
       nextTitle: "Następna",
-      nextBody: `Wszystko, czego uczymy się przy grze ${gemfire.name}, trafi do tego, co powstanie potem. Gdy będzie coś wartego pokazania, pojawi się najpierw tutaj.`,
+      nextBody: `Wszystko, czego uczymy się przy grach ${gemfire.name} i ${balanceBuddies.name}, trafi do tego, co powstanie potem. Gdy będzie coś wartego pokazania, pojawi się najpierw tutaj.`,
       sealed: "Zapieczętowane",
     },
     studio: {
@@ -312,6 +319,161 @@ const pl: Dictionary = {
         {
           q: "Czy gra jest bezpieczna dla dzieci?",
           a: "Nie ma czatu, wiadomości ani sposobu, by gracze się ze sobą kontaktowali. Inny gracz może zobaczyć tylko wybrane przez ciebie imię i towarzysza oraz wynik twojego królestwa, a wszystko to ukryjesz jednym dotknięciem.",
+        },
+      ],
+    },
+    getIt: {
+      kicker: "Pobierz grę",
+      free: "Za darmo na Androida i iOS.",
+    },
+  },
+  balanceBuddies: {
+    genre: "Spokojna gra o równowadze",
+    pitch: "Upuść kumpli. Znajdź równowagę. Odetchnij.",
+    description: `${balanceBuddies.name} to spokojna gra logiczna o równowadze. Przeciągaj kumpli z tacy na mobile, huśtawki, diabelskie młyny, sprężyny i tratwy, aż wszystko zawiśnie równo i znieruchomieje. Prawdziwa matematyka, prawdziwa fizyka, bez limitu czasu i bez przegranej.`,
+    ogAlt: `${balanceBuddies.name}: radosna wieża z kolorowych potworków-kumpli na tle błękitnego nieba.`,
+    hero: {
+      body: "Każda zagadka to konstrukcja, która nie chce stać spokojnie: wiszący mobil, huśtawka, diabelski młyn, drążek na dwóch sprężynach, tratwa na wodzie. Przeciągnij kumpli z tacy i upuść każdego tam, gdzie zachowa równowagę. Bez zegara, bez końca gry, tylko ta cicha chwila, gdy wszystko się wyrównuje.",
+      chips: ["Darmowa", "Android 8.0+", "iOS 15+", "Bez limitu czasu", "Bez przegranej", "Działa offline"],
+      stats: ["zagadek o równowadze", "rodzajów konstrukcji", "podpowiedzi na start", "zegarów"],
+      shotAlt: `${balanceBuddies.name}, First Swing: trzech kumpli wisi o zachodzie słońca na dwupiętrowym mobilu.`,
+      bannerAlt: `Grafika z gry ${balanceBuddies.name}: chwiejna wieża z kolorowych potworków-kumpli obok logo gry, na błękitnym niebie pełnym chmur.`,
+    },
+    play: {
+      kicker: "Jak się gra",
+      title: rich("Przeciągnij. Upuść. ", { hl: "Wyważ." }),
+      body: "Taca kumpli, jedna konstrukcja i jedna dobra odpowiedź, o której fizyka powie ci w chwili, gdy ją znajdziesz.",
+      steps: {
+        drag: {
+          title: "Wybierz kumpla",
+          body: "Każda zagadka zaczyna się od tacy kumpli na dole ekranu, a na każdym wypisana jest jego waga. Przeciągnij jednego w górę i upuść tam, gdzie twoim zdaniem pasuje.",
+          alt: "Little Builder: klocki z cyframi i mały domek na drewnianej belce wyważonej na skale.",
+        },
+        balance: {
+          title: "Znajdź równowagę",
+          body: "Zawieś go na haczyku, posadź na kołku, połóż na tratwie. Każda konstrukcja działa według prawdziwej zasady: na mobilu waga razy odległość musi być równa po obu stronach. Wskaźnik na górze mówi, jak blisko jesteś.",
+          alt: "First Swing: wiszący mobil z trzema kumplami na ponumerowanych haczykach i wskaźnikiem równowagi na górze.",
+        },
+        settle: {
+          title: "Poczekaj, aż się uspokoi",
+          body: "Gdy wszystko jest równo i przez chwilę się nie rusza, zagadka jest rozwiązana. Mniej ruchów to więcej gwiazdek, a to, co spadnie, po prostu wraca na tacę.",
+          alt: "Springy: kumple na drążku zawieszonym na dwóch sprężynach rozciągniętych na różną długość.",
+        },
+      },
+    },
+    contraptions: {
+      kicker: "Konstrukcje",
+      title: rich("Sześć sposobów, ", { hl: "by przechylić szalę." }),
+      body: "Każda to mała lekcja prawdziwej fizyki, a późniejsze zagadki je łączą: tajemnicze skrzynki, wiatr, lód, ciernie i taśmociągi.",
+      items: {
+        mobile: {
+          title: "Mobile",
+          body: "Drążki wiszące na drążkach. Waga razy odległość musi się zerować na każdym z nich.",
+          alt: "Dwupiętrowy mobil z kumplami na ponumerowanych haczykach.",
+        },
+        seesaw: {
+          title: "Huśtawki",
+          body: "Kamienne, drewniane i metalowe klocki na desce, która naprawdę się przechyla. Metal jest cięższy, niż wygląda.",
+          alt: "Heavy Metal: drewniana huśtawka na stojaku z metalowym klockiem na jednym końcu.",
+        },
+        wheel: {
+          title: "Diabelskie młyny",
+          body: "Pasażerowie na obracającym się kole. Zatrzymuje się równo tylko wtedy, gdy ich wagi równoważą się wokół osi.",
+          alt: "Ferris Wheel: dwóch kumpli na kole, które wychyliło się z poziomu.",
+        },
+        spring: {
+          title: "Sprężyny",
+          body: "Drążek na dwóch sprężynach o różnej sztywności. Obciąż go tak, by obie rozciągnęły się dokładnie tak samo.",
+          alt: "Springy: kumple na drążku zawieszonym na dwóch sprężynach.",
+        },
+        raft: {
+          title: "Tratwy",
+          body: "Skrzynki na tratwie, która naprawdę pływa. Załaduj ją tak, by płynęła równo po wodzie.",
+          alt: "Lazy Raft: kamienne i drewniane skrzynki na tratwie unoszącej się na spokojnej wodzie.",
+        },
+        balloon: {
+          title: "Balony",
+          body: "Balony ciągną w górę, a nie w dół. Odejmują się od wagi i są sztuczką w niejednej zagadce.",
+          alt: "Up and Away: dwa balony i kumpel zawieszeni na przechylonym drążku.",
+        },
+      },
+    },
+    hints: {
+      kicker: "Utknąłeś?",
+      title: rich("Podpowiedź, ", { hl: "nigdy ściana." }),
+      body: "Podpowiedź pokazuje świecącego ducha dokładnie tam, gdzie powinien trafić następny kumpel. Odkryty krok zostaje odkryty, przy kolejnej próbie i na twoim drugim telefonie.",
+      points: [
+        "Dziesięć podpowiedzi na start, a co cztery godziny wraca jedna.",
+        "Obejrzyj krótki film, by dostać dwie kolejne, kiedy tylko chcesz.",
+        "Albo kup pakiet. Każdą zagadkę da się rozwiązać bez nich.",
+      ],
+      hintAlt: "Lupa z przyciskiem odtwarzania: obejrzyj film, by dostać podpowiedzi.",
+      noAdsAlt: "Miękka poduszka z przekreślonym napisem AD: subskrypcja No Ads.",
+      noAds: "No Ads, co miesiąc",
+      noAdsBody: "Wyłącza reklamy między zagadkami. Możesz ją anulować w każdej chwili na koncie w sklepie.",
+    },
+    promises: {
+      kicker: "Uczciwa gra",
+      title: rich("Spokojnie, ", { hl: "celowo." }),
+      list: {
+        timers: {
+          title: "Bez zegara, bez końca gry",
+          body: "Nic nie odlicza czasu i niczego nie można stracić. To, co spadnie, wraca na tacę, więc od razu możesz spróbować jeszcze raz.",
+        },
+        real: {
+          title: "Prawdziwa matematyka, prawdziwa fizyka",
+          body: "Każdą zagadkę rozwiązuje prawdziwa zasada, prawo dźwigni, prawo Hooke'a albo wyporność, a nie zgadywanie, co miał na myśli projektant.",
+        },
+        ads: {
+          title: "Reklamy, które nie przeszkadzają",
+          body: "Żadnych w pierwszych ośmiu zagadkach, nigdy w trakcie zagadki i bez banerów. Potem między zagadkami może pojawić się krótka reklama, a subskrypcja No Ads je wyłącza.",
+        },
+        offline: {
+          title: "Działa bez zasięgu",
+          body: "Każda zagadka działa na twoim telefonie. Reklamy, sklep i zapis w chmurze potrzebują połączenia, zagadki nie.",
+        },
+        save: {
+          title: "Twoje postępy są bezpieczne",
+          body: "Postępy są zapisywane od pierwszej zagadki na anonimowym koncie. Zaloguj się przez Google lub Apple, by przenieść je na inny telefon.",
+        },
+        sound: {
+          title: "Łagodne dla uszu",
+          body: "Delikatne dźwięki nastrojone w jednej tonacji i spokojna muzyka, stworzone na kanapę pod koniec długiego dnia.",
+        },
+      },
+    },
+    faq: {
+      kicker: "Pytania",
+      title: rich("Krótkie ", { hl: "odpowiedzi." }),
+      body: rich(
+        "Dłuższe, a także te o zakupach i kontach, znajdziesz na ",
+        { link: "stronie pomocy", href: "/support" },
+        "."
+      ),
+      items: [
+        {
+          q: "Czy to coś kosztuje?",
+          a: `Nie. ${balanceBuddies.name} jest darmowa i każdą zagadkę da się rozwiązać bez wydawania pieniędzy. Możesz kupić dodatkowe podpowiedzi albo subskrypcję, która wyłącza reklamy.`,
+        },
+        {
+          q: "Czy są reklamy?",
+          a: "Tak, ale delikatne. W pierwszych ośmiu zagadkach nie ma żadnych i nigdy nie pojawiają się w trakcie zagadki. Potem po co drugiej rozwiązanej zagadce może się pojawić krótka reklama. Filmy za dodatkowe podpowiedzi są zawsze twoim wyborem, a subskrypcja No Ads lub 30 dni bez reklam ze Starter Bundle wyłączają resztę.",
+        },
+        {
+          q: "Co, jeśli utknę?",
+          a: "Użyj podpowiedzi. Pokazuje świecącego ducha tam, gdzie powinien trafić następny kumpel. Zaczynasz z dziesięcioma, co cztery godziny wraca jedna, a krótki film daje dwie kolejne.",
+        },
+        {
+          q: "Czy potrzebuję konta albo internetu?",
+          a: "Ani jednego, ani drugiego. Każda zagadka działa na telefonie bez zasięgu. Anonimowe konto zapisuje twoje postępy; logowanie przez Google lub Apple jest potrzebne tylko, jeśli chcesz grać na innym urządzeniu.",
+        },
+        {
+          q: "Czy zadziała na moim telefonie?",
+          a: "Potrzebuje Androida 8.0 lub iOS 15 i niewiele więcej.",
+        },
+        {
+          q: "Czy nadaje się dla dzieci?",
+          a: "Jest dla wszystkich. Nie ma czatu, wiadomości ani niczego o tobie, co mogliby zobaczyć inni gracze.",
         },
       ],
     },

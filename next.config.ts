@@ -4,7 +4,7 @@ import { defaultLocale, locales } from "./src/i18n/locales";
 /*
  * Every page lives under `src/app/[lang]`, and English is served without the prefix.
  *
- * The English addresses (/privacy, /terms, /support, /delete-account, /gemfire) are written
+ * The English addresses (/privacy, /terms, /support, /delete-account, /gemfire, /balance-buddies) are written
  * into both store listings, the AdMob consent message and the game binary, so they must keep
  * answering 200 at exactly those paths: no redirect, which a crawler or a store review may
  * not follow. A rewrite maps them onto `/en/...` inside the server; the reader never sees it.

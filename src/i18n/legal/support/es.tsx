@@ -4,17 +4,21 @@ import { dictionaries } from "@/i18n/dictionaries";
 import { gameTextFor } from "@/i18n/game-text";
 import { localePath } from "@/i18n/locales";
 import type { LegalDoc } from "@/i18n/legal/types";
-import { gemfire, mailto, site } from "@/lib/site";
+import { balanceBuddies, gemfire, mailto, site } from "@/lib/site";
 
 const mail = dictionaries.es.mail;
 const label = gameTextFor("es").labels;
 const game = gemfire.name;
+const bb = balanceBuddies.name;
 
-/** Translation of support/en.tsx. Button names are the game's own Spanish labels. */
+/**
+ * Translation of support/en.tsx. Gemfire button names are the game's own Spanish labels;
+ * Balance Buddies is English-only, so its button names stay in English.
+ */
 const doc: LegalDoc = {
   title: "Ayuda",
-  description: `Ayuda con ${game}: progreso perdido, compras, corazones, anuncios y cuentas.`,
-  intro: `¿Algo no funciona en ${game}? Escríbenos. Lo lee una persona de verdad.`,
+  description: `Ayuda con ${game} y ${bb}: progreso perdido, compras, pistas, anuncios y cuentas.`,
+  intro: `¿Algo no funciona en ${game} o en ${bb}? Escríbenos. Lo lee una persona de verdad.`,
   Body: () => (
     <>
       <p className="not-prose mb-10">
@@ -24,12 +28,14 @@ const doc: LegalDoc = {
       </p>
 
       <p>
-        Solemos responder en un par de días. Ayuda muchísimo que incluyas tu{" "}
-        <strong>identificador de cuenta</strong> (pestaña Perfil, tarjeta Cuenta), el modelo
-        de tu dispositivo y lo que esperabas que ocurriera.
+        Solemos responder en un par de días. Ayuda muchísimo que nos digas de qué juego se
+        trata y que incluyas el modelo de tu dispositivo y lo que esperabas que ocurriera. Para{" "}
+        {game}, añade tu <strong>identificador de cuenta</strong> (pestaña Perfil, tarjeta
+        Cuenta); para {bb}, escríbenos desde la dirección con la que inicias sesión en Google o
+        Apple, si la tienes.
       </p>
 
-      <h2>Preguntas frecuentes</h2>
+      <h2 id="gemfire">{game}: preguntas frecuentes</h2>
 
       <div className="not-prose">
         <Question q="He perdido mi progreso al reinstalar.">
@@ -157,9 +163,104 @@ const doc: LegalDoc = {
         </Question>
       </div>
 
+      <h2 id="balance-buddies">{bb}: preguntas frecuentes</h2>
+
+      <div className="not-prose">
+        <Question q="He perdido mi progreso al reinstalar.">
+          <p>
+            Tu progreso se guarda en la nube desde el primer puzle, con una cuenta anónima en
+            ese dispositivo. Al reinstalar se empieza una nueva, así que para llevarte el
+            progreso entre instalaciones o móviles, abre <strong>Settings</strong> (Ajustes) e
+            inicia sesión con Google o Apple. Inicia sesión con el mismo proveedor en la nueva
+            instalación y tu progreso volverá.
+          </p>
+          <p>
+            Si no vuelve, escríbenos desde la dirección con la que iniciaste sesión.
+          </p>
+        </Question>
+
+        <Question q="He iniciado sesión y mi progreso ha cambiado.">
+          <p>
+            Esa cuenta ya tenía su propio progreso. El juego te pregunta antes de sustituir el
+            progreso de tu dispositivo y solo cambia si lo confirmas. Las compras hechas en el
+            dispositivo se conservan en cualquier caso. Para volver atrás, cierra sesión e
+            inicia sesión con la otra cuenta.
+          </p>
+        </Question>
+
+        <Question q="¿Cómo funcionan las pistas?">
+          <p>
+            Empiezas con diez. Por debajo de diez, una vuelve sola cada cuatro horas. Una
+            pista muestra un fantasma brillante donde va el siguiente amiguito; un paso por el
+            que ya has pagado sigue revelado gratis al reintentar y en tus otros dispositivos.
+          </p>
+          <p>
+            También puedes ver un vídeo corto para conseguir dos más o comprar un paquete en la
+            tienda. Todos los puzles se pueden resolver sin ellas.
+          </p>
+        </Question>
+
+        <Question q="¿Por qué veo anuncios entre puzles?">
+          <p>
+            No hay ninguno en tus primeros ocho puzles y nunca durante un puzle. Después, puede
+            salir un anuncio corto cada dos puzles que resuelvas; así es como el juego sigue
+            siendo gratis. La suscripción <strong>No Ads</strong> de la tienda, o los 30 días
+            sin anuncios del Starter Bundle, los quitan.
+          </p>
+        </Question>
+
+        <Question q="¿Cómo cancelo la suscripción No Ads?">
+          <p>
+            Desde tu tienda, no desde el juego: en Android, Google Play › Pagos y
+            suscripciones › Suscripciones; en iOS, Ajustes › tu nombre › Suscripciones. Sigue
+            activa hasta el final del mes ya pagado. Borrar la app o tu cuenta no la cancela.
+          </p>
+        </Question>
+
+        <Question q="He pagado algo y no lo he recibido.">
+          <p>
+            Vuelve a abrir el juego con conexión: las compras sin terminar y una suscripción
+            activa se recuperan al iniciar. Si aun así no ha llegado, escríbenos con el recibo
+            de la tienda o el número de pedido y lo solucionaremos. Los reembolsos los
+            gestionan Apple y Google según sus propias políticas.
+          </p>
+        </Question>
+
+        <Question q="¿Cómo cambio mi elección sobre publicidad?">
+          <p>
+            <strong>Settings</strong> (Ajustes) y después{" "}
+            <strong>Ad privacy choices</strong> (opciones de privacidad de anuncios). El botón
+            aparece allí donde la ley lo exige, como en la UE y el Reino Unido.
+          </p>
+        </Question>
+
+        <Question q="¿Cómo borro mi cuenta?">
+          <p>
+            <strong>Settings</strong> y después <strong>Delete account</strong> (Borrar
+            cuenta), que aparece una vez que has iniciado sesión. Consulta{" "}
+            <Link href={localePath("es", "/delete-account#balance-buddies")}>
+              cómo borrar tu cuenta y tus datos
+            </Link>{" "}
+            para más detalles.
+          </p>
+        </Question>
+
+        <Question q="¿El juego funciona sin conexión?">
+          <p>
+            Sí. Cada puzle funciona en tu móvil sin conexión, y tu progreso se sube cuando
+            vuelves a estar en línea. Los anuncios, la tienda y el inicio de sesión necesitan
+            conexión.
+          </p>
+        </Question>
+      </div>
+
+      <p className="mt-8">
+        <a href={mailto(mail.support, bb)}>Escríbenos sobre {bb}</a>
+      </p>
+
       <h2>Informar de un problema de seguridad</h2>
       <p>
-        Si has encontrado una forma de romper la economía, leer la partida de otro jugador o
+        Si has encontrado una forma de romper la economía de cualquiera de los dos juegos, leer la partida de otro jugador o
         acceder de cualquier otro modo a algo a lo que no deberías, cuéntanoslo en{" "}
         <a href={mailto(mail.security)}>{site.email}</a> antes de contárselo a nadie más. No
         tomaremos medidas contra ti por informar de algo de buena fe.

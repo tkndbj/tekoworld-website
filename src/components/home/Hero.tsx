@@ -4,7 +4,7 @@ import cover from "../../../public/gemfire/cover.webp";
 import { localePath } from "@/i18n/locales";
 import { Rich } from "@/i18n/rich";
 import { getText } from "@/i18n/server";
-import { gemfire } from "@/lib/site";
+import { levelCount } from "@/lib/balance-buddies";
 
 /**
  * The studio hero. The Gemfire key art is the whole backdrop, pushed back into
@@ -79,7 +79,7 @@ export async function Hero() {
           className="reveal mt-10 flex flex-wrap items-center gap-3"
           style={{ "--delay": "240ms" } as React.CSSProperties}
         >
-          <Link href={localePath(locale, gemfire.path)} className="btn btn-fire btn-lg shine">
+          <Link href={localePath(locale, "/#games")} className="btn btn-fire btn-lg shine">
             {h.explore}
             <Arrow />
           </Link>
@@ -92,9 +92,9 @@ export async function Hero() {
           className="reveal mt-16 grid max-w-2xl grid-cols-2 gap-x-6 gap-y-6 sm:grid-cols-4"
           style={{ "--delay": "320ms" } as React.CSSProperties}
         >
-          <Stat value="01" label={h.stats[0]} color="var(--ember)" />
+          <Stat value="02" label={h.stats[0]} color="var(--ember)" />
           <Stat value="2" label={h.stats[1]} color="var(--cyan)" />
-          <Stat value="0" label={h.stats[2]} color="var(--emerald)" />
+          <Stat value={String(levelCount)} label={h.stats[2]} color="var(--bb-sun)" />
           <Stat value="∞" label={h.stats[3]} color="var(--violet)" />
         </dl>
       </div>

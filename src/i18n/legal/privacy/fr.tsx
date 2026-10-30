@@ -4,17 +4,18 @@ import { dictionaries } from "@/i18n/dictionaries";
 import { gameTextFor } from "@/i18n/game-text";
 import { localePath } from "@/i18n/locales";
 import type { LegalDoc } from "@/i18n/legal/types";
-import { gemfire, mailto, site } from "@/lib/site";
+import { balanceBuddies, gemfire, mailto, site } from "@/lib/site";
 
 const mail = dictionaries.fr.mail;
 const label = gameTextFor("fr").labels;
 const game = gemfire.name;
+const bb = balanceBuddies.name;
 
 /** Translation of privacy/en.tsx. Where the two differ, the English text applies. */
 const doc: LegalDoc = {
   title: "Politique de confidentialité",
-  description: `Comment ${site.company} et ${game} traitent tes données, en mots simples.`,
-  intro: `Cette page explique ce que ${game} et ce site collectent sur toi, pourquoi, et ce que tu peux y faire.`,
+  description: `Comment ${site.company}, ${game} et ${bb} traitent tes données, en mots simples.`,
+  intro: `Cette page explique ce que nos jeux, ${game} et ${bb}, et ce site collectent sur toi, pourquoi, et ce que tu peux y faire.`,
   Body: () => (
     <>
       <Summary>
@@ -33,6 +34,12 @@ const doc: LegalDoc = {
           Nous ne vendons pas tes données. Qui tu es ne nous intéresse pas, seulement que le
           jeu fonctionne.
         </p>
+        <p className="mt-2">
+          C&rsquo;est pareil pour {bb} : pas de nom, pas d&rsquo;adresse e-mail, seulement un
+          compte anonyme pour ta sauvegarde. {bb} affiche aussi des publicités entre les
+          énigmes.
+        </p>
+
       </Summary>
 
       <h2 id="who-we-are">Qui sommes-nous</h2>
@@ -44,8 +51,12 @@ const doc: LegalDoc = {
         <a href={`mailto:${site.email}`}>{site.email}</a>.
       </p>
       <p>
-        Cette politique couvre {game} sur Android et iOS ainsi que ce site. Si nous publions un
-        autre jeu, il aura sa propre fiche ici.
+        Cette politique couvre {game} et {bb} sur Android et iOS, ainsi que ce site. Les deux
+        jeux sont publiés par {site.entity}, sous le nom {site.company}. Ce sont deux applis
+        séparées, avec des comptes et des sauvegardes séparés : rien n&rsquo;est partagé entre
+        elles. Ce que chaque jeu collecte figure dans son propre tableau, {game} d&rsquo;abord,
+        puis <a href="#balance-buddies">{bb}</a> ; tout le reste de cette politique
+        s&rsquo;applique aux deux.
       </p>
 
       <h2 id="what-we-collect">Ce que nous collectons, et pourquoi</h2>
@@ -201,6 +212,116 @@ const doc: LegalDoc = {
         </table>
       </div>
 
+      <h2 id="balance-buddies">Ce que {bb} collecte, et pourquoi</h2>
+      <p>
+        {bb} est construit de la même façon, en plus simple : pas de classements publics, pas
+        de noms de joueurs, pas de visites et pas de messagerie. Ses données sont conservées
+        dans son propre projet Firebase, séparé de celui de {game}, et elles aussi dans
+        l&rsquo;Union européenne. Si quelque chose ne figure pas dans ce tableau, {bb} ne le
+        collecte pas.
+      </p>
+
+      <div className="table-wrap">
+        <table>
+          <thead>
+            <tr>
+              <th>Quoi</th>
+              <th>Pourquoi</th>
+              <th>Quand</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr>
+              <td>
+                <strong>Un identifiant de compte anonyme</strong>, généré par Firebase
+                Authentication
+              </td>
+              <td>
+                Pour sauvegarder ta progression dès la première énigme et la restaurer sur un
+                nouvel appareil. C&rsquo;est une suite aléatoire, liée à toi seulement si tu
+                associes une connexion.
+              </td>
+              <td>La première fois que le jeu est en ligne</td>
+            </tr>
+            <tr>
+              <td>
+                <strong>Ta progression</strong> : les énigmes résolues, tes meilleurs coups et
+                étoiles, ton solde d&rsquo;indices et les étapes d&rsquo;indice révélées, ton
+                temps sans publicité, où reprendre, tes réglages, et un identifiant aléatoire
+                pour chaque appareil sur lequel tu joues
+              </td>
+              <td>
+                Pour que le jeu reprenne là où tu t&rsquo;étais arrêté, et pour fusionner la
+                progression de plusieurs appareils sans rien perdre.
+              </td>
+              <td>Pendant que tu joues</td>
+            </tr>
+            <tr>
+              <td>
+                <strong>Une connexion associée</strong> : un identifiant de Google ou
+                d&rsquo;Apple, et ce que ce fournisseur nous transmet, qui peut inclure ton nom
+                et ton adresse e-mail
+              </td>
+              <td>
+                Seulement si tu choisis de te connecter, pour que ta progression te suive sur un
+                autre appareil. Nous ne recevons jamais ton mot de passe.
+              </td>
+              <td>Seulement si tu te connectes</td>
+            </tr>
+            <tr>
+              <td>
+                <strong>Les preuves d&rsquo;achat</strong> : l&rsquo;identifiant de transaction
+                du store et ce qui a été acheté (un pack d&rsquo;indices, le Starter Bundle ou
+                l&rsquo;abonnement No Ads)
+              </td>
+              <td>
+                Pour te donner une seule fois ce que tu as payé, et savoir si un abonnement est
+                actif. <strong>Nous ne voyons jamais ta carte bancaire</strong>.
+              </td>
+              <td>Si tu achètes quelque chose</td>
+            </tr>
+            <tr>
+              <td>
+                <strong>Identifiants publicitaires et données associées</strong>, traités par
+                Google AdMob
+              </td>
+              <td>
+                Pour afficher les publicités entre les énigmes et les vidéos que tu choisis de
+                regarder pour des indices. Voir <a href="#advertising">Publicité</a> plus bas.
+              </td>
+              <td>Quand une publicité est demandée</td>
+            </tr>
+            <tr>
+              <td>
+                <strong>Statistiques de jeu</strong> : des événements comme une énigme
+                commencée, résolue ou recommencée, avec les coups, les étoiles et le temps mis,
+                un indice utilisé, une connexion ou déconnexion, avec un identifiant
+                d&rsquo;appareil et ton identifiant de compte
+              </td>
+              <td>
+                Pour voir quelles énigmes sont trop dures et ce qui ne marche pas. Traité par
+                Google Analytics for Firebase, avec ses fonctions publicitaires désactivées.
+              </td>
+              <td>Pendant que tu joues</td>
+            </tr>
+            <tr>
+              <td>
+                <strong>Rapports de plantage</strong> : modèle d&rsquo;appareil, version du
+                système, état de l&rsquo;appli au moment du plantage, et ton identifiant de
+                compte
+              </td>
+              <td>Pour trouver et corriger les plantages. Traité par Firebase Crashlytics.</td>
+              <td>Si le jeu plante</td>
+            </tr>
+          </tbody>
+        </table>
+      </div>
+      <p>
+        {bb} n&rsquo;utilise pas d&rsquo;attribution d&rsquo;installation, ne demande pas à
+        iOS l&rsquo;autorisation de te suivre, et ne collecte rien de ce qui figure plus bas
+        sous &laquo;&nbsp;ce que nous ne collectons volontairement pas&nbsp;&raquo;.
+      </p>
+
       <h3>Ce que nous ne collectons volontairement pas</h3>
       <ul>
         <li>Ton nom, sauf si tu le tapes comme nom de gardien.</li>
@@ -261,6 +382,30 @@ const doc: LegalDoc = {
         </li>
       </ul>
 
+      <h3>Dans {bb}</h3>
+      <p>
+        Pas de publicité pendant tes huit premières énigmes, jamais au milieu d&rsquo;une
+        énigme, et pas de bannières. Ensuite, une publicité plein écran peut s&rsquo;afficher en
+        quittant l&rsquo;écran de victoire, toutes les deux énigmes résolues. Les vidéos qui
+        te donnent deux indices sont toujours ton choix. L&rsquo;abonnement No Ads, et les
+        jours sans publicité du Starter Bundle, coupent les publicités entre les énigmes.
+      </p>
+      <p>
+        Les publicités de {bb} sont fournies uniquement par <strong>Google AdMob</strong>,
+        responsable indépendant des données qu&rsquo;il collecte (voir la politique de Google
+        ci-dessus). Sur Android, AdMob peut utiliser l&rsquo;identifiant publicitaire de
+        l&rsquo;appareil, que tu peux réinitialiser ou supprimer dans les réglages
+        d&rsquo;Android. {bb} ne demande pas à iOS l&rsquo;autorisation de suivi, donc
+        l&rsquo;identifiant publicitaire ne lui est pas accessible sur iOS.
+      </p>
+      <p>
+        Dans l&rsquo;EEE et au Royaume-Uni, {bb} te demande aussi ton avis avant, via un
+        formulaire de consentement certifié par Google. Tu peux changer ta réponse à tout
+        moment dans <strong>Settings</strong> (Réglages) ›{" "}
+        <strong>Ad privacy choices</strong> ; le bouton apparaît partout où la loi
+        l&rsquo;exige.
+      </p>
+
       <h3>Ton choix, et comment le changer</h3>
       <p>
         Si tu te trouves dans l&rsquo;Espace économique européen ou au Royaume-Uni, on te
@@ -299,6 +444,15 @@ const doc: LegalDoc = {
         .
       </p>
 
+      <p>
+        Dans {bb}, Google Analytics for Firebase n&rsquo;utilise jamais de stockage ni de
+        personnalisation publicitaires : ces signaux sont désactivés dans le jeu, les
+        événements servent uniquement à la mesure. {bb} utilise aussi{" "}
+        <strong>Firebase Crashlytics</strong> pour recevoir un rapport quand le jeu plante,
+        afin que nous puissions corriger le problème. AppsFlyer n&rsquo;est utilisé que dans{" "}
+        {game}.
+      </p>
+
       <h2 id="sharing">Avec qui tes données sont partagées</h2>
       <p>Nous faisons appel à un petit nombre de prestataires, chacun pour une tâche :</p>
       <ul>
@@ -318,6 +472,13 @@ const doc: LegalDoc = {
         <li>
           <strong>AppsFlyer</strong> : l&rsquo;attribution d&rsquo;installation, comme décrit
           plus haut.
+        </li>
+        <li>
+          <strong>Google AdMob</strong> : la publicité dans {bb}, comme décrit plus haut.
+        </li>
+        <li>
+          <strong>Firebase Crashlytics</strong> : les rapports de plantage de {bb}. Les
+          sauvegardes de {bb} sont dans un projet Firebase séparé, elles aussi dans l&rsquo;UE.
         </li>
       </ul>
       <p>
@@ -356,6 +517,9 @@ const doc: LegalDoc = {
           <strong>Les signalements que tu fais</strong> sur les noms d&rsquo;autres joueurs :
           tant que le compte signalé existe, pour pouvoir montrer que l&rsquo;examen a eu lieu.
         </li>
+        <li>
+          <strong>Rapports de plantage</strong> ({bb}) : 90 jours.
+        </li>
       </ul>
 
       <h2 id="rights">Tes droits</h2>
@@ -386,6 +550,12 @@ const doc: LegalDoc = {
         de l&rsquo;autorité de protection des données de ton pays.
       </p>
 
+      <p>
+        Dans {bb}, le choix publicitaire (<strong>Ad privacy choices</strong>) et{" "}
+        <strong>Delete account</strong> (supprimer le compte) se trouvent tous les deux dans{" "}
+        <strong>Settings</strong>.
+      </p>
+
       <h2 id="children">Enfants</h2>
       <p>
         {game} est un jeu tout public. Il ne s&rsquo;adresse pas aux enfants de moins de 13 ans
@@ -394,6 +564,12 @@ const doc: LegalDoc = {
         d&rsquo;enfants de moins de 13 ans. Si tu penses qu&rsquo;un enfant nous a donné des
         informations, écris à <a href={mailto(mail.child)}>{site.email}</a> et nous les
         supprimerons.
+      </p>
+
+      <p>
+        Il en va de même pour {bb} : un jeu tout public, qui ne s&rsquo;adresse pas aux enfants
+        de moins de 13 ans et n&rsquo;est pas déclaré comme destiné aux enfants auprès de nos
+        partenaires publicitaires.
       </p>
 
       <h2 id="this-website">Ce site</h2>

@@ -3,16 +3,17 @@ import { Summary } from "@/components/SiteChrome";
 import { dictionaries } from "@/i18n/dictionaries";
 import { localePath } from "@/i18n/locales";
 import type { LegalDoc } from "@/i18n/legal/types";
-import { gemfire, mailto, site } from "@/lib/site";
+import { balanceBuddies, gemfire, mailto, site } from "@/lib/site";
 
 const mail = dictionaries.tr.mail;
 const game = gemfire.name;
+const bb = balanceBuddies.name;
 
 /** Translation of terms/en.tsx. Where the two differ, the English text applies. */
 const doc: LegalDoc = {
   title: "Hizmet Koşulları",
-  description: `${game} oynamanın kuralları.`,
-  intro: `${game} oynayarak kabul ettiğin koşullar bunlardır.`,
+  description: `${game} ve ${bb} oynamanın kuralları.`,
+  intro: `Oyunlarımızı, ${game} ve ${bb}'i, oynayarak kabul ettiğin koşullar bunlardır.`,
   Body: () => (
     <>
       <Summary>
@@ -40,6 +41,11 @@ const doc: LegalDoc = {
       <p>
         Bu koşullar başka dillerde de yayınlanır. Bunlar bu İngilizce metnin çevirileridir;
         biri İngilizce metinden farklıysa İngilizce metin geçerlidir.
+      </p>
+
+      <p>
+        Bu koşullar oyunlarımızın her biri, {game} ve {bb}, için geçerlidir. &ldquo;Oyun&rdquo;
+        dendiğinde oynadığın oyun kastedilir.
       </p>
 
       <h2 id="licence">2. Lisansın</h2>
@@ -84,6 +90,12 @@ const doc: LegalDoc = {
         önce seni uyarır.
       </p>
 
+      <p>
+        {bb}&rsquo;de, zaten ilerlemesi olan bir hesapla giriş yapmak o hesaba geçer; cihazındaki
+        ilerleme ancak sen onayladıktan sonra değiştirilir. Cihazda yapılan satın almalar her
+        durumda korunur.
+      </p>
+
       <h2 id="virtual-items">4. Altın, mücevher, kalp ve eşyalar</h2>
       <p>
         Oyunda topladığın ya da satın aldığın her şey, yani altınlar, mücevherler, kalpler,
@@ -109,6 +121,12 @@ const doc: LegalDoc = {
         reddedilebilir ya da geri alınabilir.
       </p>
 
+      <p>
+        Aynısı {bb}&rsquo;deki ipuçları ve reklamsız süre için de geçerli: {bb} içinde kullanmak için
+        sınırlı bir lisanstır, oyun dışında değeri yoktur ve oyunlarımız arasında
+        aktarılamaz.
+      </p>
+
       <h2 id="purchases">5. Satın almalar ve iadeler</h2>
       <p>
         Satın almalar Apple&rsquo;ın App Store&rsquo;u ya da Google Play üzerinden yapılır ve
@@ -132,7 +150,25 @@ const doc: LegalDoc = {
         kapasiteni eski hâline döndürür.
       </p>
 
+      <h3>Abonelikler</h3>
+      <p>
+        {bb}&rsquo;in <strong>No Ads</strong> aboneliği, etkin olduğu sürece bulmacalar arasındaki
+        reklamları kapatır. İpucu için izlemeyi seçtiğin videolar kullanılabilir kalır. Her ay
+        mağazada gösterilen fiyattan otomatik olarak yenilenir ve iptal edene kadar mağazan her
+        yenilemede ücret alır. App Store ya da Google Play abonelik ayarlarından istediğin zaman
+        iptal edebilirsin; abonelik ödemesi yapılmış dönemin sonuna kadar etkin kalır.
+        Uygulamayı silmek aboneliği iptal etmez.
+      </p>
+      <p>
+        {bb}&rsquo;in Starter Bundle&rsquo;ındaki reklamsız günler abonelik değil, tek seferlik bir satın
+        almadır: satın alındığı andan itibaren sayılır ve hiçbir zaman yenilenmez.
+      </p>
+
       <h2 id="boards">6. Adlar, sıralama ve ziyaretler</h2>
+      <p>
+        Bu bölüm {game} için geçerlidir. {bb}&rsquo;de oyuncu adları, sıralamalar ya da ziyaretler
+        yoktur.
+      </p>
       <p>
         Bir bekçi adı seçer ve sıralamayı açık bırakırsan; bu ad, avatarın, seviyen,
         krallığının puanı ve ligin diğer oyunculara görünür ve diğer oyuncular krallığını

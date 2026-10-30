@@ -3,23 +3,25 @@ import { Summary } from "@/components/SiteChrome";
 import { dictionaries } from "@/i18n/dictionaries";
 import { localePath } from "@/i18n/locales";
 import type { LegalDoc } from "@/i18n/legal/types";
-import { gemfire, mailto, site } from "@/lib/site";
+import { balanceBuddies, gemfire, mailto, site } from "@/lib/site";
 
 const mail = dictionaries.en.mail;
 const game = gemfire.name;
+const bb = balanceBuddies.name;
 
 /** The original. Every translation beside it says so and links here. */
 const doc: LegalDoc = {
   title: "Terms of Service",
-  description: `The rules for playing ${game}.`,
-  intro: `These are the terms you agree to by playing ${game}.`,
+  description: `The rules for playing ${game} and ${bb}.`,
+  intro: `These are the terms you agree to by playing our games, ${game} and ${bb}.`,
   Body: () => (
     <>
       <Summary>
         <p className="mb-2">
-          Play the game, do not cheat it, and do not pretend to be someone else on the
-          boards. Anything you buy is a licence to use it inside the game. Coins and gems
-          are not money and cannot be cashed out.
+          Play the games, do not cheat them, and do not pretend to be someone else on the
+          boards. Anything you buy is a licence to use it inside the game you bought it in.
+          Coins, gems and hints are not money and cannot be cashed out. A subscription renews
+          until you cancel it in your store.
         </p>
         <p>
           Refunds are handled by Apple and Google, not by us. If something goes wrong, write
@@ -30,8 +32,9 @@ const doc: LegalDoc = {
       <h2 id="agreement">1. The agreement</h2>
       <p>
         These terms are between you and {site.entity}, trading as {site.company}, of{" "}
-        {site.address} (&ldquo;we&rdquo;, &ldquo;us&rdquo;). By downloading or playing{" "}
-        {game} you accept them. If you do not accept them, please do not play.
+        {site.address} (&ldquo;we&rdquo;, &ldquo;us&rdquo;). They apply to each of our
+        games, {game} and {bb} (each &ldquo;the game&rdquo;). By downloading or playing
+        either game you accept them. If you do not accept them, please do not play.
       </p>
       <p>
         Your app store has its own terms as well, and where they apply to your purchase from
@@ -45,7 +48,7 @@ const doc: LegalDoc = {
       <h2 id="licence">2. Your licence</h2>
       <p>
         We give you a personal, non-exclusive, non-transferable, revocable licence to install
-        and play {game} on devices you control, for your own entertainment. We keep
+        and play the game on devices you control, for your own entertainment. We keep
         ownership of the game, its artwork, its music, its levels and its code. Some artwork
         and audio is licensed from third parties, who keep their rights in it.
       </p>
@@ -78,21 +81,30 @@ const doc: LegalDoc = {
         progress may not be recoverable, and we may not be able to identify it as yours.
       </p>
       <p>
-        A sign-in already attached to another kingdom cannot be merged with yours, because
-        currency was earned and spent separately in each. The game warns you before anything
-        is replaced.
+        In {game}, a sign-in already attached to another kingdom cannot be merged with
+        yours, because currency was earned and spent separately in each. The game warns you
+        before anything is replaced.
+      </p>
+      <p>
+        In {bb}, signing in with an account that already has progress switches to that
+        account; the progress on your device is replaced only after you confirm. Purchases
+        made on the device are kept either way.
       </p>
 
-      <h2 id="virtual-items">4. Coins, gems, hearts and items</h2>
+      <h2 id="virtual-items">4. Coins, gems, hints and items</h2>
       <p>
-        Everything you collect or buy inside the game, including coins, gems, hearts,
-        whispers, turrets and their upgrades, kit, companions, kingdom pieces, land and
-        larger heart flasks, is a <strong>limited licence to use it inside {game}</strong>.
-        It is not money, not a security, and not property. Specifically:
+        Everything you collect or buy inside a game is a{" "}
+        <strong>limited licence to use it inside that game</strong>. In {game} that includes
+        coins, gems, hearts, whispers, turrets and their upgrades, kit, companions, kingdom
+        pieces, land and larger heart flasks; in {bb} it includes hints and ad-free time. It
+        is not money, not a security, and not property. Specifically:
       </p>
       <ul>
         <li>it has no value outside the game and cannot be exchanged for cash;</li>
-        <li>it cannot be transferred, sold or given to another player;</li>
+        <li>
+          it cannot be transferred, sold or given to another player, or moved between our
+          games;
+        </li>
         <li>
           it may be rebalanced, retuned or discontinued as the game is developed, and prices
           and rewards may change;
@@ -103,7 +115,8 @@ const doc: LegalDoc = {
         </li>
       </ul>
       <p>
-        Rewards from adverts, daily chests, the wheel and streaks are granted by our servers.
+        In {game}, rewards from adverts, daily chests, the wheel and streaks are granted by
+        our servers.
         Where a reward cannot be verified, for example because a save file was modified, it
         may be declined or reversed.
       </p>
@@ -132,7 +145,24 @@ const doc: LegalDoc = {
         returns your heart capacity to what it was.
       </p>
 
+      <h3>Subscriptions</h3>
+      <p>
+        {bb}&rsquo;s <strong>No Ads</strong> subscription turns off the adverts shown
+        between puzzles while it is active. Videos you choose to watch for hints stay
+        available. It renews automatically each month at the price shown in the store, and
+        your store charges you at each renewal until you cancel. You can cancel at any time
+        in your App Store or Google Play subscription settings; it then stays active until
+        the end of the period already paid for. Deleting the app does not cancel it.
+      </p>
+      <p>
+        The ad-free days in {bb}&rsquo;s Starter Bundle are a one-time purchase, not a
+        subscription: they count down from the moment of purchase and never renew.
+      </p>
+
       <h2 id="boards">6. Names, the boards and visiting</h2>
+      <p>
+        This section applies to {game}. {bb} has no player names, boards or visiting.
+      </p>
       <p>
         If you choose a keeper name and leave the boards enabled, that name, your avatar,
         your level, your kingdom&rsquo;s score and your league are visible to other players,
@@ -153,14 +183,14 @@ const doc: LegalDoc = {
 
       <h2 id="availability">7. The game may change</h2>
       <p>
-        We add chapters, retune difficulty and rewards, fix defects and occasionally remove
-        things that are not working. We may suspend the service for maintenance, and we may
+        We add chapters and puzzles, retune difficulty and rewards, fix defects and
+        occasionally remove things that are not working. We may suspend the service for maintenance, and we may
         eventually discontinue the game, in which case we will give reasonable notice
         through the game or this site where we can.
       </p>
       <p>
-        We do not promise the game will be uninterrupted or error-free, and some features,
-        including the boards, the shop and rewarded videos, need a working internet
+        We do not promise the games will be uninterrupted or error-free, and some features,
+        including the boards, the shop, adverts and cloud saving, need a working internet
         connection.
       </p>
 

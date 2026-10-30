@@ -819,3 +819,60 @@
     transform: translateX(-100%);
   }
 }
+
+/* --------------------------------------------------------------------------
+   Balance Buddies
+   --------------------------------------------------------------------------
+   The second game is daylight where Gemfire is fire: its sky blue, the warm
+   orange of its logo, and its own rounded face (Lilita One). Scoped to the
+   classes below, so the studio's void stays the frame around it.
+   -------------------------------------------------------------------------- */
+
+:root {
+  --bb-sky: #4fb4ff;
+  --bb-sky-deep: #2a7fe0;
+  --bb-sun: #ffb23e;
+  --bb-mint: #7be3a8;
+  --bb-pink: #ff7eb6;
+  --grad-bb: linear-gradient(180deg, #ffd36b 0%, #ffa531 100%);
+  --grad-bb-sky: linear-gradient(180deg, #6cc4ff 0%, #3d9cf2 55%, #2a7fe0 100%);
+}
+
+@layer components {
+  .font-buddies {
+    font-family: var(--font-lilita), "Lilita One", system-ui, sans-serif;
+    font-weight: 400;
+    letter-spacing: 0.01em;
+  }
+
+  /* The logo treatment: warm gradient letters with the game's dark outline. */
+  .text-buddies {
+    background: var(--grad-bb);
+    -webkit-background-clip: text;
+    background-clip: text;
+    color: transparent;
+    -webkit-text-stroke: 0.035em #4a2a12;
+    paint-order: stroke fill;
+    filter: drop-shadow(0 0.06em 0 #4a2a12);
+  }
+
+  .text-sky {
+    color: var(--bb-sky);
+  }
+
+  /* A daylight panel: the game's sky, for art that was painted on blue. */
+  .sky-panel {
+    position: relative;
+    overflow: hidden;
+    border-radius: 1.75rem;
+    background: var(--grad-bb-sky);
+    box-shadow:
+      0 0 0 1px rgba(255, 255, 255, 0.18),
+      0 40px 90px -40px rgba(79, 180, 255, 0.55);
+  }
+
+  /* Modern phones are taller than 9:16; the game's screenshots are 9:19.5. */
+  .phone-tall {
+    aspect-ratio: 9 / 19.5;
+  }
+}

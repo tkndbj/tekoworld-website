@@ -4,11 +4,12 @@ import { dictionaries } from "@/i18n/dictionaries";
 import { gameTextFor } from "@/i18n/game-text";
 import { localePath } from "@/i18n/locales";
 import type { LegalDoc } from "@/i18n/legal/types";
-import { gemfire, mailto, site } from "@/lib/site";
+import { balanceBuddies, gemfire, mailto, site } from "@/lib/site";
 
 const mail = dictionaries.pl.mail;
 const label = gameTextFor("pl").labels;
 const game = gemfire.name;
+const bb = balanceBuddies.name;
 
 /**
  * Translation of support/en.tsx. Button names are the game's own Polish labels. Questions
@@ -16,8 +17,8 @@ const game = gemfire.name;
  */
 const doc: LegalDoc = {
   title: "Pomoc",
-  description: `Pomoc w grze ${game}: utracony postęp, zakupy, serca, reklamy i konta.`,
-  intro: `Coś nie działa w grze ${game}? Napisz do nas. Czyta to prawdziwy człowiek.`,
+  description: `Pomoc w grach ${game} i ${bb}: utracony postęp, zakupy, podpowiedzi, reklamy i konta.`,
+  intro: `Coś nie działa w grze ${game} albo ${bb}? Napisz do nas. Czyta to prawdziwy człowiek.`,
   Body: () => (
     <>
       <p className="not-prose mb-10">
@@ -157,6 +158,98 @@ const doc: LegalDoc = {
           </p>
         </Question>
       </div>
+
+      <h2 id="balance-buddies">{bb}: częste pytania</h2>
+
+      <div className="not-prose">
+        <Question q="Po ponownej instalacji straciłem postępy.">
+          <p>
+            Twoje postępy są zapisywane w chmurze od pierwszej zagadki, na anonimowym koncie
+            tego urządzenia. Ponowna instalacja zaczyna nowe. Żeby przenosić postępy między
+            instalacjami lub telefonami, otwórz <strong>Settings</strong> i zaloguj się przez
+            Google lub Apple. Zaloguj się tym samym dostawcą w nowej instalacji, a postępy
+            wrócą.
+          </p>
+          <p>Jeśli nie wrócą, napisz do nas z adresu tego logowania.</p>
+        </Question>
+
+        <Question q="Zalogowałem się i moje postępy się zmieniły.">
+          <p>
+            To logowanie miało już własne postępy. Gra pyta, zanim zastąpi postępy na twoim
+            urządzeniu, i przełącza się tylko po twoim potwierdzeniu. Zakupy zrobione na
+            urządzeniu zostają w każdym przypadku. Żeby wrócić, wyloguj się i zaloguj drugim
+            kontem.
+          </p>
+        </Question>
+
+        <Question q="Jak działają podpowiedzi?">
+          <p>
+            Zaczynasz z dziesięcioma. Gdy masz mniej niż dziesięć, co cztery godziny jedna
+            wraca sama. Podpowiedź pokazuje świecącego ducha tam, gdzie powinien trafić
+            następny kumpel; opłacony krok zostaje odkryty za darmo przy kolejnej próbie i na
+            innych urządzeniach.
+          </p>
+          <p>
+            Możesz też obejrzeć krótki film, by dostać dwie kolejne, albo kupić pakiet w
+            sklepie. Każdą zagadkę da się rozwiązać bez nich.
+          </p>
+        </Question>
+
+        <Question q="Dlaczego widzę reklamy między zagadkami?">
+          <p>
+            W pierwszych ośmiu zagadkach nie ma żadnych i nigdy w trakcie zagadki. Potem po co
+            drugiej rozwiązanej zagadce może się pojawić krótka reklama; dzięki temu gra jest
+            darmowa. Subskrypcja <strong>No Ads</strong> w sklepie albo 30 dni bez reklam ze
+            Starter Bundle je wyłączają.
+          </p>
+        </Question>
+
+        <Question q="Jak anulować subskrypcję No Ads?">
+          <p>
+            W sklepie, nie w grze: na Androidzie Google Play › Płatności i subskrypcje ›
+            Subskrypcje, na iOS Ustawienia › twoje imię › Subskrypcje. Pozostaje aktywna do
+            końca opłaconego miesiąca. Usunięcie aplikacji ani konta jej nie anuluje.
+          </p>
+        </Question>
+
+        <Question q="Zapłaciłem za coś i tego nie dostałem.">
+          <p>
+            Otwórz grę ponownie z dostępem do internetu: niedokończone zakupy i aktywna
+            subskrypcja są odbierane przy uruchomieniu. Jeśli nadal nic nie dotarło, napisz do
+            nas z potwierdzeniem lub numerem zamówienia ze sklepu, a załatwimy to. Zwrotami
+            zajmują się Apple i Google według własnych zasad.
+          </p>
+        </Question>
+
+        <Question q="Jak zmienić wybór dotyczący reklam?">
+          <p>
+            <strong>Settings</strong> › <strong>Ad privacy choices</strong>. Przycisk pojawia
+            się wszędzie tam, gdzie wymaga tego prawo, na przykład w UE i Wielkiej Brytanii.
+          </p>
+        </Question>
+
+        <Question q="Jak usunąć konto?">
+          <p>
+            <strong>Settings</strong> › <strong>Delete account</strong> (widoczne po
+            zalogowaniu). Szczegóły znajdziesz w{" "}
+            <Link href={localePath("pl", "/delete-account#balance-buddies")}>
+              usuwaniu konta i danych
+            </Link>
+            .
+          </p>
+        </Question>
+
+        <Question q="Czy gra działa offline?">
+          <p>
+            Tak. Każda zagadka działa na telefonie bez połączenia, a postępy są wysyłane, gdy
+            znów będziesz online. Reklamy, sklep i logowanie wymagają połączenia.
+          </p>
+        </Question>
+      </div>
+
+      <p className="mt-8">
+        <a href={mailto(mail.support, bb)}>Napisz do nas w sprawie {bb}</a>
+      </p>
 
       <h2>Zgłaszanie problemu z bezpieczeństwem</h2>
       <p>

@@ -4,17 +4,18 @@ import { dictionaries } from "@/i18n/dictionaries";
 import { gameTextFor } from "@/i18n/game-text";
 import { localePath } from "@/i18n/locales";
 import type { LegalDoc } from "@/i18n/legal/types";
-import { gemfire, mailto, site } from "@/lib/site";
+import { balanceBuddies, gemfire, mailto, site } from "@/lib/site";
 
 const mail = dictionaries.de.mail;
 const label = gameTextFor("de").labels;
 const game = gemfire.name;
+const bb = balanceBuddies.name;
 
 /** Translation of support/en.tsx. Button names are the game's own German labels. */
 const doc: LegalDoc = {
   title: "Hilfe",
-  description: `Hilfe zu ${game}: verlorener Fortschritt, Käufe, Herzen, Werbung und Konten.`,
-  intro: `Funktioniert etwas in ${game} nicht? Schreib uns. Ein echter Mensch liest es.`,
+  description: `Hilfe zu ${game} und ${bb}: verlorener Fortschritt, Käufe, Tipps, Werbung und Konten.`,
+  intro: `Funktioniert etwas in ${game} oder ${bb} nicht? Schreib uns. Ein echter Mensch liest es.`,
   Body: () => (
     <>
       <p className="not-prose mb-10">
@@ -158,6 +159,101 @@ const doc: LegalDoc = {
           </p>
         </Question>
       </div>
+
+      <h2 id="balance-buddies">{bb}: häufige Fragen</h2>
+
+      <div className="not-prose">
+        <Question q="Nach einer Neuinstallation ist mein Fortschritt weg.">
+          <p>
+            Dein Fortschritt wird ab dem ersten Rätsel unter einem anonymen Konto auf diesem
+            Gerät in der Cloud gesichert. Eine Neuinstallation beginnt ein neues. Um Fortschritt
+            zwischen Installationen oder Handys mitzunehmen, öffne <strong>Settings</strong> und
+            melde dich mit Google oder Apple an. Meldest du dich bei der neuen Installation mit
+            demselben Anbieter an, kommt dein Fortschritt zurück.
+          </p>
+          <p>Wenn nicht, schreib uns von der E-Mail-Adresse dieser Anmeldung.</p>
+        </Question>
+
+        <Question q="Ich habe mich angemeldet und mein Fortschritt hat sich geändert.">
+          <p>
+            Diese Anmeldung hatte schon eigenen Fortschritt. Das Spiel fragt, bevor es den
+            Fortschritt auf deinem Gerät ersetzt, und wechselt nur, wenn du bestätigst. Auf dem
+            Gerät getätigte Käufe bleiben in jedem Fall erhalten. Um zurückzuwechseln, melde
+            dich ab und mit dem anderen Konto an.
+          </p>
+        </Question>
+
+        <Question q="Wie funktionieren Tipps?">
+          <p>
+            Du startest mit zehn. Unter zehn kommt alle vier Stunden von selbst einer zurück.
+            Ein Tipp zeigt einen leuchtenden Geist dort, wo der nächste Buddy hingehört; ein
+            bezahlter Schritt bleibt beim nächsten Versuch und auf deinen anderen Geräten
+            kostenlos aufgedeckt.
+          </p>
+          <p>
+            Du kannst auch ein kurzes Video für zwei weitere ansehen oder im Shop ein Paket
+            kaufen. Jedes Rätsel ist auch ohne lösbar.
+          </p>
+        </Question>
+
+        <Question q="Warum sehe ich Werbung zwischen den Rätseln?">
+          <p>
+            In deinen ersten acht Rätseln gibt es keine und nie mitten in einem Rätsel. Danach
+            kann nach jedem zweiten gelösten Rätsel eine kurze Werbung laufen; so bleibt das
+            Spiel kostenlos. Das <strong>No Ads</strong>-Abo im Shop oder die 30 werbefreien
+            Tage des Starter Bundle schalten sie ab.
+          </p>
+        </Question>
+
+        <Question q="Wie kündige ich das No Ads-Abo?">
+          <p>
+            In deinem Store, nicht im Spiel: auf Android unter Google Play › Zahlungen und Abos
+            › Abos, auf iOS unter Einstellungen › dein Name › Abonnements. Es bleibt bis zum
+            Ende des bezahlten Monats aktiv. Das Löschen der App oder deines Kontos kündigt es
+            nicht.
+          </p>
+        </Question>
+
+        <Question q="Ich habe etwas bezahlt und nicht erhalten.">
+          <p>
+            Öffne das Spiel erneut mit Internetverbindung: Nicht abgeschlossene Käufe und ein
+            aktives Abo werden beim Start wieder abgeholt. Ist es dann immer noch nicht da,
+            schreib uns mit dem Beleg oder der Bestellnummer aus dem Store, und wir kümmern uns
+            darum. Erstattungen laufen über Apple und Google nach deren eigenen Regeln.
+          </p>
+        </Question>
+
+        <Question q="Wie ändere ich meine Werbeeinstellung?">
+          <p>
+            <strong>Settings</strong> › <strong>Ad privacy choices</strong>. Der Knopf erscheint
+            überall dort, wo das Gesetz es verlangt, etwa in der EU und im Vereinigten
+            Königreich.
+          </p>
+        </Question>
+
+        <Question q="Wie lösche ich mein Konto?">
+          <p>
+            <strong>Settings</strong> › <strong>Delete account</strong> (sichtbar, sobald du
+            angemeldet bist). Einzelheiten unter{" "}
+            <Link href={localePath("de", "/delete-account#balance-buddies")}>
+              Konto und Daten löschen
+            </Link>
+            .
+          </p>
+        </Question>
+
+        <Question q="Funktioniert das Spiel offline?">
+          <p>
+            Ja. Jedes Rätsel läuft ohne Verbindung auf deinem Handy, und dein Fortschritt wird
+            hochgeladen, sobald du wieder online bist. Werbung, der Shop und die Anmeldung
+            brauchen eine Verbindung.
+          </p>
+        </Question>
+      </div>
+
+      <p className="mt-8">
+        <a href={mailto(mail.support, bb)}>Schreib uns zu {bb}</a>
+      </p>
 
       <h2>Ein Sicherheitsproblem melden</h2>
       <p>

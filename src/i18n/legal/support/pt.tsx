@@ -4,17 +4,18 @@ import { dictionaries } from "@/i18n/dictionaries";
 import { gameTextFor } from "@/i18n/game-text";
 import { localePath } from "@/i18n/locales";
 import type { LegalDoc } from "@/i18n/legal/types";
-import { gemfire, mailto, site } from "@/lib/site";
+import { balanceBuddies, gemfire, mailto, site } from "@/lib/site";
 
 const mail = dictionaries.pt.mail;
 const label = gameTextFor("pt").labels;
 const game = gemfire.name;
+const bb = balanceBuddies.name;
 
 /** Translation of support/en.tsx. Button names are the game's own Portuguese labels. */
 const doc: LegalDoc = {
   title: "Suporte",
-  description: `Ajuda com ${game}: progresso perdido, compras, corações, anúncios e contas.`,
-  intro: `Algo não está funcionando no ${game}? Escreva para nós. Uma pessoa de verdade lê.`,
+  description: `Ajuda com ${game} e ${bb}: progresso perdido, compras, dicas, anúncios e contas.`,
+  intro: `Algo não está funcionando no ${game} ou no ${bb}? Escreva para nós. Uma pessoa de verdade lê.`,
   Body: () => (
     <>
       <p className="not-prose mb-10">
@@ -153,6 +154,96 @@ const doc: LegalDoc = {
           </p>
         </Question>
       </div>
+
+      <h2 id="balance-buddies">{bb}: perguntas frequentes</h2>
+
+      <div className="not-prose">
+        <Question q="Perdi meu progresso depois de reinstalar.">
+          <p>
+            Seu progresso é salvo na nuvem desde o primeiro quebra-cabeça, em uma conta anônima
+            daquele aparelho. Reinstalar começa uma nova. Para levar o progresso entre
+            instalações ou celulares, abra <strong>Settings</strong> e entre com o Google ou a
+            Apple. Entre com o mesmo serviço na nova instalação e seu progresso volta.
+          </p>
+          <p>Se não voltar, escreva para nós a partir do e-mail desse login.</p>
+        </Question>
+
+        <Question q="Entrei em uma conta e meu progresso mudou.">
+          <p>
+            Esse login já tinha progresso próprio. O jogo pergunta antes de substituir o
+            progresso do seu aparelho e só muda se você confirmar. As compras feitas no
+            aparelho são mantidas de qualquer forma. Para voltar, saia e entre com a outra
+            conta.
+          </p>
+        </Question>
+
+        <Question q="Como funcionam as dicas?">
+          <p>
+            Você começa com dez. Abaixo de dez, uma volta sozinha a cada quatro horas. Uma dica
+            mostra um fantasma brilhante onde vai o próximo buddy; uma etapa paga continua
+            revelada de graça quando você tenta de novo e nos seus outros aparelhos.
+          </p>
+          <p>
+            Você também pode ver um vídeo curto para ganhar mais duas ou comprar um pacote na
+            loja. Todo quebra-cabeça pode ser resolvido sem elas.
+          </p>
+        </Question>
+
+        <Question q="Por que vejo anúncios entre os quebra-cabeças?">
+          <p>
+            Não há nenhum nos seus primeiros oito quebra-cabeças, e nunca no meio de um. Depois
+            disso, um anúncio curto pode aparecer a cada dois quebra-cabeças resolvidos; é
+            assim que o jogo continua gratuito. A assinatura <strong>No Ads</strong> da loja, ou
+            os 30 dias sem anúncios do Starter Bundle, desligam esses anúncios.
+          </p>
+        </Question>
+
+        <Question q="Como cancelo a assinatura No Ads?">
+          <p>
+            Na sua loja, não no jogo: no Android, Google Play › Pagamentos e assinaturas ›
+            Assinaturas; no iOS, Ajustes › seu nome › Assinaturas. Ela continua ativa até o fim
+            do mês já pago. Excluir o app ou a sua conta não cancela a assinatura.
+          </p>
+        </Question>
+
+        <Question q="Paguei por algo e não recebi.">
+          <p>
+            Abra o jogo de novo com internet: compras não concluídas e uma assinatura ativa são
+            recuperadas ao iniciar. Se ainda não chegou, escreva para nós com o recibo ou o
+            número do pedido da loja e resolvemos. Reembolsos são feitos pela Apple e pelo
+            Google, conforme as regras deles.
+          </p>
+        </Question>
+
+        <Question q="Como mudo minha escolha de publicidade?">
+          <p>
+            <strong>Settings</strong> › <strong>Ad privacy choices</strong>. O botão aparece
+            onde a lei exige, como na UE e no Reino Unido.
+          </p>
+        </Question>
+
+        <Question q="Como excluo minha conta?">
+          <p>
+            <strong>Settings</strong> › <strong>Delete account</strong> (aparece depois que
+            você entra em uma conta). Os detalhes estão em{" "}
+            <Link href={localePath("pt", "/delete-account#balance-buddies")}>
+              excluir sua conta e seus dados
+            </Link>
+            .
+          </p>
+        </Question>
+
+        <Question q="O jogo funciona offline?">
+          <p>
+            Sim. Todo quebra-cabeça roda no seu celular sem conexão, e seu progresso é enviado
+            quando você volta a ficar online. Anúncios, a loja e o login precisam de conexão.
+          </p>
+        </Question>
+      </div>
+
+      <p className="mt-8">
+        <a href={mailto(mail.support, bb)}>Escreva para nós sobre o {bb}</a>
+      </p>
 
       <h2>Como relatar um problema de segurança</h2>
       <p>

@@ -1,5 +1,5 @@
 import { getText } from "@/i18n/server";
-import { gemfire } from "@/lib/site";
+import { gemfire, type Game } from "@/lib/site";
 
 function GooglePlay() {
   return (
@@ -26,14 +26,16 @@ function AppStore() {
  * and this disappears by itself the moment the store URLs are filled in.
  */
 export async function StoreButtons({
+  game = gemfire,
   className = "",
   size = "",
 }: {
+  game?: Game;
   className?: string;
   size?: "" | "btn-lg";
 }) {
   const { t } = await getText();
-  const { android, ios } = gemfire.stores;
+  const { android, ios } = game.stores;
 
   if (!android && !ios) {
     return (

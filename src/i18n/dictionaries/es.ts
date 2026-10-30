@@ -1,4 +1,4 @@
-import { gemfire, placeName, site } from "@/lib/site";
+import { balanceBuddies, gemfire, placeName, site } from "@/lib/site";
 import { rich } from "@/i18n/rich-text";
 import type { Dictionary } from "./en";
 
@@ -9,11 +9,12 @@ import type { Dictionary } from "./en";
 const es: Dictionary = {
   site: {
     tagline: "Juegos para móvil con fuego dentro.",
-    description: `${site.company} es un estudio independiente de juegos para móvil. La casa de ${gemfire.name}, el juego de tres en raya y defensa de torres en el que cada combinación dispara una torre.`,
+    description: `${site.company} es un estudio independiente de juegos para móvil. La casa de ${gemfire.name}, el juego de tres en raya y defensa de torres en el que cada combinación dispara una torre, y de ${balanceBuddies.name}, el puzle de equilibrio relajante.`,
     keywords: [
       "estudio de juegos para móvil",
       "juego de combinar tres",
       "defensa de torres",
+      "puzle de equilibrio",
       "juegos para móvil",
       "estudio indie",
     ],
@@ -31,7 +32,7 @@ const es: Dictionary = {
     terms: "Términos",
     deleteData: "Borrar tus datos",
     credits: "Créditos",
-    play: `Juega a ${gemfire.name}`,
+    play: "Nuestros juegos",
     menu: "Menú",
     openMenu: "Abrir el menú",
     closeMenu: "Cerrar el menú",
@@ -44,7 +45,7 @@ const es: Dictionary = {
     studio: "Estudio",
     smallPrint: "La letra pequeña",
     copyright: (year: number) =>
-      `© ${year} ${site.entity}, que opera como ${site.company}. ${gemfire.name} y sus ilustraciones son propiedad de ${site.company}.`,
+      `© ${year} ${site.entity}, que opera como ${site.company}. ${gemfire.name}, ${balanceBuddies.name} y sus ilustraciones son propiedad de ${site.company}.`,
   },
 
   suggest: {
@@ -90,31 +91,38 @@ const es: Dictionary = {
     hero: {
       chip: "Estudio independiente de juegos para móvil",
       title: rich("Hacemos juegos", "\n", "con ", { hl: "fuego" }, " dentro."),
-      body: `${site.company} crea juegos pequeños, ruidosos y honestos en lo mecánico para el móvil que llevas en el bolsillo. El primero es ${gemfire.name}: un tablero de combinar tres atornillado a la muralla de un castillo, donde cada combinación que haces dispara una torre.`,
-      explore: `Descubre ${gemfire.name}`,
+      body: `${site.company} crea juegos pequeños y honestos en lo mecánico para el móvil que llevas en el bolsillo. ${gemfire.name} es un tablero de combinar tres atornillado a la muralla de un castillo, donde cada combinación dispara una torre. ${balanceBuddies.name} es el tranquilo: suelta a los amiguitos hasta que todo quede nivelado.`,
+      explore: "Ver nuestros juegos",
       about: "Sobre el estudio",
-      stats: ["juego en la forja", "plataformas de salida", "anuncios obligatorios", "esqueletos que frenar"],
+      stats: ["juegos en la forja", "plataformas", "puzles que equilibrar", "esqueletos que frenar"],
     },
     ticker: [
       gemfire.name,
       "Combina tres y defiende",
+      balanceBuddies.name,
+      "Puzles de equilibrio relajantes",
       "Android",
       "iOS",
       site.company,
-      "Construye tu reino",
-      "Mejora tus torres",
       "Defiende la muralla",
+      "Encuentra el equilibrio",
     ],
     games: {
       kicker: "Nuestros juegos",
-      title: rich("Un solo título. ", { hl: "Todo dentro." }),
-      body: "Sacamos un juego cada vez y seguimos trabajando en él después del lanzamiento. Este es el que está ahora en el yunque.",
-      coverAlt: `Ilustración de ${gemfire.name}: cuatro torres sobre la muralla de un castillo disparando a un ejército de esqueletos por encima de un tablero de gemas.`,
-      status: "En desarrollo",
+      title: rich("Dos juegos. ", { hl: "Todo dentro." }),
+      body: "Sacamos un juego cada vez y seguimos trabajando en cada uno después del lanzamiento. Uno es ruidoso, el otro tranquilo, y los dos se basan en reglas de verdad.",
       view: "Ver el juego",
-      nextKicker: "Hueco 02",
+      gemfire: {
+        alt: `Ilustración de ${gemfire.name}: cuatro torres sobre la muralla de un castillo disparando a un ejército de esqueletos por encima de un tablero de gemas.`,
+        status: "Ya disponible en iOS",
+      },
+      balanceBuddies: {
+        alt: `Ilustración de ${balanceBuddies.name}: una torre tambaleante de amiguitos monstruo de colores sobre un cielo azul.`,
+        status: "Muy pronto",
+      },
+      nextKicker: "Hueco 03",
       nextTitle: "El siguiente",
-      nextBody: `Todo lo que aprendemos con ${gemfire.name} va a parar a lo que venga después. Cuando haya algo que merezca la pena enseñar, aparecerá aquí primero.`,
+      nextBody: `Todo lo que aprendemos con ${gemfire.name} y ${balanceBuddies.name} va a parar a lo que venga después. Cuando haya algo que merezca la pena enseñar, aparecerá aquí primero.`,
       sealed: "Sellado",
     },
     studio: {
@@ -309,6 +317,162 @@ const es: Dictionary = {
         {
           q: "¿Es seguro para niños?",
           a: "No hay chat, ni mensajes, ni forma de que los jugadores se pongan en contacto. Lo único que otro jugador puede ver es el nombre y el compañero que elegiste y la puntuación de tu reino, y puedes ocultarlo todo con un toque.",
+        },
+      ],
+    },
+    getIt: {
+      kicker: "Consigue el juego",
+      free: "Gratis en Android e iOS.",
+    },
+  },
+
+  balanceBuddies: {
+    genre: "Puzle de equilibrio relajante",
+    pitch: "Suelta a los amiguitos. Encuentra el equilibrio. Respira.",
+    description: `${balanceBuddies.name} es un juego de puzles de equilibrio tranquilo. Arrastra a los amiguitos desde la bandeja hasta móviles colgantes, balancines, norias, muelles y balsas hasta que todo quede nivelado y quieto. Matemáticas de verdad, física de verdad, sin temporizadores y sin forma de perder.`,
+    ogAlt: `${balanceBuddies.name}: una alegre torre de amiguitos monstruo de colores sobre un cielo azul.`,
+    hero: {
+      body: "Cada puzle es un artilugio que no se está quieto: un móvil colgante, un balancín, una noria, una barra sobre dos muelles, una balsa en el agua. Arrastra a los amiguitos desde la bandeja y suelta cada uno donde se equilibre. Sin reloj, sin fin de partida, solo ese momento tranquilo en el que todo queda nivelado.",
+      chips: ["Gratis", "Android 8.0+", "iOS 15+", "Sin temporizadores", "Sin derrotas", "Se juega sin conexión"],
+      stats: ["puzles de equilibrio", "tipos de artilugio", "pistas para empezar", "temporizadores"],
+      shotAlt: `${balanceBuddies.name}, First Swing: tres amiguitos colgando de un móvil de dos pisos al atardecer.`,
+      bannerAlt: `Ilustración de ${balanceBuddies.name}: una torre tambaleante de amiguitos monstruo de colores junto al logotipo del juego, en un cielo azul lleno de nubes.`,
+    },
+    play: {
+      kicker: "Cómo se juega",
+      title: rich("Arrastra. Suelta. ", { hl: "Equilibra." }),
+      body: "Una bandeja de amiguitos, un artilugio y una única respuesta correcta, que la física te confirma en cuanto la encuentras.",
+      steps: {
+        drag: {
+          title: "Elige un amiguito",
+          body: "Cada puzle empieza con una bandeja de amiguitos en la parte de abajo de la pantalla, cada uno con su peso impreso. Arrastra uno hacia arriba y suéltalo donde creas que va.",
+          alt: "Little Builder: bloques con números y una casita sobre una viga de madera en equilibrio sobre una roca.",
+        },
+        balance: {
+          title: "Encuentra el equilibrio",
+          body: "Cuélgalo de un gancho, siéntalo en una clavija, ponlo a flotar en una balsa. Cada artilugio sigue la regla real: en un móvil colgante, el peso por la distancia tiene que coincidir a ambos lados. El medidor de arriba te dice lo cerca que estás.",
+          alt: "First Swing: un móvil colgante con tres amiguitos en ganchos numerados y un medidor de equilibrio arriba.",
+        },
+        settle: {
+          title: "Deja que se asiente",
+          body: "Cuando todo está nivelado y se queda quieto un momento, el puzle está resuelto. Menos movimientos dan más estrellas, y lo que se cae simplemente vuelve flotando a la bandeja.",
+          alt: "Springy: amiguitos sobre una barra colgada de dos muelles que se estiran de forma distinta.",
+        },
+      },
+    },
+    contraptions: {
+      kicker: "Los artilugios",
+      title: rich("Seis formas de ", { hl: "inclinar la balanza." }),
+      body: "Cada uno es una pequeña lección de física real, y los puzles más avanzados los mezclan: cajas misteriosas, viento, hielo, espinas y cintas transportadoras.",
+      items: {
+        mobile: {
+          title: "Móviles colgantes",
+          body: "Barras que cuelgan de barras. El peso por la distancia tiene que compensarse en cada una de ellas.",
+          alt: "Un móvil colgante de dos pisos con amiguitos colgados de ganchos numerados.",
+        },
+        seesaw: {
+          title: "Balancines",
+          body: "Bloques de piedra, madera y metal sobre una tabla que se inclina de verdad. El metal pesa más de lo que parece.",
+          alt: "Heavy Metal: un balancín de madera sobre un soporte con un bloque de metal en un extremo.",
+        },
+        wheel: {
+          title: "Norias",
+          body: "Pasajeros en una rueda que gira. Solo se detiene nivelada cuando sus pesos se compensan alrededor del eje.",
+          alt: "Ferris Wheel: dos amiguitos montados en una noria que se ha desnivelado.",
+        },
+        spring: {
+          title: "Muelles",
+          body: "Una barra sobre dos muelles de distinta rigidez. Cárgala hasta que los dos se estiren exactamente lo mismo.",
+          alt: "Springy: amiguitos sobre una barra colgada de dos muelles en espiral.",
+        },
+        raft: {
+          title: "Balsas",
+          body: "Cajas sobre una balsa que flota de verdad. Cárgala para que navegue nivelada sobre el agua.",
+          alt: "Lazy Raft: cajas de piedra y de madera apiladas en una balsa que flota en agua en calma.",
+        },
+        balloon: {
+          title: "Globos",
+          body: "Los globos tiran hacia arriba en lugar de hacia abajo. Restan peso, y son el truco de más de un puzle.",
+          alt: "Up and Away: dos globos y un amiguito colgando de una barra inclinada.",
+        },
+      },
+    },
+    hints: {
+      kicker: "¿Atascado?",
+      title: rich("Una pista, ", { hl: "nunca un muro." }),
+      body: "Una pista muestra un fantasma brillante justo donde va el siguiente amiguito. Un paso que has revelado sigue revelado al reintentar y en tu otro móvil.",
+      points: [
+        "Diez pistas para empezar, y una vuelve cada cuatro horas.",
+        "Mira un vídeo corto para conseguir dos más, cuando quieras.",
+        "O compra un paquete. Todos los puzles se pueden resolver sin él.",
+      ],
+      hintAlt: "Una lupa con un botón de reproducir: mira un vídeo para conseguir pistas.",
+      noAdsAlt: "Un cojín blando con un cartel de AD tachado: la suscripción No Ads.",
+      noAds: "No Ads, mensual",
+      noAdsBody: "Quita los anuncios entre puzles. Cancélala cuando quieras desde tu cuenta de la tienda.",
+    },
+    promises: {
+      kicker: "Juego limpio",
+      title: rich("Tranquilo, ", { hl: "a propósito." }),
+      list: {
+        timers: {
+          title: "Sin temporizadores ni fin de partida",
+          body: "No hay cuentas atrás y no se puede perder nada. Lo que se cae vuelve flotando a la bandeja, así que puedes volver a intentarlo al momento.",
+        },
+        real: {
+          title: "Matemáticas de verdad, física de verdad",
+          body: "Cada puzle se resuelve con la regla real, la ley de la palanca, la ley de Hooke o la flotabilidad, no adivinando lo que tenía en mente el diseñador.",
+        },
+        ads: {
+          title: "Anuncios que no estorban",
+          body: "Ninguno en tus primeros ocho puzles, nunca en mitad de uno y sin banners. Después puede salir un anuncio corto entre puzles, y una suscripción No Ads los desactiva.",
+        },
+        offline: {
+          title: "Se juega sin cobertura",
+          body: "Cada puzle funciona en tu móvil. Los anuncios, la tienda y el guardado en la nube necesitan conexión; los puzles no.",
+        },
+        save: {
+          title: "Tu progreso, a salvo",
+          body: "El progreso se guarda desde tu primer puzle con una cuenta anónima. Inicia sesión con Google o Apple para llevártelo a otro móvil.",
+        },
+        sound: {
+          title: "Suave para los oídos",
+          body: "Sonidos delicados afinados en la misma tonalidad y música tranquila, pensados para el sofá al final de un día largo.",
+        },
+      },
+    },
+    faq: {
+      kicker: "Preguntas",
+      title: rich("Las respuestas ", { hl: "cortas." }),
+      body: rich(
+        "Las largas, y las que tratan de compras y cuentas, están en la ",
+        { link: "página de ayuda", href: "/support" },
+        "."
+      ),
+      items: [
+        {
+          q: "¿Cuesta algo?",
+          a: `No. ${balanceBuddies.name} es gratis, y todos los puzles se pueden resolver sin gastar nada. Puedes comprar pistas extra o una suscripción que quita los anuncios.`,
+        },
+        {
+          q: "¿Tiene anuncios?",
+          a: "Sí, con delicadeza. No hay ninguno en tus primeros ocho puzles y nunca durante uno. Después, puede salir un anuncio corto cada dos puzles que termines. Los vídeos para conseguir pistas extra siempre los eliges tú, y la suscripción No Ads, o los 30 días sin anuncios del Starter Bundle, quitan el resto.",
+        },
+        {
+          q: "¿Y si me atasco?",
+          a: "Usa una pista. Muestra un fantasma brillante donde va el siguiente amiguito. Empiezas con diez, una vuelve cada cuatro horas y un vídeo corto te da dos más.",
+        },
+        {
+          q: "¿Necesito una cuenta o conexión?",
+          a: "Ninguna de las dos. Cada puzle funciona en tu móvil sin cobertura. Una cuenta anónima guarda una copia de tu progreso; inicia sesión con Google o Apple solo si quieres jugar en otro dispositivo.",
+        },
+        {
+          q: "¿Funcionará en mi móvil?",
+          a: "Necesita Android 8.0 o iOS 15 y poco más.",
+        },
+        {
+          q: "¿Es apto para niños?",
+          a: "Está hecho para todo el mundo. No hay chat, ni mensajes, ni nada sobre ti que otros jugadores puedan ver.",
         },
       ],
     },

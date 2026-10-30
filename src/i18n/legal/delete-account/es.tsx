@@ -4,11 +4,12 @@ import { dictionaries } from "@/i18n/dictionaries";
 import { gameTextFor } from "@/i18n/game-text";
 import { localePath } from "@/i18n/locales";
 import type { LegalDoc } from "@/i18n/legal/types";
-import { gemfire, mailto, site } from "@/lib/site";
+import { balanceBuddies, gemfire, mailto, site } from "@/lib/site";
 
 const mail = dictionaries.es.mail;
 const label = gameTextFor("es").labels;
 const game = gemfire.name;
+const bb = balanceBuddies.name;
 
 /**
  * Translation of delete-account/en.tsx. Button names are the game's own Spanish labels, so
@@ -16,9 +17,9 @@ const game = gemfire.name;
  */
 const doc: LegalDoc = {
   title: "Borrar tu cuenta y tus datos",
-  description: `Cómo borrar tu cuenta de ${game} y los datos guardados con ella.`,
+  description: `Cómo borrar tu cuenta de ${game} o de ${bb} y los datos guardados con ella.`,
   intro:
-    "Puedes hacer que se borre todo lo que tenemos sobre tu reino. Esto es exactamente lo que ocurre.",
+    "Puedes hacer que se borre todo lo que tenemos sobre ti en cualquiera de nuestros juegos. Esto es exactamente lo que ocurre.",
   Body: () => (
     <>
       <Summary>
@@ -36,7 +37,17 @@ const doc: LegalDoc = {
           Borrar la app por sí sola <strong>no</strong> borra los datos de nuestros servidores.
           Solo elimina la copia de ese dispositivo.
         </p>
+        <p className="mt-2">
+          En {bb}: <strong>Settings</strong> › <strong>Delete account</strong>. Consulta la{" "}
+          <a href="#balance-buddies">sección 5</a>.
+        </p>
+
       </Summary>
+      <p>
+        Los dos juegos son apps independientes con cuentas independientes: borrar una no
+        afecta a la otra. Las secciones 1 a 4 tratan de {game}; la{" "}
+        <a href="#balance-buddies">sección 5</a> trata de {bb}.
+      </p>
 
       <h2 id="in-app">1. Bórrala desde dentro del juego</h2>
       <p>
@@ -135,6 +146,54 @@ const doc: LegalDoc = {
         quieres que los eliminen, tendrás que pedírselo a ellos.
       </p>
 
+      <h2 id="balance-buddies">5. {bb}</h2>
+      <h3>Bórrala desde el juego</h3>
+      <ol>
+        <li>
+          Abre {bb} y toca <strong>Settings</strong> (Ajustes) en el menú principal.
+        </li>
+        <li>
+          Si no has iniciado sesión, inicia sesión primero con Google o Apple. Así tu progreso
+          queda vinculado a ese inicio de sesión y el botón tiene una cuenta que borrar.
+        </li>
+        <li>
+          Toca <strong>Delete account</strong> (borrar cuenta), lee el aviso y confirma.
+        </li>
+      </ol>
+      <p>
+        Puede que te pidamos iniciar sesión otra vez, para saber que eres tú, y necesitas
+        conexión a internet. Si el borrado no se puede completar, el juego te lo dice y no se
+        borra nada.
+      </p>
+      <p>
+        Si ya no puedes abrir el juego, escribe a{" "}
+        <a href={mailto(mail.deleteAccount, bb)}>{site.email}</a> desde el correo de tu inicio
+        de sesión de Google o Apple, con el asunto <strong>{mail.deleteAccount}</strong>, y la
+        borraremos en un plazo de <strong>30 días</strong>. Si nunca iniciaste sesión, tu
+        progreso pertenece a una cuenta anónima que no podemos relacionar contigo solo con un
+        correo. Sigue los pasos de arriba si aún tienes el juego; si no, escríbenos igualmente
+        con el modelo del dispositivo y cuándo jugaste por última vez, más o menos, y haremos
+        lo posible por encontrarla.
+      </p>
+      <h3>Qué se borra</h3>
+      <ul>
+        <li>
+          Tu cuenta y cualquier inicio de sesión de Google o Apple conectado. La autorización de
+          &laquo;Iniciar sesión con Apple&raquo; se revoca ante Apple.
+        </li>
+        <li>
+          Tu progreso guardado en nuestros servidores: puzles resueltos, mejores movimientos y
+          estrellas, tus pistas, los pasos de pista revelados y el tiempo sin anuncios.
+        </li>
+        <li>El progreso guardado en el dispositivo desde el que la borras.</li>
+      </ul>
+      <p>
+        Es irreversible. Como en {game}, los <strong>registros de compra</strong> se conservan
+        el tiempo que exige la normativa fiscal y contable, y Apple y Google guardan los suyos.
+        Borrar tu cuenta <strong>no</strong> cancela una suscripción No Ads: cancélala en los
+        ajustes de suscripciones de App Store o Google Play.
+      </p>
+
       <h2 id="less">Si quieres algo menos que un borrado completo</h2>
       <p>
         Puede que no necesites borrarlo todo. Cada una de estas opciones surte efecto al
@@ -154,6 +213,15 @@ const doc: LegalDoc = {
         <li>
           <strong>Cambiar tu nombre de guardián</strong>: la pestaña <strong>Perfil</strong> y
           después toca tu nombre. El nombre anterior queda libre y la clasificación muestra el
+          nuevo.
+        </li>
+        <li>
+          <strong>Retirar el consentimiento publicitario en {bb}</strong>:{" "}
+          <strong>Settings</strong> › <strong>Ad privacy choices</strong>.
+        </li>
+        <li>
+          <strong>Dejar de guardar {bb} en la nube</strong>: <strong>Settings</strong> ›{" "}
+          <strong>Sign out</strong> (cerrar sesión). El dispositivo sigue como un invitado
           nuevo.
         </li>
       </ul>

@@ -3,16 +3,17 @@ import { Summary } from "@/components/SiteChrome";
 import { dictionaries } from "@/i18n/dictionaries";
 import { localePath } from "@/i18n/locales";
 import type { LegalDoc } from "@/i18n/legal/types";
-import { gemfire, mailto, site } from "@/lib/site";
+import { balanceBuddies, gemfire, mailto, site } from "@/lib/site";
 
 const mail = dictionaries.it.mail;
 const game = gemfire.name;
+const bb = balanceBuddies.name;
 
 /** Translation of terms/en.tsx. Where the two differ, the English text applies. */
 const doc: LegalDoc = {
   title: "Termini di servizio",
-  description: `Le regole per giocare a ${game}.`,
-  intro: `Questi sono i termini che accetti giocando a ${game}.`,
+  description: `Le regole per giocare a ${game} e a ${bb}.`,
+  intro: `Questi sono i termini che accetti giocando ai nostri giochi, ${game} e ${bb}.`,
   Body: () => (
     <>
       <Summary>
@@ -40,6 +41,11 @@ const doc: LegalDoc = {
       <p>
         Questi termini sono pubblicati anche in altre lingue. Sono traduzioni di questo testo
         inglese, e se una differisce da esso, vale il testo inglese.
+      </p>
+
+      <p>
+        Questi termini valgono per ciascuno dei nostri giochi, {game} e {bb}. Quando parlano
+        del &laquo;gioco&raquo;, si intende quello a cui stai giocando.
       </p>
 
       <h2 id="licence">2. La tua licenza</h2>
@@ -85,6 +91,12 @@ const doc: LegalDoc = {
         sostituire qualsiasi cosa.
       </p>
 
+      <p>
+        In {bb}, accedere con un account che ha già dei progressi passa a quell&rsquo;account;
+        i progressi sul tuo dispositivo vengono sostituiti solo dopo la tua conferma. Gli
+        acquisti fatti sul dispositivo restano in ogni caso.
+      </p>
+
       <h2 id="virtual-items">4. Monete, gemme, cuori e oggetti</h2>
       <p>
         Tutto ciò che raccogli o compri nel gioco, comprese monete, gemme, cuori, indizi,
@@ -111,6 +123,12 @@ const doc: LegalDoc = {
         salvataggio è stato modificato, può essere rifiutata o annullata.
       </p>
 
+      <p>
+        Lo stesso vale per i suggerimenti e il tempo senza pubblicità di {bb}: sono una licenza
+        limitata d&rsquo;uso dentro {bb}, non hanno valore fuori dal gioco e non si trasferiscono
+        da un nostro gioco all&rsquo;altro.
+      </p>
+
       <h2 id="purchases">5. Acquisti e rimborsi</h2>
       <p>
         Gli acquisti si fanno tramite l&rsquo;App Store di Apple o Google Play, e sono quegli
@@ -135,7 +153,24 @@ const doc: LegalDoc = {
         rimborsata riporta la tua capacità di cuori a quella di prima.
       </p>
 
+      <h3>Abbonamenti</h3>
+      <p>
+        L&rsquo;abbonamento <strong>No Ads</strong> di {bb} disattiva la pubblicità tra i
+        puzzle finché è attivo. I video che scegli di guardare per i suggerimenti restano
+        disponibili. Si rinnova automaticamente ogni mese al prezzo indicato nello store, e lo
+        store ti addebita ogni rinnovo finché non annulli. Puoi annullare in qualsiasi momento
+        dalle impostazioni degli abbonamenti dell&rsquo;App Store o di Google Play; resta
+        attivo fino alla fine del periodo già pagato. Eliminare l&rsquo;app non lo annulla.
+      </p>
+      <p>
+        I giorni senza pubblicità dello Starter Bundle di {bb} sono un acquisto singolo, non un
+        abbonamento: partono dal momento dell&rsquo;acquisto e non si rinnovano mai.
+      </p>
+
       <h2 id="boards">6. Nomi, classifica e visite</h2>
+      <p>
+        Questa sezione riguarda {game}. {bb} non ha nomi dei giocatori, classifiche né visite.
+      </p>
       <p>
         Se scegli un nome da custode e lasci attiva la classifica, quel nome, il tuo avatar, il
         tuo livello, il punteggio del tuo regno e la tua lega sono visibili agli altri

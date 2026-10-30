@@ -1,18 +1,18 @@
 import Image from "next/image";
 import Link from "next/link";
 import cover from "../../../public/gemfire/cover.webp";
-import turrets from "../../../public/gemfire/turrets.webp";
+import banner from "../../../public/balance-buddies/banner.webp";
 import { Tilt } from "@/components/ui/Tilt";
 import { Arrow } from "@/components/home/Hero";
 import { localePath } from "@/i18n/locales";
 import { Rich } from "@/i18n/rich";
 import { getText } from "@/i18n/server";
-import { gemfire } from "@/lib/site";
+import { balanceBuddies, gemfire } from "@/lib/site";
 
 /**
- * The catalogue. One title today, so it gets the whole stage: a large key-art
- * card that leans toward the pointer, and beside it a sealed slot for the next
- * project - honest about being empty, and a promise that the list grows.
+ * The catalogue: one key-art card per game, side by side and leaning toward the pointer,
+ * and under them a sealed slot for the next project - honest about being empty, and a
+ * promise that the list grows.
  */
 export async function Games() {
   const { locale, t } = await getText();
@@ -37,43 +37,31 @@ export async function Games() {
           <p className="max-w-md text-ink-2">{g.body}</p>
         </div>
 
-        <div className="mt-12 grid gap-6 lg:grid-cols-[1.6fr_1fr]">
+        <div className="mt-12 grid gap-6 lg:grid-cols-2">
           {/* Gemfire */}
-          <Tilt
-            className="reveal"
-            style={{ "--delay": "80ms" } as React.CSSProperties}
-          >
+          <Tilt className="reveal" style={{ "--delay": "80ms" } as React.CSSProperties}>
             <Link
               href={localePath(locale, gemfire.path)}
-              className="panel panel-glow card group block overflow-hidden"
+              className="panel panel-glow card group flex h-full flex-col overflow-hidden"
               style={{ "--glow": "var(--ember)" } as React.CSSProperties}
             >
               <span className="tilt-light" />
-              <div className="relative aspect-[16/9] w-full overflow-hidden sm:aspect-[2/1]">
+              <div className="relative aspect-[16/9] w-full overflow-hidden">
                 <Image
                   src={cover}
-                  alt={g.coverAlt}
+                  alt={g.gemfire.alt}
                   fill
-                  sizes="(min-width: 1024px) 60vw, 100vw"
+                  sizes="(min-width: 1024px) 45vw, 100vw"
                   className="object-cover transition-transform duration-700 group-hover:scale-[1.04]"
                 />
                 <div
                   className="absolute inset-0"
-                  style={{
-                    background:
-                      "linear-gradient(180deg, transparent 40%, rgba(6,7,13,0.9) 100%)",
-                  }}
+                  style={{ background: "linear-gradient(180deg, transparent 40%, rgba(6,7,13,0.9) 100%)" }}
                 />
-                <div className="absolute left-5 top-5 flex flex-wrap gap-2">
-                  <span className="chip bg-bg/60">
-                    <span className="chip-dot" />
-                    {g.status}
-                  </span>
-                  <span className="chip bg-bg/60">{t.gemfire.genre}</span>
-                </div>
+                <Chips status={g.gemfire.status} genre={t.gemfire.genre} />
               </div>
 
-              <div className="relative flex flex-col gap-5 p-6 sm:flex-row sm:items-end sm:justify-between sm:p-8">
+              <div className="relative flex flex-1 flex-col gap-5 p-6 sm:flex-row sm:items-end sm:justify-between sm:p-8">
                 <div>
                   <h3 className="font-display text-3xl font-bold uppercase tracking-[0.06em] sm:text-4xl">
                     <span className="text-gem">Gem</span>
@@ -89,39 +77,74 @@ export async function Games() {
             </Link>
           </Tilt>
 
-          {/* Next slot */}
-          <div
-            className="reveal panel card flex flex-col justify-between p-6 sm:p-8"
-            style={{ "--delay": "160ms", "--glow": "var(--violet)" } as React.CSSProperties}
-          >
-            <div>
-              <p className="kicker" style={{ color: "var(--violet)" }}>
-                {g.nextKicker}
-              </p>
-              <h3 className="mt-4 text-2xl">{g.nextTitle}</h3>
-              <p className="mt-3 text-ink-2">{g.nextBody}</p>
-            </div>
+          {/* Balance Buddies */}
+          <Tilt className="reveal" style={{ "--delay": "160ms" } as React.CSSProperties}>
+            <Link
+              href={localePath(locale, balanceBuddies.path)}
+              className="panel panel-glow card group flex h-full flex-col overflow-hidden"
+              style={{ "--glow": "var(--bb-sky)" } as React.CSSProperties}
+            >
+              <span className="tilt-light" />
+              <div className="relative aspect-[16/9] w-full overflow-hidden bg-[#4fb4ff]">
+                <Image
+                  src={banner}
+                  alt={g.balanceBuddies.alt}
+                  fill
+                  sizes="(min-width: 1024px) 45vw, 100vw"
+                  className="object-cover transition-transform duration-700 group-hover:scale-[1.04]"
+                />
+                <div
+                  className="absolute inset-0"
+                  style={{ background: "linear-gradient(180deg, transparent 55%, rgba(6,7,13,0.85) 100%)" }}
+                />
+                <Chips status={g.balanceBuddies.status} genre={t.balanceBuddies.genre} />
+              </div>
 
-            <div className="relative mt-10 aspect-square w-full overflow-hidden opacity-80">
-              <Image
-                src={turrets}
-                alt=""
-                aria-hidden
-                fill
-                sizes="(min-width: 1024px) 30vw, 90vw"
-                className="anim-float-slow object-contain saturate-0 contrast-125 [mask-image:radial-gradient(60%_60%_at_50%_50%,#000_30%,transparent_75%)]"
-              />
-              <div className="absolute inset-0 grid place-items-center">
-                <span className="chip bg-bg/70 text-ink">
-                  <Lock />
-                  {g.sealed}
+              <div className="relative flex flex-1 flex-col gap-5 p-6 sm:flex-row sm:items-end sm:justify-between sm:p-8">
+                <div>
+                  <h3 className="font-buddies text-buddies text-3xl sm:text-4xl">{balanceBuddies.name}</h3>
+                  <p className="mt-2 max-w-md text-ink-2">{t.balanceBuddies.pitch}</p>
+                </div>
+                <span className="btn btn-gem shrink-0">
+                  {g.view}
+                  <Arrow />
                 </span>
               </div>
-            </div>
+            </Link>
+          </Tilt>
+        </div>
+
+        {/* Next slot */}
+        <div
+          className="reveal panel card mt-6 flex flex-col gap-6 p-6 sm:flex-row sm:items-center sm:justify-between sm:p-8"
+          style={{ "--delay": "240ms", "--glow": "var(--violet)" } as React.CSSProperties}
+        >
+          <div className="max-w-2xl">
+            <p className="kicker" style={{ color: "var(--violet)" }}>
+              {g.nextKicker}
+            </p>
+            <h3 className="mt-3 text-2xl">{g.nextTitle}</h3>
+            <p className="mt-2 text-ink-2">{g.nextBody}</p>
           </div>
+          <span className="chip w-fit shrink-0 bg-bg/70 text-ink">
+            <Lock />
+            {g.sealed}
+          </span>
         </div>
       </div>
     </section>
+  );
+}
+
+function Chips({ status, genre }: { status: string; genre: string }) {
+  return (
+    <div className="absolute left-5 top-5 flex flex-wrap gap-2">
+      <span className="chip bg-bg/60">
+        <span className="chip-dot" />
+        {status}
+      </span>
+      <span className="chip bg-bg/60">{genre}</span>
+    </div>
   );
 }
 

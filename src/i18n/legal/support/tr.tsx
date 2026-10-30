@@ -4,17 +4,18 @@ import { dictionaries } from "@/i18n/dictionaries";
 import { gameTextFor } from "@/i18n/game-text";
 import { localePath } from "@/i18n/locales";
 import type { LegalDoc } from "@/i18n/legal/types";
-import { gemfire, mailto, site } from "@/lib/site";
+import { balanceBuddies, gemfire, mailto, site } from "@/lib/site";
 
 const mail = dictionaries.tr.mail;
 const label = gameTextFor("tr").labels;
 const game = gemfire.name;
+const bb = balanceBuddies.name;
 
 /** Translation of support/en.tsx. Button names are the game's own Turkish labels. */
 const doc: LegalDoc = {
   title: "Destek",
-  description: `${game} için yardım: kaybolan ilerleme, satın almalar, kalpler, reklamlar ve hesaplar.`,
-  intro: `${game}'da bir şey çalışmıyor mu? Bize yaz. Yazdığını gerçek bir insan okur.`,
+  description: `${game} ve ${bb} için yardım: kaybolan ilerleme, satın almalar, ipuçları, reklamlar ve hesaplar.`,
+  intro: `${game}'da ya da ${bb}'de bir şey çalışmıyor mu? Bize yaz. Yazdığını gerçek bir insan okur.`,
   Body: () => (
     <>
       <p className="not-prose mb-10">
@@ -150,6 +151,96 @@ const doc: LegalDoc = {
           </p>
         </Question>
       </div>
+
+      <h2 id="balance-buddies">{bb}: sık sorulan sorular</h2>
+
+      <div className="not-prose">
+        <Question q="Yeniden yükledikten sonra ilerlemem kayboldu.">
+          <p>
+            İlerlemen ilk bulmacadan itibaren o cihazdaki anonim bir hesapla buluta yedeklenir.
+            Yeniden yükleme yeni bir hesap başlatır. İlerlemeni kurulumlar ya da telefonlar
+            arasında taşımak için <strong>Settings</strong>&rsquo;i aç ve Google ya da Apple ile giriş
+            yap. Yeni kurulumda aynı sağlayıcıyla giriş yaptığında ilerlemen geri gelir.
+          </p>
+          <p>Gelmezse, o girişin e-posta adresinden bize yaz.</p>
+        </Question>
+
+        <Question q="Giriş yaptım ve ilerlemem değişti.">
+          <p>
+            O girişin zaten kendi ilerlemesi vardı. Oyun, cihazındaki ilerlemeyi değiştirmeden
+            önce sorar ve yalnızca onaylarsan geçer. Cihazda yapılan satın almalar her durumda
+            korunur. Geri dönmek için çıkış yap ve diğer hesapla giriş yap.
+          </p>
+        </Question>
+
+        <Question q="İpuçları nasıl çalışır?">
+          <p>
+            Onla başlarsın. Ondan azken her dört saatte bir tanesi kendiliğinden geri gelir.
+            İpucu, sıradaki dostun gideceği yerde parlayan bir hayalet gösterir; parasını
+            ödediğin bir adım, yeniden denediğinde ve diğer cihazlarında ücretsiz olarak açık
+            kalır.
+          </p>
+          <p>
+            İki tane daha için kısa bir video izleyebilir ya da mağazadan paket alabilirsin. Her
+            bulmaca ipucusuz da çözülebilir.
+          </p>
+        </Question>
+
+        <Question q="Neden bulmacalar arasında reklam görüyorum?">
+          <p>
+            İlk sekiz bulmacanda hiç yok ve hiçbir bulmacanın ortasında yok. Sonrasında çözdüğün
+            her iki bulmacadan sonra kısa bir reklam çıkabilir; oyunun ücretsiz kalmasını
+            sağlayan bu. Mağazadaki <strong>No Ads</strong> aboneliği ya da Starter Bundle&rsquo;ın 30
+            reklamsız günü bunları kapatır.
+          </p>
+        </Question>
+
+        <Question q="No Ads aboneliğini nasıl iptal ederim?">
+          <p>
+            Oyundan değil, mağazandan: Android&rsquo;de Google Play › Ödemeler ve abonelikler ›
+            Abonelikler; iOS&rsquo;ta Ayarlar › adın › Abonelikler. Ödemesi yapılmış ayın sonuna kadar
+            etkin kalır. Uygulamayı ya da hesabını silmek aboneliği iptal etmez.
+          </p>
+        </Question>
+
+        <Question q="Bir şey için ödeme yaptım ama gelmedi.">
+          <p>
+            Oyunu internete bağlıyken yeniden aç: tamamlanmamış satın almalar ve etkin bir
+            abonelik açılışta yeniden alınır. Hâlâ gelmediyse mağaza makbuzu ya da sipariş
+            numarasıyla bize yaz, hallederiz. İadeler Apple ve Google tarafından kendi
+            kurallarına göre yapılır.
+          </p>
+        </Question>
+
+        <Question q="Reklam tercihimi nasıl değiştiririm?">
+          <p>
+            <strong>Settings</strong> › <strong>Ad privacy choices</strong>. Bu düğme AB ve
+            Birleşik Krallık gibi yasanın gerektirdiği her yerde görünür.
+          </p>
+        </Question>
+
+        <Question q="Hesabımı nasıl silerim?">
+          <p>
+            <strong>Settings</strong> › <strong>Delete account</strong> (giriş yaptıktan sonra
+            görünür). Ayrıntılar için{" "}
+            <Link href={localePath("tr", "/delete-account#balance-buddies")}>
+              hesabını ve verilerini silme
+            </Link>{" "}
+            sayfasına bak.
+          </p>
+        </Question>
+
+        <Question q="Oyun çevrimdışı çalışıyor mu?">
+          <p>
+            Evet. Her bulmaca bağlantı olmadan telefonunda çalışır ve ilerlemen yeniden
+            çevrimiçi olduğunda yüklenir. Reklamlar, mağaza ve giriş yapmak bağlantı ister.
+          </p>
+        </Question>
+      </div>
+
+      <p className="mt-8">
+        <a href={mailto(mail.support, bb)}>{bb} hakkında bize yaz</a>
+      </p>
 
       <h2>Bir güvenlik sorununu bildirmek</h2>
       <p>

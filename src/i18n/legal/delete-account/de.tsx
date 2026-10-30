@@ -4,11 +4,12 @@ import { dictionaries } from "@/i18n/dictionaries";
 import { gameTextFor } from "@/i18n/game-text";
 import { localePath } from "@/i18n/locales";
 import type { LegalDoc } from "@/i18n/legal/types";
-import { gemfire, mailto, site } from "@/lib/site";
+import { balanceBuddies, gemfire, mailto, site } from "@/lib/site";
 
 const mail = dictionaries.de.mail;
 const label = gameTextFor("de").labels;
 const game = gemfire.name;
+const bb = balanceBuddies.name;
 
 /**
  * Translation of delete-account/en.tsx. Button names are the game's own German labels, so
@@ -16,9 +17,9 @@ const game = gemfire.name;
  */
 const doc: LegalDoc = {
   title: "Dein Konto und deine Daten löschen",
-  description: `So löschst du dein ${game}-Konto und die damit gespeicherten Daten.`,
+  description: `So löschst du dein ${game}- oder ${bb}-Konto und die damit gespeicherten Daten.`,
   intro:
-    "Du kannst alles löschen lassen, was wir über dein Königreich gespeichert haben. Hier steht genau, was dabei passiert.",
+    "Du kannst alles löschen lassen, was wir in einem unserer Spiele über dich gespeichert haben. Hier steht genau, was dabei passiert.",
   Body: () => (
     <>
       <Summary>
@@ -35,7 +36,17 @@ const doc: LegalDoc = {
           Die App allein zu löschen, löscht die Daten auf unseren Servern <strong>nicht</strong>.
           Es entfernt nur die Kopie auf diesem Gerät.
         </p>
+        <p className="mt-2">
+          In {bb}: <strong>Settings</strong> › <strong>Delete account</strong>. Siehe{" "}
+          <a href="#balance-buddies">Abschnitt 5</a>.
+        </p>
+
       </Summary>
+      <p>
+        Die beiden Spiele sind getrennte Apps mit getrennten Konten: Löschst du eines, bleibt
+        das andere unberührt. Die Abschnitte 1 bis 4 betreffen {game},{" "}
+        <a href="#balance-buddies">Abschnitt 5</a> betrifft {bb}.
+      </p>
 
       <h2 id="in-app">1. Im Spiel löschen</h2>
       <p>
@@ -138,6 +149,57 @@ const doc: LegalDoc = {
         du sie entfernen lassen möchtest, musst du dich an sie wenden.
       </p>
 
+      <h2 id="balance-buddies">5. {bb}</h2>
+      <h3>Im Spiel löschen</h3>
+      <ol>
+        <li>
+          Öffne {bb} und tippe im Hauptmenü auf <strong>Settings</strong> (Einstellungen).
+        </li>
+        <li>
+          Wenn du nicht angemeldet bist, melde dich zuerst mit Google oder Apple an. Dadurch
+          wird dein Fortschritt mit dieser Anmeldung verbunden, sodass es ein Konto gibt, das
+          der Knopf löschen kann.
+        </li>
+        <li>
+          Tippe auf <strong>Delete account</strong> (Konto löschen), lies die Warnung und
+          bestätige.
+        </li>
+      </ol>
+      <p>
+        Eventuell musst du dich noch einmal anmelden, damit wir wissen, dass du es wirklich
+        bist, und du brauchst eine Internetverbindung. Kann die Löschung nicht abgeschlossen
+        werden, sagt das Spiel es dir, und es wird nichts gelöscht.
+      </p>
+      <p>
+        Kannst du das Spiel nicht mehr öffnen, schreib an{" "}
+        <a href={mailto(mail.deleteAccount, bb)}>{site.email}</a> von der E-Mail-Adresse deiner
+        Google- oder Apple-Anmeldung, mit dem Betreff <strong>{mail.deleteAccount}</strong>, und
+        wir löschen es innerhalb von <strong>30 Tagen</strong>. Hast du dich nie angemeldet,
+        gehört dein Fortschritt zu einem anonymen Konto, das wir nicht allein anhand einer
+        E-Mail zuordnen können. Nutze die Schritte oben, wenn du das Spiel noch hast; wenn
+        nicht, schreib uns trotzdem mit Gerätemodell und ungefährem Datum deines letzten
+        Spiels, und wir tun, was wir können, um es zu finden.
+      </p>
+      <h3>Was gelöscht wird</h3>
+      <ul>
+        <li>
+          Dein Konto und jede verbundene Google- oder Apple-Anmeldung. Eine Freigabe für
+          &bdquo;Mit Apple anmelden&ldquo; wird bei Apple widerrufen.
+        </li>
+        <li>
+          Dein gespeicherter Fortschritt auf unseren Servern: gelöste Rätsel, beste Züge und
+          Sterne, deine Tipps, aufgedeckte Tipp-Schritte und werbefreie Zeit.
+        </li>
+        <li>Der auf dem Gerät gespeicherte Fortschritt, von dem aus du löschst.</li>
+      </ul>
+      <p>
+        Das ist unwiderruflich. Wie bei {game} werden <strong>Kaufbelege</strong> so lange
+        aufbewahrt, wie es Steuer- und Buchhaltungsrecht verlangt, und Apple und Google führen
+        ihre eigenen. Das Löschen deines Kontos kündigt ein No Ads-Abo{" "}
+        <strong>nicht</strong>: Kündige es in den Abo-Einstellungen von App Store oder Google
+        Play.
+      </p>
+
       <h2 id="less">Wenn du weniger als eine vollständige Löschung willst</h2>
       <p>
         Vielleicht musst du gar nicht alles löschen. Jede dieser Möglichkeiten wirkt sofort, und
@@ -157,6 +219,14 @@ const doc: LegalDoc = {
         <li>
           <strong>Deinen Hüternamen ändern</strong>: Tab <strong>Profil</strong>, dann auf
           deinen Namen tippen. Der alte Name wird frei, und die Rangliste zeigt den neuen.
+        </li>
+        <li>
+          <strong>Werbeeinwilligung in {bb} widerrufen</strong>: <strong>Settings</strong> ›{" "}
+          <strong>Ad privacy choices</strong>.
+        </li>
+        <li>
+          <strong>{bb} nicht mehr in der Cloud sichern</strong>: <strong>Settings</strong> ›{" "}
+          <strong>Sign out</strong> (Abmelden). Das Gerät spielt als neuer Gast weiter.
         </li>
       </ul>
       <p>

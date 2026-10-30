@@ -4,11 +4,12 @@ import { dictionaries } from "@/i18n/dictionaries";
 import { gameTextFor } from "@/i18n/game-text";
 import { localePath } from "@/i18n/locales";
 import type { LegalDoc } from "@/i18n/legal/types";
-import { gemfire, mailto, site } from "@/lib/site";
+import { balanceBuddies, gemfire, mailto, site } from "@/lib/site";
 
 const mail = dictionaries.pt.mail;
 const label = gameTextFor("pt").labels;
 const game = gemfire.name;
+const bb = balanceBuddies.name;
 
 /**
  * Translation of delete-account/en.tsx. Button names are the game's own Portuguese labels,
@@ -16,9 +17,9 @@ const game = gemfire.name;
  */
 const doc: LegalDoc = {
   title: "Excluir sua conta e seus dados",
-  description: `Como excluir sua conta do ${game} e os dados guardados com ela.`,
+  description: `Como excluir sua conta do ${game} ou do ${bb} e os dados guardados com ela.`,
   intro:
-    "Você pode pedir que tudo o que temos sobre o seu reino seja apagado. Veja exatamente o que acontece.",
+    "Você pode pedir que tudo o que temos sobre você em qualquer um dos nossos jogos seja apagado. Veja exatamente o que acontece.",
   Body: () => (
     <>
       <Summary>
@@ -35,7 +36,17 @@ const doc: LegalDoc = {
           Apagar só o app <strong>não</strong> apaga os dados nos nossos servidores. Só remove
           a cópia daquele aparelho.
         </p>
+        <p className="mt-2">
+          No {bb}: <strong>Settings</strong> › <strong>Delete account</strong>. Veja a{" "}
+          <a href="#balance-buddies">seção 5</a>.
+        </p>
+
       </Summary>
+      <p>
+        Os dois jogos são apps separados com contas separadas: excluir um não afeta o outro.
+        As seções 1 a 4 tratam do {game}; a <a href="#balance-buddies">seção 5</a> trata do{" "}
+        {bb}.
+      </p>
 
       <h2 id="in-app">1. Exclua de dentro do jogo</h2>
       <p>
@@ -133,6 +144,54 @@ const doc: LegalDoc = {
         de nós. Se você quiser que sejam removidos, terá de pedir a eles.
       </p>
 
+      <h2 id="balance-buddies">5. {bb}</h2>
+      <h3>Excluir pelo jogo</h3>
+      <ol>
+        <li>
+          Abra o {bb} e toque em <strong>Settings</strong> (Configurações) no menu principal.
+        </li>
+        <li>
+          Se você não entrou em uma conta, entre primeiro com o Google ou a Apple. Assim seu
+          progresso fica ligado a esse login e o botão tem uma conta para excluir.
+        </li>
+        <li>
+          Toque em <strong>Delete account</strong> (excluir conta), leia o aviso e confirme.
+        </li>
+      </ol>
+      <p>
+        Pode ser que peçam para você entrar mais uma vez, para termos certeza de que é você, e
+        é preciso estar conectado à internet. Se a exclusão não puder ser concluída, o jogo
+        avisa e nada é excluído.
+      </p>
+      <p>
+        Se você não consegue mais abrir o jogo, escreva para{" "}
+        <a href={mailto(mail.deleteAccount, bb)}>{site.email}</a> a partir do e-mail do seu
+        login do Google ou da Apple, com o assunto <strong>{mail.deleteAccount}</strong>, e
+        excluiremos em até <strong>30 dias</strong>. Se você nunca entrou em uma conta, seu
+        progresso pertence a uma conta anônima que não conseguimos encontrar só por um e-mail.
+        Siga os passos acima se ainda tiver o jogo; se não tiver, escreva mesmo assim com o
+        modelo do aparelho e mais ou menos quando jogou pela última vez, e faremos o possível
+        para encontrá-la.
+      </p>
+      <h3>O que é excluído</h3>
+      <ul>
+        <li>
+          Sua conta e qualquer login do Google ou da Apple conectado. A autorização de
+          &ldquo;Iniciar sessão com a Apple&rdquo; é revogada junto à Apple.
+        </li>
+        <li>
+          Seu progresso salvo em nossos servidores: quebra-cabeças resolvidos, melhores jogadas
+          e estrelas, suas dicas, etapas de dica reveladas e o tempo sem anúncios.
+        </li>
+        <li>O progresso salvo no aparelho de onde você exclui.</li>
+      </ul>
+      <p>
+        Isso é irreversível. Como no {game}, os <strong>registros de compra</strong> são
+        guardados pelo tempo exigido pela legislação fiscal e contábil, e a Apple e o Google
+        mantêm os seus. Excluir sua conta <strong>não</strong> cancela uma assinatura No Ads:
+        cancele nas configurações de assinatura da App Store ou do Google Play.
+      </p>
+
       <h2 id="less">Se você quer menos que a exclusão completa</h2>
       <p>
         Talvez você não precise apagar tudo. Cada uma destas opções vale na hora, e nenhuma
@@ -153,6 +212,14 @@ const doc: LegalDoc = {
         <li>
           <strong>Mudar seu nome de guardião</strong>: a aba <strong>Perfil</strong>, depois
           toque no seu nome. O nome antigo fica livre e o ranking mostra o novo.
+        </li>
+        <li>
+          <strong>Retirar o consentimento de publicidade no {bb}</strong>:{" "}
+          <strong>Settings</strong> › <strong>Ad privacy choices</strong>.
+        </li>
+        <li>
+          <strong>Parar de salvar o {bb} na nuvem</strong>: <strong>Settings</strong> ›{" "}
+          <strong>Sign out</strong> (sair). O aparelho continua como um novo convidado.
         </li>
       </ul>
       <p>

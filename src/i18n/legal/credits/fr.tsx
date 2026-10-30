@@ -1,9 +1,10 @@
 import { localePath } from "@/i18n/locales";
-import { Sources, sections, type Used } from "@/i18n/legal/credits/sources";
+import { Sources, buddiesSections, sections, type BuddiesUsed, type Used } from "@/i18n/legal/credits/sources";
 import type { LegalDoc } from "@/i18n/legal/types";
-import { gemfire, site } from "@/lib/site";
+import { balanceBuddies, gemfire, site } from "@/lib/site";
 
 const game = gemfire.name;
+const bb = balanceBuddies.name;
 
 const used: Used = {
   craftpix:
@@ -20,11 +21,19 @@ const used: Used = {
     "Tous les mots du jeu sont écrits dans cette police. Publiée sous la SIL Open Font License ; la copie que nous livrons ajoute des lettres accentuées pour les noms turcs, polonais, tchèques et hongrois, et porte donc un autre nom.",
 };
 
+const buddiesUsed: BuddiesUsed = {
+  craftpix: "Les buddies eux-mêmes, tirés du kit de jeu Onet, et les boutons, panneaux et icônes autour d'eux.",
+  envato:
+    "Les pierres, planches, blocs de métal, balles et glaçons d'un kit de blocs pour jeux physiques : tout ce qui n'est pas un buddy et doit quand même tenir en équilibre.",
+  gameburp: "Le clic des boutons, l'éclatement des ballons et le rebond du ressort.",
+  lilita: "Chaque mot du jeu. Publiée sous la SIL Open Font License.",
+};
+
 /** Translation of credits/en.tsx. */
 const doc: LegalDoc = {
   title: "Crédits",
-  description: `L'art, le son et les logiciels dont ${game} est fait, et qui les a créés.`,
-  intro: `${game} est fait par ${site.company}. Les illustrations et les sons sont sous licence des studios ci-dessous, à qui l'on doit des remerciements plus que des petites lignes.`,
+  description: `Les graphismes, les sons et les logiciels dont sont faits ${game} et ${bb}, et qui les a créés.`,
+  intro: `${game} et ${bb} sont faits par ${site.company}. Leurs graphismes et leurs sons sont sous licence des studios ci-dessous, à qui l'on doit des remerciements plutôt que des petits caractères.`,
   Body: () => (
     <>
       <p>
@@ -33,22 +42,48 @@ const doc: LegalDoc = {
         dessiné tout ça.
       </p>
 
-      <h2>Art</h2>
+      <h2 id="gemfire">{game}</h2>
+
+      <h3>Art</h3>
       <Sources ids={sections.art} used={used} />
 
-      <h2>Son et musique</h2>
+      <h3>Son et musique</h3>
       <Sources ids={sections.sound} used={used} />
 
-      <h2>Typographie</h2>
+      <h3>Typographie</h3>
       <Sources ids={sections.type} used={used} />
 
-      <h2>Logiciels</h2>
+      <h3>Logiciels</h3>
       <p>
         Conçu avec <strong>Unity</strong>, sur <strong>Google Firebase</strong>. Les publicités
         sont diffusées via <strong>Unity LevelPlay</strong> et <strong>Google AdMob</strong>, et
         le consentement est recueilli avec la plateforme de messages aux utilisateurs de Google.
         Ce que chacun reçoit, et à quoi cela sert, est expliqué dans la{" "}
         <a href={localePath("fr", "/privacy")}>politique de confidentialité</a>.
+      </p>
+
+      <h2 id="balance-buddies">{bb}</h2>
+
+      <h3>Art</h3>
+      <Sources ids={buddiesSections.art} used={buddiesUsed} />
+      <p>Le ciel, les collines, l&rsquo;eau, les mécanismes et l&rsquo;illustration principale ont été créés pour le jeu.</p>
+
+      <h3>Son et musique</h3>
+      <Sources ids={buddiesSections.sound} used={buddiesUsed} />
+      <p>
+        Les autres sons, les doux carillons accordés sur une seule tonalité et la musique ont
+        été créés ou enregistrés pour le jeu.
+      </p>
+
+      <h3>Typographie</h3>
+      <Sources ids={buddiesSections.type} used={buddiesUsed} />
+
+      <h3>Logiciels</h3>
+      <p>
+        Fait avec <strong>Unity</strong>, sur <strong>Google Firebase</strong>. Les publicités
+        sont fournies par <strong>Google AdMob</strong>, et le consentement est recueilli via la
+        User Messaging Platform de Google. Voir la{" "}
+        <a href={localePath("fr", "/privacy#balance-buddies")}>politique de confidentialité</a>.
       </p>
 
       <h2>Il manque quelqu&rsquo;un ?</h2>

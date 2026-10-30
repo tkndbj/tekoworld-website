@@ -1,5 +1,5 @@
 import Link from "next/link";
-import { formatDate, gemfire, site } from "@/lib/site";
+import { balanceBuddies, formatDate, gemfire, site } from "@/lib/site";
 import { Mark, Wordmark } from "@/components/ui/Wordmark";
 import { MobileNav } from "@/components/ui/MobileNav";
 import { LanguageMenu } from "@/components/ui/LanguageMenu";
@@ -11,6 +11,7 @@ function nav(t: Dictionary, locale: Locale) {
   return [
     { href: localePath(locale, "/#games"), label: t.nav.games },
     { href: localePath(locale, gemfire.path), label: gemfire.name },
+    { href: localePath(locale, balanceBuddies.path), label: balanceBuddies.name },
     { href: localePath(locale, "/#studio"), label: t.nav.studio },
     { href: localePath(locale, "/support"), label: t.nav.support },
   ];
@@ -66,7 +67,7 @@ export function SiteHeader({ locale }: { locale: Locale }) {
         </div>
 
         <Link
-          href={localePath(locale, `${gemfire.path}#get`)}
+          href={localePath(locale, "/#games")}
           className="btn btn-fire btn-sm ml-auto hidden xs:inline-flex lg:ml-0"
         >
           {t.nav.play}

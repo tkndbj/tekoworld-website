@@ -1,4 +1,4 @@
-import { Chakra_Petch, Space_Grotesk } from "next/font/google";
+import { Chakra_Petch, Lilita_One, Space_Grotesk } from "next/font/google";
 
 /*
  * Chakra Petch is the squared-off, slightly technical display face the headings
@@ -24,8 +24,19 @@ const grotesk = Space_Grotesk({
   display: "swap",
 });
 
+/*
+ * Lilita One is Balance Buddies' own face (the game's UI is set in it), used only for that
+ * game's name and headings so its page reads as the game rather than as the studio.
+ */
+const lilita = Lilita_One({
+  variable: "--font-lilita",
+  subsets: ["latin", "latin-ext"],
+  weight: "400",
+  display: "swap",
+});
+
 /** The class list `<html>` carries on every page. */
-export const fontClasses = `${chakra.variable} ${grotesk.variable} h-full antialiased`;
+export const fontClasses = `${chakra.variable} ${grotesk.variable} ${lilita.variable} h-full antialiased`;
 
 /**
  * Marks the document as scripted before first paint, which is what the

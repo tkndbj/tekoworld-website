@@ -4,17 +4,18 @@ import { dictionaries } from "@/i18n/dictionaries";
 import { gameTextFor } from "@/i18n/game-text";
 import { localePath } from "@/i18n/locales";
 import type { LegalDoc } from "@/i18n/legal/types";
-import { gemfire, mailto, site } from "@/lib/site";
+import { balanceBuddies, gemfire, mailto, site } from "@/lib/site";
 
 const mail = dictionaries.tr.mail;
 const label = gameTextFor("tr").labels;
 const game = gemfire.name;
+const bb = balanceBuddies.name;
 
 /** Translation of privacy/en.tsx. Where the two differ, the English text applies. */
 const doc: LegalDoc = {
   title: "Gizlilik Politikası",
-  description: `${site.company} ve ${game} verilerini nasıl işliyor, sade bir dille.`,
-  intro: `${game}'ın ve bu web sitesinin senin hakkında neler topladığını, neden topladığını ve bu konuda neler yapabileceğini burada anlatıyoruz.`,
+  description: `${site.company}, ${game} ve ${bb} verilerini nasıl işliyor, sade bir dille.`,
+  intro: `Oyunlarımızın, ${game} ve ${bb}'in, ve bu web sitesinin senin hakkında neler topladığını, neden topladığını ve bu konuda neler yapabileceğini burada anlatıyoruz.`,
   Body: () => (
     <>
       <Summary>
@@ -31,6 +32,11 @@ const doc: LegalDoc = {
         <p>
           Verilerini satmayız. Kim olduğunla ilgilenmiyoruz; tek derdimiz oyunun çalışması.
         </p>
+        <p className="mt-2">
+          {bb} için de aynısı geçerli: ad yok, e-posta adresi yok, sadece ilerlemen için anonim
+          bir hesap. {bb} ayrıca bulmacalar arasında reklam gösterir.
+        </p>
+
       </Summary>
 
       <h2 id="who-we-are">Biz kimiz</h2>
@@ -42,8 +48,12 @@ const doc: LegalDoc = {
         <a href={`mailto:${site.email}`}>{site.email}</a> adresinden ulaşabilirsin.
       </p>
       <p>
-        Bu politika, Android ve iOS&rsquo;taki {game}&rsquo;ı ve bu web sitesini kapsar. Başka
-        bir oyun yayınlarsak, onun da burada kendi sayfası olacak.
+        Bu politika Android ve iOS&rsquo;taki {game} ve {bb} oyunlarını ve bu web sitesini kapsar.
+        İki oyun da {site.entity} tarafından {site.company} adıyla yayınlanır. Ayrı hesapları ve
+        ayrı kayıtları olan ayrı uygulamalardır: aralarında hiçbir şey paylaşılmaz. Her oyunun
+        topladıkları kendi tablosunda yer alır; önce {game}, sonra{" "}
+        <a href="#balance-buddies">{bb}</a>. Bu politikanın geri kalanı ikisi için de
+        geçerlidir.
       </p>
 
       <h2 id="what-we-collect">Neleri topluyoruz ve neden</h2>
@@ -195,6 +205,110 @@ const doc: LegalDoc = {
         </table>
       </div>
 
+      <h2 id="balance-buddies">{bb} neler topluyor, ve neden</h2>
+      <p>
+        {bb} aynı şekilde kurulmuştur, sadece içinde daha az şey vardır: herkese açık
+        sıralama yok, oyuncu adı yok, ziyaret yok ve mesajlaşma yok. Verileri, {game}&rsquo;dan ayrı
+        kendi Firebase projesinde, yine Avrupa Birliği&rsquo;nde tutulur. Bu tabloda olmayan bir şeyi{" "}
+        {bb} toplamaz.
+      </p>
+
+      <div className="table-wrap">
+        <table>
+          <thead>
+            <tr>
+              <th>Ne</th>
+              <th>Neden</th>
+              <th>Ne zaman</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr>
+              <td>
+                <strong>Anonim bir hesap kimliği</strong>, Firebase Authentication tarafından
+                oluşturulur
+              </td>
+              <td>
+                İlerlemen ilk bulmacadan itibaren yedeklensin ve yeni bir cihazda geri
+                yüklenebilsin diye. Rastgele bir dizedir; bir giriş bağlamadıkça seninle
+                ilişkili değildir.
+              </td>
+              <td>Oyun ilk kez çevrimiçi olduğunda</td>
+            </tr>
+            <tr>
+              <td>
+                <strong>Oyun ilerlemen</strong>: çözdüğün bulmacalar, en iyi hamle ve
+                yıldızların, ipucu bakiyen ve açtığın ipucu adımları, reklamsız süren, nereden
+                devam edeceğin, ayarların ve oynadığın her cihaz için rastgele bir kimlik
+              </td>
+              <td>
+                Oyun kaldığın yerden devam etsin ve birkaç cihazdaki ilerleme hiçbir şey
+                kaybolmadan birleştirilebilsin diye.
+              </td>
+              <td>Oynadıkça</td>
+            </tr>
+            <tr>
+              <td>
+                <strong>Bağlı bir giriş</strong>: Google ya da Apple&rsquo;dan bir kimlik ve o
+                sağlayıcının bize ilettikleri; adın ve e-posta adresin de olabilir
+              </td>
+              <td>
+                Yalnızca giriş yapmayı seçersen, ilerlemen seninle başka bir cihaza gelsin diye.
+                Şifren bize hiçbir zaman ulaşmaz.
+              </td>
+              <td>Yalnızca giriş yaparsan</td>
+            </tr>
+            <tr>
+              <td>
+                <strong>Satın alma kayıtları</strong>: mağazanın işlem kimliği ve ne satın
+                alındığı (bir ipucu paketi, Starter Bundle ya da No Ads aboneliği)
+              </td>
+              <td>
+                Ödediğin şeyi bir kez vermek ve bir aboneliğin etkin olup olmadığını bilmek
+                için. <strong>Kart bilgilerini hiçbir zaman görmeyiz</strong>.
+              </td>
+              <td>Bir şey satın alırsan</td>
+            </tr>
+            <tr>
+              <td>
+                <strong>Reklam kimlikleri ve ilgili veriler</strong>, Google AdMob tarafından
+                işlenir
+              </td>
+              <td>
+                Bulmacalar arasındaki reklamları ve ipucu için izlemeyi seçtiğin videoları
+                göstermek için. Aşağıdaki <a href="#advertising">Reklam</a> bölümüne bak.
+              </td>
+              <td>Bir reklam istendiğinde</td>
+            </tr>
+            <tr>
+              <td>
+                <strong>Oyun istatistikleri</strong>: bir bulmacanın başlatılması, çözülmesi ya
+                da yeniden başlatılması gibi olaylar, hamle, yıldız ve geçen süreyle birlikte;
+                ipucu kullanımı, giriş ve çıkış; bir cihaz kimliği ve hesap kimliğinle
+              </td>
+              <td>
+                Hangi bulmacaların fazla zor olduğunu ve neyin çalışmadığını görmek için.
+                Reklam özellikleri kapalı olarak Google Analytics for Firebase tarafından
+                işlenir.
+              </td>
+              <td>Oynadıkça</td>
+            </tr>
+            <tr>
+              <td>
+                <strong>Çökme raporları</strong>: cihaz modeli, işletim sistemi sürümü,
+                uygulamanın çöktüğü andaki durumu ve hesap kimliğin
+              </td>
+              <td>Çökmeleri bulup düzeltmek için. Firebase Crashlytics tarafından işlenir.</td>
+              <td>Oyun çökerse</td>
+            </tr>
+          </tbody>
+        </table>
+      </div>
+      <p>
+        {bb} kurulum ilişkilendirmesi kullanmaz, iOS&rsquo;tan seni izleme izni istemez ve aşağıda
+        &ldquo;bilerek toplamadıklarımız&rdquo; başlığında sayılanlardan hiçbirini toplamaz.
+      </p>
+
       <h3>Bilerek toplamadıklarımız</h3>
       <ul>
         <li>Bekçi adı olarak yazmadıkça adın.</li>
@@ -252,6 +366,27 @@ const doc: LegalDoc = {
         </li>
       </ul>
 
+      <h3>{bb}&rsquo;de</h3>
+      <p>
+        İlk sekiz bulmacanda reklam yok, hiçbir bulmacanın ortasında reklam yok ve banner yok.
+        Sonrasında, çözdüğün her iki bulmacada bir, kazanma ekranından çıkarken tam ekran bir
+        reklam çıkabilir. İki ipucu veren videolar her zaman senin seçimin. No Ads aboneliği ve
+        Starter Bundle&rsquo;daki reklamsız günler bulmacalar arasındaki reklamları kapatır.
+      </p>
+      <p>
+        {bb}&rsquo;in reklamlarını yalnızca <strong>Google AdMob</strong> sağlar; AdMob topladığı
+        veriler için bağımsız veri sorumlusudur (yukarıdaki Google politikasına bak).
+        Android&rsquo;de AdMob cihazın reklam kimliğini kullanabilir; bunu Android ayarlarından
+        sıfırlayabilir ya da silebilirsin. {bb} iOS&rsquo;tan izleme izni istemez, bu yüzden iOS&rsquo;ta
+        reklam kimliğine erişemez.
+      </p>
+      <p>
+        AEA ve Birleşik Krallık&rsquo;ta {bb} de önce Google onaylı bir onay formuyla sana sorar.
+        Cevabını istediğin zaman <strong>Settings</strong> (Ayarlar) ›{" "}
+        <strong>Ad privacy choices</strong> üzerinden değiştirebilirsin; bu düğme yasanın
+        gerektirdiği her yerde görünür.
+      </p>
+
       <h3>Tercihin ve nasıl değiştireceğin</h3>
       <p>
         Avrupa Ekonomik Alanı&rsquo;nda ya da Birleşik Krallık&rsquo;taysan, herhangi bir
@@ -288,6 +423,14 @@ const doc: LegalDoc = {
         adresindedir.
       </p>
 
+      <p>
+        {bb}&rsquo;de Google Analytics for Firebase hiçbir zaman reklam depolaması ya da
+        kişiselleştirme kullanmaz: bu sinyaller oyunda kapalıdır ve olaylar yalnızca ölçüm
+        içindir. {bb} ayrıca oyun çöktüğünde bir rapor alıp düzeltebilmemiz için{" "}
+        <strong>Firebase Crashlytics</strong> kullanır. AppsFlyer yalnızca {game}&rsquo;da
+        kullanılır.
+      </p>
+
       <h2 id="sharing">Verilerin kimlerle paylaşılıyor</h2>
       <p>Her biri tek bir iş için az sayıda hizmet sağlayıcı kullanıyoruz:</p>
       <ul>
@@ -305,6 +448,13 @@ const doc: LegalDoc = {
         </li>
         <li>
           <strong>AppsFlyer</strong>: yukarıda anlatıldığı gibi yükleme atfı.
+        </li>
+        <li>
+          <strong>Google AdMob</strong>: yukarıda anlatıldığı gibi {bb}&rsquo;deki reklamlar.
+        </li>
+        <li>
+          <strong>Firebase Crashlytics</strong>: {bb}&rsquo;in çökme raporları. {bb}&rsquo;in kayıtları
+          ayrı bir Firebase projesinde, yine AB&rsquo;de tutulur.
         </li>
       </ul>
       <p>
@@ -341,6 +491,9 @@ const doc: LegalDoc = {
           Diğer oyuncuların adları hakkında <strong>yaptığın bildirimler</strong>: bildirilen
           hesap var olduğu sürece; incelemenin yapıldığı gösterilebilsin diye.
         </li>
+        <li>
+          <strong>Çökme raporları</strong> ({bb}): 90 gün.
+        </li>
       </ul>
 
       <h2 id="rights">Hakların</h2>
@@ -369,6 +522,12 @@ const doc: LegalDoc = {
         bulunabilirsin.
       </p>
 
+      <p>
+        {bb}&rsquo;de reklam tercihi (<strong>Ad privacy choices</strong>) ve{" "}
+        <strong>Delete account</strong> (hesabı sil) ikisi de <strong>Settings</strong>{" "}
+        içindedir.
+      </p>
+
       <h2 id="children">Çocuklar</h2>
       <p>
         {game} genel kitleye yönelik bir oyundur. 13 yaşından küçük çocuklara yönelik değildir
@@ -376,6 +535,12 @@ const doc: LegalDoc = {
         yaşından küçük çocuklardan bilerek kişisel bilgi toplamayız. Bir çocuğun bize bilgi
         verdiğini düşünüyorsan <a href={mailto(mail.child)}>{site.email}</a> adresine yaz;
         bilgileri sileriz.
+      </p>
+
+      <p>
+        Aynısı {bb} için de geçerli: herkese yönelik bir oyundur, 13 yaşından küçük çocuklara
+        yönelik değildir ve reklam ortaklarımıza çocuklara yönelik uygulama olarak kayıtlı
+        değildir.
       </p>
 
       <h2 id="this-website">Bu web sitesi</h2>

@@ -4,18 +4,20 @@ import { dictionaries } from "@/i18n/dictionaries";
 import { gameTextFor } from "@/i18n/game-text";
 import { localePath } from "@/i18n/locales";
 import type { LegalDoc } from "@/i18n/legal/types";
-import { gemfire, mailto, site } from "@/lib/site";
+import { balanceBuddies, gemfire, mailto, site } from "@/lib/site";
 
 const mail = dictionaries.en.mail;
 const label = gameTextFor("en").labels;
 const game = gemfire.name;
+const bb = balanceBuddies.name;
 
 /**
  * Written against what the game actually does rather than from a template.
  *
- * Every row in the table below corresponds to something real in the client or the backend -
+ * Every row in the tables below corresponds to something real in a game's client or backend -
  * an anonymous Firebase account, a Firestore save document, a published kingdom card, a
- * store receipt, the ad mediation SDK, the analytics and attribution SDKs. A policy that
+ * store receipt, the ad SDKs, the analytics, crash and attribution SDKs. Each game has its
+ * own table, because the two collect different things. A policy that
  * lists data an app does not collect is as wrong as one that omits data it does, and it is
  * the kind of wrong a regulator reads as carelessness rather than caution.
  *
@@ -23,20 +25,22 @@ const game = gemfire.name;
  */
 const doc: LegalDoc = {
   title: "Privacy Policy",
-  description: `How ${site.company} and ${game} handle your data, in plain words.`,
-  intro: `This explains what ${game}, and this website, collect about you, why, and what you can do about it.`,
+  description: `How ${site.company}, ${game} and ${bb} handle your data, in plain words.`,
+  intro: `This explains what our games, ${game} and ${bb}, and this website collect about you, why, and what you can do about it.`,
   Body: () => (
     <>
       <Summary>
         <p className="mb-2">
-          You can play the whole of {game} without giving us your name, your email
-          address or anything else about you. An anonymous account is created so your
-          progress can be saved and restored. It identifies a save file, not a person.
+          You can play the whole of {game} and {bb} without giving us your name, your
+          email address or anything else about you. In each game an anonymous account is
+          created so your progress can be saved and restored. It identifies a save file, not
+          a person.
         </p>
         <p className="mb-2">
-          We show adverts only when you choose to watch one, and those are provided by third
-          parties who may use an advertising identifier. In the EU and the UK you are asked
-          first, and you can change your answer at any time from the settings screen.
+          Adverts are provided by third parties who may use an advertising identifier. In{" "}
+          {game} you only ever see one when you choose to watch it; {bb} also shows adverts
+          between puzzles. In the EU and the UK you are asked first, and you can change your
+          answer at any time from the game&rsquo;s settings screen.
         </p>
         <p>
           We do not sell your data. We have no interest in who you are, only in whether the
@@ -46,21 +50,24 @@ const doc: LegalDoc = {
 
       <h2 id="who-we-are">Who we are</h2>
       <p>
-        {game} is published by {site.entity}, trading as {site.company}, of {site.address},
-        the same publisher named on the store listing. For the purposes of the UK and EU
+        {game} and {bb} are published by {site.entity}, trading as {site.company}, of{" "}
+        {site.address}, the same publisher named on both games&rsquo; store listings. For the purposes of the UK and EU
         General Data Protection Regulation, we are the data controller for the information
         described here. You can reach us at{" "}
         <a href={`mailto:${site.email}`}>{site.email}</a>.
       </p>
       <p>
-        This policy covers {game} on Android and iOS and this website. If we publish another
-        game, it will have its own listing here.
+        This policy covers {game} and {bb} on Android and iOS, and this website. The two
+        games are separate apps with separate accounts and separate saves: nothing is shared
+        between them. What each one collects is listed in its own table, {game}&rsquo;s first
+        and <a href="#balance-buddies">{bb}&rsquo;s</a> after it; everything else in this
+        policy applies to both.
       </p>
 
-      <h2 id="what-we-collect">What we collect, and why</h2>
+      <h2 id="what-we-collect">What {game} collects, and why</h2>
       <p>
         We have tried to make this specific rather than exhaustive-sounding. If something is
-        not in this table, the game does not collect it.
+        not in this table, {game} does not collect it.
       </p>
 
       <div className="table-wrap">
@@ -204,9 +211,118 @@ const doc: LegalDoc = {
         </table>
       </div>
 
+      <h2 id="balance-buddies">What {bb} collects, and why</h2>
+      <p>
+        {bb} is built the same way, with less in it: there are no public boards, no player
+        names, no visiting and no messaging. Its data is kept in its own Firebase project,
+        separate from {game}&rsquo;s, and also stored in the European Union. If something is
+        not in this table, {bb} does not collect it.
+      </p>
+
+      <div className="table-wrap">
+        <table>
+          <thead>
+            <tr>
+              <th>What</th>
+              <th>Why</th>
+              <th>When</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr>
+              <td>
+                <strong>An anonymous account identifier</strong>, generated by Firebase
+                Authentication
+              </td>
+              <td>
+                So your progress can be backed up from the first puzzle and restored on a new
+                device. It is a random string, not linked to you unless you link a sign-in.
+              </td>
+              <td>The first time the game is online</td>
+            </tr>
+            <tr>
+              <td>
+                <strong>Your game progress</strong>: which puzzles you have solved, your best
+                moves and stars, your hint balance and the hint steps you have revealed, any
+                ad-free time you have, where to continue, your settings, and a random
+                identifier for each device you play on
+              </td>
+              <td>
+                So the game can continue where you left off, and so progress from several
+                devices can be merged without losing any of it.
+              </td>
+              <td>As you play</td>
+            </tr>
+            <tr>
+              <td>
+                <strong>A linked sign-in</strong>: an identifier from Google or Apple, and
+                whatever that provider passes to us, which may include your name and email
+                address
+              </td>
+              <td>
+                Only if you choose to sign in, so your progress follows you to another device.
+                We do not receive your password.
+              </td>
+              <td>Only if you sign in</td>
+            </tr>
+            <tr>
+              <td>
+                <strong>Purchase records</strong>: the store transaction identifier and what
+                was bought (a hint pack, the Starter Bundle or the No Ads subscription)
+              </td>
+              <td>
+                To give you what you paid for, once, and to know whether a subscription is
+                active. <strong>We never see your card details</strong>.
+              </td>
+              <td>If you buy something</td>
+            </tr>
+            <tr>
+              <td>
+                <strong>Advertising identifiers and related data</strong>, handled by Google
+                AdMob
+              </td>
+              <td>
+                To show adverts between puzzles and the videos you choose to watch for hints.
+                See <a href="#advertising">Advertising</a> below.
+              </td>
+              <td>When an advert is requested</td>
+            </tr>
+            <tr>
+              <td>
+                <strong>Gameplay analytics</strong>: events such as a puzzle being started,
+                solved or restarted, with the moves, stars and time it took, a hint being
+                used, and signing in or out, with a device-level identifier and your account
+                identifier
+              </td>
+              <td>
+                To see which puzzles are too hard and what is not working. Handled by Google
+                Analytics for Firebase, with its advertising features switched off.
+              </td>
+              <td>As you play</td>
+            </tr>
+            <tr>
+              <td>
+                <strong>Crash reports</strong>: device model, operating system version, the
+                state of the app when it crashed, and your account identifier
+              </td>
+              <td>To find and fix crashes. Handled by Firebase Crashlytics.</td>
+              <td>If the game crashes</td>
+            </tr>
+          </tbody>
+        </table>
+      </div>
+      <p>
+        {bb} does not use install attribution, does not ask iOS for permission to track
+        you, and collects nothing listed under &ldquo;what we deliberately do not
+        collect&rdquo; below.
+      </p>
+
       <h3>What we deliberately do not collect</h3>
       <ul>
-        <li>Your name, unless you type one in as your keeper name.</li>
+        <li>
+          Your name, unless you type one in as a {game} keeper name or a sign-in provider
+          passes it to us.
+        </li>
         <li>Your email address, unless you email us or link a sign-in account.</li>
         <li>Your contacts, photos, microphone, camera or precise location.</li>
         <li>Your payment card details. Those never reach us.</li>
@@ -221,13 +337,13 @@ const doc: LegalDoc = {
         </li>
         <li>
           <strong>Consent</strong>: personalised advertising, gameplay analytics and
-          install attribution where the law requires consent, and appearing on the public
-          boards. All of these are optional and all can be withdrawn.
+          install attribution where the law requires consent, and appearing on {game}&rsquo;s
+          public boards. All of these are optional and all can be withdrawn.
         </li>
         <li>
           <strong>Legitimate interests</strong>: keeping the game working, diagnosing
-          crashes, reviewing reported names, and preventing fraud and abuse of the in-game
-          economy.
+          crashes, measuring which puzzles and levels are too hard, reviewing reported names,
+          and preventing fraud and abuse of the in-game economy.
         </li>
         <li>
           <strong>Legal obligation</strong>: keeping records of purchases for tax and
@@ -237,10 +353,13 @@ const doc: LegalDoc = {
 
       <h2 id="advertising">Advertising</h2>
       <p>
-        The game is free, and adverts are how it is paid for. Adverts are optional in the
-        sense that matters: there are no adverts between levels and no banners. Every advert
-        in {game} is one you choose to watch in exchange for hearts, coins or a whisper, and
-        each kind has a daily limit.
+        Both games are free, and adverts are how they are paid for.
+      </p>
+      <h3>In {game}</h3>
+      <p>
+        Adverts are optional in the sense that matters: there are no adverts between levels
+        and no banners. Every advert in {game} is one you choose to watch in exchange for
+        hearts, coins or a whisper, and each kind has a daily limit.
       </p>
       <p>
         Adverts are delivered by <strong>Unity LevelPlay</strong> (ironSource) as the
@@ -261,32 +380,59 @@ const doc: LegalDoc = {
         </li>
       </ul>
 
+      <h3>In {bb}</h3>
+      <p>
+        There are no adverts in your first eight puzzles, never one in the middle of a
+        puzzle, and no banners. After that, a full-screen advert may play when you leave the
+        win screen, after every second puzzle you solve. Videos that give you two hints are
+        always your choice. The No Ads subscription, and the ad-free days in the Starter
+        Bundle, turn the adverts between puzzles off.
+      </p>
+      <p>
+        {bb}&rsquo;s adverts are served by <strong>Google AdMob</strong> alone, an
+        independent controller of the data it collects (see Google&rsquo;s policy above). On
+        Android, AdMob may use the device&rsquo;s advertising ID, which you can reset or
+        delete in Android&rsquo;s settings. {bb} does not ask iOS for permission to track, so
+        on iOS the advertising identifier is not available to it.
+      </p>
+
       <h3>Your choice, and how to change it</h3>
       <p>
         If you are in the European Economic Area or the United Kingdom, you are asked before
-        any personalised advertising happens, through a Google-certified consent form. If you
+        any personalised advertising happens, in either game, through a Google-certified
+        consent form. If you
         decline, you will still see adverts and still receive the rewards for watching them.
         They will simply not be based on a profile of you.
       </p>
       <p>
-        You can change your answer at any time: open <strong>Settings</strong> (the gear
-        icon on the Home or Profile screen) and choose <strong>{label.privacyChoices}</strong>.
+        You can change your answer at any time. In {game}, open <strong>Settings</strong>{" "}
+        (the gear icon on the Home or Profile screen) and choose{" "}
+        <strong>{label.privacyChoices}</strong>. In {bb}, open <strong>Settings</strong> and
+        choose <strong>Ad privacy choices</strong>, which is shown wherever the law requires
+        it.
       </p>
       <p>
-        On iOS, you are separately asked whether the app may use the device advertising
+        On iOS, {game} also asks separately whether the app may use the device advertising
         identifier. That answer belongs to the operating system and can be changed in{" "}
         <strong>iOS Settings › Privacy &amp; Security › Tracking</strong>.
       </p>
 
-      <h2 id="analytics">Analytics and attribution</h2>
+      <h2 id="analytics">Analytics, crash reports and attribution</h2>
       <p>
         We use <strong>Google Analytics for Firebase</strong> to record gameplay events, such
-        as a siege being started or a chest being opened, so that we can see where players
-        struggle and what is not working. Where consent is required, these events are only
-        recorded after you have given it.
+        as a siege being started or a chest being opened in {game}, or a puzzle being solved
+        in {bb}, so that we can see where players struggle and what is not working. In{" "}
+        {game}, where consent is required, these events are only recorded after you have
+        given it. In {bb}, analytics never uses advertising storage or personalisation:
+        those signals are switched off in the game, so the events are used for measurement
+        only.
       </p>
       <p>
-        We use <strong>AppsFlyer</strong> to learn which advert or link, if any, led to an
+        {bb} uses <strong>Firebase Crashlytics</strong> to receive a report when the game
+        crashes, so we can fix it.
+      </p>
+      <p>
+        {game} uses <strong>AppsFlyer</strong> to learn which advert or link, if any, led to an
         install, and to confirm purchases. AppsFlyer is started only after your consent choice
         is known, and where you have not agreed to personalisation it runs in an anonymised
         mode. Its policy is at{" "}
@@ -301,19 +447,23 @@ const doc: LegalDoc = {
       <ul>
         <li>
           <strong>Google Firebase</strong> (Authentication, Cloud Firestore, Cloud Functions,
-          Analytics): the anonymous account, the saved progress and the boards. Data is
-          stored in the European Union.
+          Analytics, Crashlytics): the anonymous accounts, the saved progress, {game}&rsquo;s
+          boards, and crash reports. Saves are stored in the European Union, in a separate
+          project for each game.
         </li>
         <li>
           <strong>Apple and Google</strong>: app distribution, sign-in if you choose it,
           payments and purchase verification.
         </li>
         <li>
-          <strong>Unity LevelPlay and its advertising networks</strong>: advertising, as
-          described above.
+          <strong>Unity LevelPlay and its advertising networks</strong>: advertising in{" "}
+          {game}, as described above.
         </li>
         <li>
-          <strong>AppsFlyer</strong>: install attribution, as described above.
+          <strong>Google AdMob</strong>: advertising in {bb}, as described above.
+        </li>
+        <li>
+          <strong>AppsFlyer</strong>: install attribution in {game}, as described above.
         </li>
       </ul>
       <p>
@@ -337,9 +487,12 @@ const doc: LegalDoc = {
           to 24 months after it goes quiet, after which it may be deleted.
         </li>
         <li>
-          <strong>Your public kingdom card</strong>: until you hide it or delete your data,
+          <strong>Your public kingdom card</strong> ({game}): until you hide it or delete your data,
           whichever comes first. Leaderboards are rebuilt nightly, so a hidden card leaves
           the boards within a day.
+        </li>
+        <li>
+          <strong>Crash reports</strong> ({bb}): for 90 days.
         </li>
         <li>
           <strong>Purchase records</strong>: for as long as tax and accounting law requires,
@@ -348,7 +501,7 @@ const doc: LegalDoc = {
           permitted to destroy them.
         </li>
         <li>
-          <strong>Reports you file</strong> about other players&rsquo; names: for as long
+          <strong>Reports you file</strong> about other players&rsquo; names ({game}): for as long
           as the reported account exists, so that the review can be shown to have happened.
         </li>
       </ul>
@@ -361,16 +514,17 @@ const doc: LegalDoc = {
         Consumer Privacy Act and other laws.
       </p>
       <p>
-        The quickest routes are in the game itself: the boards opt-out is on the Profile
-        tab, the advertising choice is in Settings, and account deletion is on the Profile
-        tab. For anything else, or to delete everything, see{" "}
+        The quickest routes are in the games themselves. In {game}, the boards opt-out is on
+        the Profile tab, the advertising choice is in Settings, and account deletion is on
+        the Profile tab. In {bb}, the advertising choice and <strong>Delete account</strong>{" "}
+        are both in Settings. For anything else, or to delete everything, see{" "}
         <Link href={localePath("en", "/delete-account")}>deleting your data</Link> or write to{" "}
         <a href={mailto(mail.privacy)}>{site.email}</a>. We answer within 30 days.
       </p>
       <p>
         Because accounts are anonymous by default, we may need you to prove which account is
         yours before we act on a request, usually by sending the request from a linked
-        sign-in address, or by giving us the account identifier shown in the game.
+        sign-in address, or by giving us the account identifier shown in {game}.
       </p>
       <p>
         If you think we have handled your data badly, you can complain to your national data
@@ -379,8 +533,8 @@ const doc: LegalDoc = {
 
       <h2 id="children">Children</h2>
       <p>
-        {game} is a general-audience game. It is not directed at children under 13, and it
-        is not registered as a child-directed app with our advertising partners. We do not
+        {game} and {bb} are general-audience games. Neither is directed at children under
+        13, and neither is registered as a child-directed app with our advertising partners. We do not
         knowingly collect personal information from children under 13. If you believe a child
         has given us information, write to{" "}
         <a href={mailto(mail.child)}>{site.email}</a> and we will delete it.
@@ -398,7 +552,7 @@ const doc: LegalDoc = {
       <h2 id="changes">Changes</h2>
       <p>
         If we change this policy we will update the date at the top, and for anything
-        significant we will say so in the game before the change takes effect.
+        significant we will say so in the games before the change takes effect.
       </p>
       <p>
         This policy is also published in other languages. They are translations of this

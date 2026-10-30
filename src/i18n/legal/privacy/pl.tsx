@@ -4,11 +4,12 @@ import { dictionaries } from "@/i18n/dictionaries";
 import { gameTextFor } from "@/i18n/game-text";
 import { localePath } from "@/i18n/locales";
 import type { LegalDoc } from "@/i18n/legal/types";
-import { gemfire, mailto, site } from "@/lib/site";
+import { balanceBuddies, gemfire, mailto, site } from "@/lib/site";
 
 const mail = dictionaries.pl.mail;
 const label = gameTextFor("pl").labels;
 const game = gemfire.name;
+const bb = balanceBuddies.name;
 
 /**
  * Translation of privacy/en.tsx. Where the two differ, the English text applies. The reader
@@ -16,8 +17,8 @@ const game = gemfire.name;
  */
 const doc: LegalDoc = {
   title: "Polityka prywatności",
-  description: `Jak ${site.company} i ${game} obchodzą się z twoimi danymi, prostymi słowami.`,
-  intro: `Tu wyjaśniamy, co ${game} i ta strona zbierają o tobie, dlaczego i co możesz z tym zrobić.`,
+  description: `Jak ${site.company}, ${game} i ${bb} obchodzą się z twoimi danymi, prostymi słowami.`,
+  intro: `Tu wyjaśniamy, co nasze gry, ${game} i ${bb}, oraz ta strona zbierają o tobie, dlaczego i co możesz z tym zrobić.`,
   Body: () => (
     <>
       <Summary>
@@ -36,6 +37,11 @@ const doc: LegalDoc = {
           Nie sprzedajemy twoich danych. Nie interesuje nas, kim jesteś, tylko to, czy gra
           działa.
         </p>
+        <p className="mt-2">
+          To samo dotyczy {bb}: żadnego imienia, żadnego adresu e-mail, tylko anonimowe konto
+          na twoje postępy. {bb} pokazuje też reklamy między zagadkami.
+        </p>
+
       </Summary>
 
       <h2 id="who-we-are">Kim jesteśmy</h2>
@@ -47,8 +53,11 @@ const doc: LegalDoc = {
         <a href={`mailto:${site.email}`}>{site.email}</a>.
       </p>
       <p>
-        Ta polityka dotyczy gry {game} na Androida i iOS oraz tej strony. Jeśli wydamy kolejną grę,
-        będzie miała tu własny wpis.
+        Ta polityka obejmuje gry {game} i {bb} na Androida i iOS oraz tę stronę. Obie gry
+        wydaje {site.entity} pod nazwą {site.company}. To osobne aplikacje z osobnymi kontami i
+        osobnymi zapisami: nic nie jest między nimi współdzielone. To, co zbiera każda gra,
+        jest w jej własnej tabeli, najpierw {game}, potem{" "}
+        <a href="#balance-buddies">{bb}</a>; cała reszta tej polityki dotyczy obu.
       </p>
 
       <h2 id="what-we-collect">Co zbieramy i dlaczego</h2>
@@ -199,6 +208,110 @@ const doc: LegalDoc = {
         </table>
       </div>
 
+      <h2 id="balance-buddies">Co zbiera {bb} i dlaczego</h2>
+      <p>
+        {bb} jest zbudowana tak samo, tylko ma w sobie mniej: bez publicznych rankingów, bez
+        nazw graczy, bez odwiedzin i bez wiadomości. Jej dane są przechowywane we własnym
+        projekcie Firebase, oddzielnym od projektu {game}, również w Unii Europejskiej. Jeśli
+        czegoś nie ma w tej tabeli, {bb} tego nie zbiera.
+      </p>
+
+      <div className="table-wrap">
+        <table>
+          <thead>
+            <tr>
+              <th>Co</th>
+              <th>Dlaczego</th>
+              <th>Kiedy</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr>
+              <td>
+                <strong>Anonimowy identyfikator konta</strong>, tworzony przez Firebase
+                Authentication
+              </td>
+              <td>
+                Żeby twoje postępy były zapisywane od pierwszej zagadki i dało się je odtworzyć
+                na nowym urządzeniu. To losowy ciąg znaków, powiązany z tobą tylko wtedy, gdy
+                podłączysz logowanie.
+              </td>
+              <td>Gdy gra po raz pierwszy połączy się z internetem</td>
+            </tr>
+            <tr>
+              <td>
+                <strong>Twoje postępy</strong>: rozwiązane zagadki, najlepsze wyniki ruchów i
+                gwiazdki, stan podpowiedzi i odkryte kroki podpowiedzi, czas bez reklam, miejsce,
+                w którym grasz dalej, ustawienia oraz losowy identyfikator każdego urządzenia, na
+                którym grasz
+              </td>
+              <td>
+                Żeby gra wracała tam, gdzie skończyłeś, i żeby postępy z kilku urządzeń można
+                było połączyć bez żadnych strat.
+              </td>
+              <td>Podczas gry</td>
+            </tr>
+            <tr>
+              <td>
+                <strong>Podłączone logowanie</strong>: identyfikator od Google lub Apple i to,
+                co ten dostawca nam przekaże, w tym być może twoje imię i adres e-mail
+              </td>
+              <td>
+                Tylko jeśli zdecydujesz się zalogować, żeby postępy przeszły z tobą na inne
+                urządzenie. Nigdy nie dostajemy twojego hasła.
+              </td>
+              <td>Tylko jeśli się zalogujesz</td>
+            </tr>
+            <tr>
+              <td>
+                <strong>Dane zakupów</strong>: identyfikator transakcji w sklepie i to, co
+                kupiono (pakiet podpowiedzi, Starter Bundle albo subskrypcję No Ads)
+              </td>
+              <td>
+                Żeby raz dać ci to, za co zapłaciłeś, i wiedzieć, czy subskrypcja jest aktywna.{" "}
+                <strong>Nigdy nie widzimy danych twojej karty</strong>.
+              </td>
+              <td>Jeśli coś kupisz</td>
+            </tr>
+            <tr>
+              <td>
+                <strong>Identyfikatory reklamowe i powiązane dane</strong>, przetwarzane przez
+                Google AdMob
+              </td>
+              <td>
+                Żeby wyświetlać reklamy między zagadkami i filmy, które oglądasz w zamian za
+                podpowiedzi. Zobacz <a href="#advertising">Reklamy</a> niżej.
+              </td>
+              <td>Gdy wysyłane jest żądanie reklamy</td>
+            </tr>
+            <tr>
+              <td>
+                <strong>Statystyki gry</strong>: zdarzenia takie jak rozpoczęcie, rozwiązanie
+                lub powtórzenie zagadki wraz z ruchami, gwiazdkami i czasem, użycie podpowiedzi,
+                zalogowanie i wylogowanie, z identyfikatorem urządzenia i identyfikatorem konta
+              </td>
+              <td>
+                Żeby widzieć, które zagadki są za trudne i co nie działa. Przetwarzane przez
+                Google Analytics for Firebase z wyłączonymi funkcjami reklamowymi.
+              </td>
+              <td>Podczas gry</td>
+            </tr>
+            <tr>
+              <td>
+                <strong>Raporty o awariach</strong>: model urządzenia, wersja systemu, stan
+                aplikacji w chwili awarii i identyfikator konta
+              </td>
+              <td>Żeby znajdować i naprawiać awarie. Przetwarzane przez Firebase Crashlytics.</td>
+              <td>Jeśli gra się zawiesi</td>
+            </tr>
+          </tbody>
+        </table>
+      </div>
+      <p>
+        {bb} nie korzysta z atrybucji instalacji, nie prosi iOS o zgodę na śledzenie cię i nie
+        zbiera niczego z listy &bdquo;czego celowo nie zbieramy&rdquo; poniżej.
+      </p>
+
       <h3>Czego celowo nie zbieramy</h3>
       <ul>
         <li>Twojego imienia i nazwiska, chyba że wpiszesz je jako imię strażnika.</li>
@@ -257,6 +370,28 @@ const doc: LegalDoc = {
         </li>
       </ul>
 
+      <h3>W {bb}</h3>
+      <p>
+        W pierwszych ośmiu zagadkach nie ma reklam, nigdy nie ma ich w trakcie zagadki i nie ma
+        banerów. Potem przy wychodzeniu z ekranu wygranej, co drugą rozwiązaną zagadkę, może
+        pojawić się reklama pełnoekranowa. Filmy dające dwie podpowiedzi są zawsze twoim
+        wyborem. Subskrypcja No Ads i dni bez reklam ze Starter Bundle wyłączają reklamy między
+        zagadkami.
+      </p>
+      <p>
+        Reklamy w {bb} dostarcza wyłącznie <strong>Google AdMob</strong>, samodzielny
+        administrator danych, które zbiera (zobacz politykę Google powyżej). Na Androidzie
+        AdMob może używać identyfikatora reklamowego urządzenia, który możesz zresetować lub
+        usunąć w ustawieniach Androida. {bb} nie prosi iOS o zgodę na śledzenie, więc na iOS
+        identyfikator reklamowy nie jest dla niej dostępny.
+      </p>
+      <p>
+        W EOG i Wielkiej Brytanii {bb} również najpierw pyta cię o zgodę w formularzu
+        certyfikowanym przez Google. Odpowiedź możesz zmienić w każdej chwili w{" "}
+        <strong>Settings</strong> (Ustawienia) › <strong>Ad privacy choices</strong>; przycisk
+        pojawia się wszędzie tam, gdzie wymaga tego prawo.
+      </p>
+
       <h3>Twój wybór i jak go zmienić</h3>
       <p>
         Jeśli jesteś w Europejskim Obszarze Gospodarczym lub w Wielkiej Brytanii, przed
@@ -293,6 +428,14 @@ const doc: LegalDoc = {
         .
       </p>
 
+      <p>
+        W {bb} Google Analytics for Firebase nigdy nie korzysta z przechowywania danych
+        reklamowych ani personalizacji: te sygnały są w grze wyłączone, a zdarzenia służą
+        wyłącznie do pomiarów. {bb} używa też <strong>Firebase Crashlytics</strong>, żeby
+        dostać raport, gdy gra się zawiesi, i móc to naprawić. AppsFlyer jest używany tylko w{" "}
+        {game}.
+      </p>
+
       <h2 id="sharing">Komu udostępniamy twoje dane</h2>
       <p>Korzystamy z kilku dostawców, każdego do jednego zadania:</p>
       <ul>
@@ -310,6 +453,13 @@ const doc: LegalDoc = {
         </li>
         <li>
           <strong>AppsFlyer</strong>: atrybucja instalacji, jak opisano wyżej.
+        </li>
+        <li>
+          <strong>Google AdMob</strong>: reklamy w {bb}, jak opisano wyżej.
+        </li>
+        <li>
+          <strong>Firebase Crashlytics</strong>: raporty o awariach z {bb}. Zapisy {bb} są w
+          osobnym projekcie Firebase, również w UE.
         </li>
       </ul>
       <p>
@@ -347,6 +497,9 @@ const doc: LegalDoc = {
           <strong>Twoje zgłoszenia</strong> dotyczące imion innych graczy: dopóki istnieje
           zgłoszone konto, żeby dało się wykazać, że sprawdzenie się odbyło.
         </li>
+        <li>
+          <strong>Raporty o awariach</strong> ({bb}): 90 dni.
+        </li>
       </ul>
 
       <h2 id="rights">Twoje prawa</h2>
@@ -373,12 +526,22 @@ const doc: LegalDoc = {
         ochrony danych w swoim kraju.
       </p>
 
+      <p>
+        W {bb} wybór dotyczący reklam (<strong>Ad privacy choices</strong>) i{" "}
+        <strong>Delete account</strong> (usuń konto) znajdziesz w <strong>Settings</strong>.
+      </p>
+
       <h2 id="children">Dzieci</h2>
       <p>
         {game} to gra dla wszystkich. Nie jest skierowana do dzieci poniżej 13 lat i nie jest
         zarejestrowana u naszych partnerów reklamowych jako aplikacja dla dzieci. Nie zbieramy
         świadomie danych osobowych dzieci poniżej 13 lat. Jeśli uważasz, że dziecko przekazało
         nam jakieś dane, napisz na <a href={mailto(mail.child)}>{site.email}</a>, a usuniemy je.
+      </p>
+
+      <p>
+        To samo dotyczy {bb}: to gra dla wszystkich, nieskierowana do dzieci poniżej 13 lat i
+        niezarejestrowana u naszych partnerów reklamowych jako aplikacja dla dzieci.
       </p>
 
       <h2 id="this-website">Ta strona</h2>

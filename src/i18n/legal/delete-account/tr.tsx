@@ -4,11 +4,12 @@ import { dictionaries } from "@/i18n/dictionaries";
 import { gameTextFor } from "@/i18n/game-text";
 import { localePath } from "@/i18n/locales";
 import type { LegalDoc } from "@/i18n/legal/types";
-import { gemfire, mailto, site } from "@/lib/site";
+import { balanceBuddies, gemfire, mailto, site } from "@/lib/site";
 
 const mail = dictionaries.tr.mail;
 const label = gameTextFor("tr").labels;
 const game = gemfire.name;
+const bb = balanceBuddies.name;
 
 /**
  * Translation of delete-account/en.tsx. Button names are the game's own Turkish labels, so
@@ -16,9 +17,9 @@ const game = gemfire.name;
  */
 const doc: LegalDoc = {
   title: "Hesabını ve verilerini sil",
-  description: `${game} hesabını ve onunla birlikte tutulan verileri nasıl silersin.`,
+  description: `${game} ya da ${bb} hesabını ve onunla birlikte tutulan verileri nasıl silersin.`,
   intro:
-    "Krallığın hakkında tuttuğumuz her şeyi sildirebilirsin. Tam olarak ne olduğu aşağıda.",
+    "Oyunlarımızdan herhangi birinde senin hakkında tuttuğumuz her şeyi sildirebilirsin. Tam olarak ne olduğu aşağıda.",
   Body: () => (
     <>
       <Summary>
@@ -36,7 +37,17 @@ const doc: LegalDoc = {
           Yalnızca uygulamayı silmek sunucularımızdaki verileri <strong>silmez</strong>. Sadece
           o cihazdaki kopyayı kaldırır.
         </p>
+        <p className="mt-2">
+          {bb}&rsquo;de: <strong>Settings</strong> › <strong>Delete account</strong>.{" "}
+          <a href="#balance-buddies">5. bölüme</a> bak.
+        </p>
+
       </Summary>
+      <p>
+        İki oyun ayrı hesapları olan ayrı uygulamalardır: birini silmek diğerine dokunmaz. 1-4.
+        bölümler {game} ile ilgilidir; <a href="#balance-buddies">5. bölüm</a> {bb} ile
+        ilgilidir.
+      </p>
 
       <h2 id="in-app">1. Oyunun içinden sil</h2>
       <p>
@@ -134,6 +145,52 @@ const doc: LegalDoc = {
         kaldırılmasını istiyorsan onlardan istemen gerekir.
       </p>
 
+      <h2 id="balance-buddies">5. {bb}</h2>
+      <h3>Oyunun içinden sil</h3>
+      <ol>
+        <li>
+          {bb}&rsquo;i aç ve ana menüde <strong>Settings</strong>&rsquo;e (Ayarlar) dokun.
+        </li>
+        <li>
+          Giriş yapmadıysan önce Google ya da Apple ile giriş yap. Böylece ilerlemen o girişe
+          bağlanır ve düğmenin silebileceği bir hesap olur.
+        </li>
+        <li>
+          <strong>Delete account</strong>&rsquo;a (hesabı sil) dokun, uyarıyı oku ve onayla.
+        </li>
+      </ol>
+      <p>
+        Gerçekten sen olduğunu bilmek için bir kez daha giriş yapman istenebilir ve internet
+        bağlantısı gerekir. Silme tamamlanamazsa oyun bunu söyler ve hiçbir şey silinmez.
+      </p>
+      <p>
+        Oyunu artık açamıyorsan, Google ya da Apple girişinin e-posta adresinden{" "}
+        <a href={mailto(mail.deleteAccount, bb)}>{site.email}</a> adresine{" "}
+        <strong>{mail.deleteAccount}</strong> konusuyla yaz; <strong>30 gün</strong> içinde
+        sileriz. Hiç giriş yapmadıysan ilerlemen, yalnızca bir e-postadan seninle
+        eşleştiremeyeceğimiz anonim bir hesaba aittir. Oyun hâlâ sendeyse yukarıdaki adımları
+        izle; değilse yine de cihaz modelin ve aşağı yukarı en son ne zaman oynadığınla bize
+        yaz, bulmak için elimizden geleni yaparız.
+      </p>
+      <h3>Neler silinir</h3>
+      <ul>
+        <li>
+          Hesabın ve bağlı her Google ya da Apple girişi. &ldquo;Apple ile Giriş Yap&rdquo;
+          izni Apple nezdinde iptal edilir.
+        </li>
+        <li>
+          Sunucularımızdaki kayıtlı ilerlemen: çözülen bulmacalar, en iyi hamle ve yıldızlar,
+          ipuçların, açılmış ipucu adımları ve reklamsız süren.
+        </li>
+        <li>Sildiğin cihazda kayıtlı ilerleme.</li>
+      </ul>
+      <p>
+        Bu geri alınamaz. {game}&rsquo;da olduğu gibi <strong>satın alma kayıtları</strong> vergi ve
+        muhasebe mevzuatının gerektirdiği süre boyunca saklanır; Apple ve Google da kendi
+        kayıtlarını tutar. Hesabını silmek No Ads aboneliğini <strong>iptal etmez</strong>: onu
+        App Store ya da Google Play abonelik ayarlarından iptal et.
+      </p>
+
       <h2 id="less">Tamamen silmek yerine daha azını istiyorsan</h2>
       <p>
         Her şeyi silmen gerekmeyebilir. Bunların her biri hemen geçerli olur ve hiçbiri hesabının
@@ -153,6 +210,14 @@ const doc: LegalDoc = {
         <li>
           <strong>Bekçi adını değiştir</strong>: <strong>Profil</strong> sekmesi, ardından
           adına dokun. Eski ad serbest bırakılır ve sıralamada yenisi görünür.
+        </li>
+        <li>
+          <strong>{bb}&rsquo;de reklam onayını geri çek</strong>: <strong>Settings</strong> ›{" "}
+          <strong>Ad privacy choices</strong>.
+        </li>
+        <li>
+          <strong>{bb}&rsquo;i buluta kaydetmeyi durdur</strong>: <strong>Settings</strong> ›{" "}
+          <strong>Sign out</strong> (çıkış yap). Cihaz yeni bir misafir olarak devam eder.
         </li>
       </ul>
       <p>
