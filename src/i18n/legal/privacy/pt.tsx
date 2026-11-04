@@ -457,6 +457,11 @@ const doc: LegalDoc = {
           <strong>Google AdMob</strong>: publicidade no {bb}, como descrito acima.
         </li>
         <li>
+          <strong>Cloudflare</strong>: entrega os níveis que você baixa no {bb}. Como
+          qualquer servidor, vê o seu endereço IP para lhe enviar os arquivos; não recebe a
+          sua conta nem o seu progresso salvo.
+        </li>
+        <li>
           <strong>Firebase Crashlytics</strong>: relatórios de falha do {bb}. O progresso do{" "}
           {bb} fica em um projeto do Firebase separado, também na UE.
         </li>

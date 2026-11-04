@@ -457,6 +457,11 @@ const doc: LegalDoc = {
           <strong>Google AdMob</strong>: la publicidad de {bb}, como se describe arriba.
         </li>
         <li>
+          <strong>Cloudflare</strong>: entrega los niveles que descargas en {bb}. Como
+          cualquier servidor, ve tu dirección IP para enviarte los archivos; no recibe tu
+          cuenta ni tus datos guardados.
+        </li>
+        <li>
           <strong>Firebase Crashlytics</strong>: los informes de fallos de {bb}. Las partidas
           de {bb} están en un proyecto de Firebase aparte, también en la UE.
         </li>

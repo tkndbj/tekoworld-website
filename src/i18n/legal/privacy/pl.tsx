@@ -458,6 +458,11 @@ const doc: LegalDoc = {
           <strong>Google AdMob</strong>: reklamy w {bb}, jak opisano wyżej.
         </li>
         <li>
+          <strong>Cloudflare</strong>: dostarcza poziomy pobierane w {bb}. Jak każdy serwer
+          widzi Twój adres IP, aby wysłać Ci pliki; nie otrzymuje Twojego konta ani zapisów
+          gry.
+        </li>
+        <li>
           <strong>Firebase Crashlytics</strong>: raporty o awariach z {bb}. Zapisy {bb} są w
           osobnym projekcie Firebase, również w UE.
         </li>

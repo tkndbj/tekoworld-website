@@ -463,6 +463,11 @@ const doc: LegalDoc = {
           <strong>Google AdMob</strong>: advertising in {bb}, as described above.
         </li>
         <li>
+          <strong>Cloudflare</strong>: delivers levels you download in {bb}. Like any
+          server, it sees your IP address to send you the files; it does not receive your
+          account or save data.
+        </li>
+        <li>
           <strong>AppsFlyer</strong>: install attribution in {game}, as described above.
         </li>
       </ul>

@@ -453,6 +453,11 @@ const doc: LegalDoc = {
           <strong>Google AdMob</strong>: yukarıda anlatıldığı gibi {bb}&rsquo;deki reklamlar.
         </li>
         <li>
+          <strong>Cloudflare</strong>: {bb}&rsquo;de indirdiğin bölümleri ulaştırır. Her
+          sunucu gibi dosyaları gönderebilmek için IP adresini görür; hesabını veya
+          kayıtlarını almaz.
+        </li>
+        <li>
           <strong>Firebase Crashlytics</strong>: {bb}&rsquo;in çökme raporları. {bb}&rsquo;in kayıtları
           ayrı bir Firebase projesinde, yine AB&rsquo;de tutulur.
         </li>
